@@ -12,10 +12,12 @@ class AccountsController < ApplicationController
 
   # POST only
   def password_login
+    redirect_to :controller => 'profiles', :action => 'dashboard'
   end
 
   # POST only
   def password_signup
+    redirect_to :controller => 'profiles', :action => 'getting_started'
   end
 
   def logout

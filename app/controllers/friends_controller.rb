@@ -1,7 +1,8 @@
 class FriendsController < ApplicationController
   include ModelLoader
   
-  before_filter :load_profile
+  before_filter :load_logged_in_profile
+  before_filter :load_requested_profile
   
   # GET only
   def followers

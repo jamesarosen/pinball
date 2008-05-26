@@ -34,29 +34,40 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.with_options(:controller => 'accounts') do |m|
-    m.connect 'accounts/login', :action => 'login', :conditions => { :method => :get }
-    m.connect 'accounts/login/password', :action => 'password_login', :conditions => { :method => :post }
-    
-    m.connect 'accounts/signup', :action => 'signup', :conditions => { :method => :get }
-    m.connect 'accounts/signup/password', :action => 'password_signup', :conditions => { :method => :post }
-    
-    m.connect 'accounts/logout', :action => 'logout', :conditions => { :method => :get }
+    m.with_options(:conditions => { :method => :get }) do |n|
+      n.connect 'accounts/login', :action => 'login'
+      n.connect 'accounts/signup', :action => 'signup'
+      n.connect 'accounts/logout', :action => 'logout'
+    end
+    m.with_options(:conditions => { :method => :post }) do |n|
+      n.connect 'accounts/login/password', :action => 'password_login'
+      n.connect 'accounts/signup/password', :action => 'password_signup'
+    end
   end
   
   map.with_options(:controller => 'profiles') do |m|
-    m.connect 'people/:profile_id', :action => 'show', :conditions => { :method => :get }
-    
-    m.connect 'people/:profile_id/edit', :action => 'edit', :conditions => { :method => :get }
-    m.connect 'people/:profile_id/update', :action => 'update', :conditions => { :method => :post }
+    m.with_options(:conditions => { :method => :get }) do |n|
+      n.connect 'dashboard', :action => 'dashboard'
+      n.connect 'getting_started', :action => 'getting_started'
+      n.connect 'people/:profile_id', :action => 'show'
+      n.connect 'people/:profile_id/edit', :action => 'edit'
+    end
+    m.with_options(:conditions => { :method => :post }) do |n|
+      n.connect 'people/:profile_id/update', :action => 'update'
+    end
   end
   
   map.with_options(:controller => 'friends') do |m|
-    m.connect 'people/:profile_id/following', :action => 'following', :conditions => { :method => :get }
-    m.connect 'people/:profile_id/following/tier/:tier', :action => 'following_by_tier', :conditions => { :method => :get }, :requirements => { :tier => /[123]/ }
-    m.connect 'people/:profile_id/followers', :action => 'followers', :conditions => { :method => :get }
-    m.connect 'people/:profile_id/friends', :action => 'friends', :conditions => { :method => :get }
-    m.connect 'people/:profile_id/follow', :action => 'follow', :conditions => { :method => :post }
-    m.connect 'people/:profile_id/unfollow', :action => 'unfollow', :conditions => { :method => :post }
-    m.connect 'people/:profile_id/move_to_tier', :action => 'move_to_tier', :conditions => { :method => :post }
+    m.with_options(:conditions => { :method => :get }) do |n|
+      n.connect 'people/:profile_id/following', :action => 'following'
+      n.connect 'people/:profile_id/following/tier/:tier', :action => 'following_by_tier'
+      n.connect 'people/:profile_id/followers', :action => 'followers'
+      n.connect 'people/:profile_id/friends', :action => 'friends'
+    end
+    m.with_options(:conditions => { :method => :post }) do |n|
+      n.connect 'people/:profile_id/follow', :action => 'follow'
+      n.connect 'people/:profile_id/unfollow', :action => 'unfollow'
+      n.connect 'people/:profile_id/move_to_tier', :action => 'move_to_tier'
+    end
   end
 end
