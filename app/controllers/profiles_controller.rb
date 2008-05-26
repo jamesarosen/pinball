@@ -34,7 +34,7 @@ class ProfilesController < ApplicationController
   def refer_a_friend
     if request.get?
     elsif request.post?
-      redirect_to :dashboard
+      redirect_to :action => 'dashboard'
     end
   end
   

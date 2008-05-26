@@ -19,6 +19,7 @@ class FavoriteLocationsController < ApplicationController
   # POST only
   # requires logged_in? and is_self?
   def create
+    redirect_to :action => 'list'
   end
 
   # GET only
