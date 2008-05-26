@@ -1,0 +1,9 @@
+<h1>Friends#followers</h1>
+<p>People following <%= @profile %></p>
+<h2>Links</h2>
+<ul>
+	<li><%= link_to 'Following', :action => 'following' %></li>
+	<li><%= link_to 'Friends', :action => 'friends' %></li>
+	<li><%= link_to 'Logout', :controller => 'accounts', :action => 'logout' %> if logged_in?</li>
+</ul>
+<p>Find me in app/views/friends/followers.html.erb</p>

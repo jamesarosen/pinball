@@ -49,4 +49,12 @@ ActionController::Routing::Routes.draw do |map|
     m.connect 'people/:profile_id/edit', :action => 'edit', :conditions => { :method => :get }
     m.connect 'people/:profile_id/update', :action => 'update', :conditions => { :method => :post }
   end
+  
+  map.with_options(:controller => 'friends') do |m|
+    m.connect 'people/:profile_id/following', :action => 'following', :conditions => { :method => :get }
+    m.connect 'people/:profile_id/followers', :action => 'followers', :conditions => { :method => :get }
+    m.connect 'people/:profile_id/friends', :action => 'friends', :conditions => { :method => :get }
+    m.connect 'people/:profile_id/follow', :action => 'follow', :conditions => { :method => :post }
+    m.connect 'people/:profile_id/unfollow', :action => 'unfollow', :conditions => { :method => :post }
+  end
 end

@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  include ModelLoader
   
   before_filter :load_profile
 
@@ -7,18 +8,16 @@ class ProfilesController < ApplicationController
   end
 
   # GET only
+  # requires login
+  # requires logged in as self
   def edit
   end
 
   # POST only
+  # requires login
+  # requires logged in as self
   def update
     redirect_to :action => 'show'
-  end
-  
-  private
-  
-  def load_profile
-    @profile = params[:profile_id]
   end
   
 end
