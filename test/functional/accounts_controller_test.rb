@@ -34,6 +34,9 @@ class AccountsControllerTest < ActionController::TestCase
   end
   
   context 'A logged-in user' do
+    setup do
+      login_as :foo
+    end
     should 'be able to log out' do
       get :logout
       assert_response :redirect

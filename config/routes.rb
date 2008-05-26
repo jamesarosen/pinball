@@ -83,4 +83,17 @@ ActionController::Routing::Routes.draw do |map|
       n.connect 'people/:profile_id/location/update', :action => 'update'
     end
   end
+
+  map.with_options(:controller => 'favorite_locations') do |m|
+    m.with_options(:conditions => { :method => :get }) do |n|
+      n.connect 'people/:profile_id/location/favorites', :action => 'list'
+      n.connect 'people/:profile_id/location/favorites/add', :action => 'add'
+      n.connect 'people/:profile_id/location/favorites/:favorite_location_id/edit', :action => 'edit'
+    end
+    m.with_options(:conditions => { :method => :post }) do |n|
+      n.connect 'people/:profile_id/location/favorites/create', :action => 'create'
+      n.connect 'people/:profile_id/location/favorites/:favorite_location_id/delete', :action => 'delete'
+      n.connect 'people/:profile_id/location/favorites/:favorite_location_id/update', :action => 'update'
+    end
+  end
 end

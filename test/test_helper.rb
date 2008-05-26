@@ -36,3 +36,9 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+ActionController::TestCase.class_eval do
+  def login_as(sym_or_user)
+    @request.session[:logged_in_user] = sym_or_user
+  end
+end
