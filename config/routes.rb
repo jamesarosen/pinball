@@ -25,11 +25,11 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  # map.root :controller => "welcome"
-
-  # See how all your routes lay out with "rake routes"
-
-  # Install the default routes as the lowest priority.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  map.root :controller => 'static', :action => 'welcome'
+  
+  map.with_options(:controller => 'static') do |m|
+    m.connect 'terms_of_service', :action => 'terms_of_service'
+    m.connect 'privacy_policy', :action => 'privacy_policy'
+    m.connect 'about_us', :action => 'about_us'
+  end
 end

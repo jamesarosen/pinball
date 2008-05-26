@@ -1,0 +1,13 @@
+<% @title = yield(:title) || "Who's Around?" -%>
+
+<html>
+	<head>
+		<title>Seek You ~ <%= @title %></title>
+	</head>
+	
+	<body>
+		<div id='content'>
+			<%= yield -%>
+		</div>
+	</body>
+</html>
