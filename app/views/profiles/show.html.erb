@@ -1,0 +1,10 @@
+<h1>Profiles#show</h1>
+<p>
+	Profile information for <%= @profile %>
+</p>
+<h2>Links</h2>
+<ul>
+	<li><%= link_to 'Edit', :action => 'edit' %> if logged_in? and is_self?</li>
+	<li><%= link_to 'Logout', :controller => 'accounts', :action => 'logout' %> if logged_in?</li>
+</ul>
+<p>Find me in app/views/profiles/show.html.erb</p>

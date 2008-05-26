@@ -42,4 +42,11 @@ ActionController::Routing::Routes.draw do |map|
     
     m.connect 'accounts/logout', :action => 'logout', :conditions => { :method => :get }
   end
+  
+  map.with_options(:controller => 'profiles') do |m|
+    m.connect 'people/:profile_id', :action => 'show', :conditions => { :method => :get }
+    
+    m.connect 'people/:profile_id/edit', :action => 'edit', :conditions => { :method => :get }
+    m.connect 'people/:profile_id/update', :action => 'update', :conditions => { :method => :post }
+  end
 end
