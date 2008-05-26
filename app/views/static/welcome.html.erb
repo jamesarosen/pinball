@@ -4,5 +4,8 @@
 	<li><%= link_to 'About Us', :action => 'about_us' %></li>
 	<li><%= link_to 'Privacy Policy', :action => 'privacy_policy' %></li>
 	<li><%= link_to 'Terms of Service', :action => 'terms_of_service' %></li>
+	<li><%= link_to 'Signup', :controller => 'accounts', :action => 'signup' %> unless logged_in?</li>
+	<li><%= link_to 'Login', :controller => 'accounts', :action => 'login' %> unless logged_in?</li>
+	<li><%= link_to 'Logout', :controller => 'accounts', :action => 'logout' %> if logged_in?</li>
 </ul>
 <p>Find me in app/views/static/welcome.html.erb</p>
