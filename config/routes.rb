@@ -27,9 +27,19 @@ ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => 'static', :action => 'welcome'
   
-  map.with_options(:controller => 'static') do |m|
-    m.connect 'terms_of_service', :action => 'terms_of_service'
-    m.connect 'privacy_policy', :action => 'privacy_policy'
-    m.connect 'about_us', :action => 'about_us'
+  map.with_options(:controller => 'static', :conditions => { :method => :get }) do |m|
+    m.connect 'docs/terms_of_service', :action => 'terms_of_service'
+    m.connect 'docs/privacy_policy', :action => 'privacy_policy'
+    m.connect 'docs/about_us', :action => 'about_us'
+  end
+  
+  map.with_options(:controller => 'accounts') do |m|
+    m.connect 'accounts/login', :action => 'login', :conditions => { :method => :get }
+    m.connect 'accounts/login/password', :action => 'password_login', :conditions => { :method => :post }
+    
+    m.connect 'accounts/signup', :action => 'signup', :conditions => { :method => :get }
+    m.connect 'accounts/signup/password', :action => 'password_signup', :conditions => { :method => :post }
+    
+    m.connect 'accounts/logout', :action => 'logout', :conditions => { :method => :get }
   end
 end
