@@ -17,6 +17,7 @@ class AccountsController < ApplicationController
 
   # POST only
   def password_signup
+    flash[:notice] = 'Thanks for signing up!'
     redirect_to :controller => 'profiles', :action => 'getting_started'
   end
 
