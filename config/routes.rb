@@ -47,7 +47,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.with_options(:controller => 'profiles') do |m|
-    m.connect 'refer_a_friend', :action => 'refer_a_friend'
+    m.connect 'refer_a_friend', :action => 'refer_a_friend', :conditions => { :method => [:get, :post ] }
     m.with_options(:conditions => { :method => :get }) do |n|
       n.connect 'dashboard', :action => 'dashboard'
       n.connect 'getting_started', :action => 'getting_started'
@@ -95,5 +95,10 @@ ActionController::Routing::Routes.draw do |map|
       n.connect 'people/:profile_id/location/favorites/:favorite_location_id/delete', :action => 'delete'
       n.connect 'people/:profile_id/location/favorites/:favorite_location_id/update', :action => 'update'
     end
+  end
+  
+  map.with_options(:controller => 'settings', :conditions => { :method => [:get, :post ] }) do |m|
+    m.connect 'people/:profile_id/settings/notifications', :action => 'notifications'
+    m.connect 'people/:profile_id/settings/privacy', :action => 'privacy'
   end
 end
