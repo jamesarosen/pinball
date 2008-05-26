@@ -52,9 +52,11 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options(:controller => 'friends') do |m|
     m.connect 'people/:profile_id/following', :action => 'following', :conditions => { :method => :get }
+    m.connect 'people/:profile_id/following/tier/:tier', :action => 'following_by_tier', :conditions => { :method => :get }, :requirements => { :tier => /[123]/ }
     m.connect 'people/:profile_id/followers', :action => 'followers', :conditions => { :method => :get }
     m.connect 'people/:profile_id/friends', :action => 'friends', :conditions => { :method => :get }
     m.connect 'people/:profile_id/follow', :action => 'follow', :conditions => { :method => :post }
     m.connect 'people/:profile_id/unfollow', :action => 'unfollow', :conditions => { :method => :post }
+    m.connect 'people/:profile_id/move_to_tier', :action => 'move_to_tier', :conditions => { :method => :post }
   end
 end

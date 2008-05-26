@@ -8,14 +8,12 @@ class ProfilesController < ApplicationController
   end
 
   # GET only
-  # requires login
-  # requires logged in as self
+  # requires logged_in? and is_self?
   def edit
   end
 
   # POST only
-  # requires login
-  # requires logged in as self
+  # requires logged_in? and is_self?
   def update
     redirect_to :action => 'show'
   end

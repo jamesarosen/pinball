@@ -9,4 +9,5 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # :secret => '68b21125675c4e41e21fda4e5c9d0301'
   
   layout 'default'
+  
 end

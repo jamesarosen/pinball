@@ -1,5 +1,7 @@
 <h1>Friends#following</h1>
-<p>People <%= @profile %> is following</p>
+<p>
+	People <%= @profile %> is following.  If logged_in? and is_self?, breaks the list down by tier.
+</p>
 <h2>Links</h2>
 <ul>
 	<li><%= link_to 'Followers', :action => 'followers' %></li>

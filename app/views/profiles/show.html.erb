@@ -3,10 +3,14 @@
 <h2>Links</h2>
 <ul>
 	<li><%= link_to 'Edit', :action => 'edit' %> if logged_in? and is_self?</li>
-	<li><%= link_to 'Follow!', :controller => 'friends', :action => 'follow' %> if logged_in? and not is_self? and not following?</li>
-	<li><%= link_to 'Unfollow!', :controller => 'friends', :action => 'unfollow' %> if logged_in? and not is_self? and following?</li>
+	<li><%= link_to 'Follow!', :controller => 'friends', :action => 'follow', :follow_profile_id => @profile %> if logged_in? and not is_self? and not following?</li>
+	<li><%= link_to 'Move to Tier', :controller => 'friends', :action => 'move_to_tier', :follow_profile_id => @profile %> if logged_in? and not is_self? and following?</li>
+	<li><%= link_to 'Unfollow!', :controller => 'friends', :action => 'unfollow', :follow_profile_id => @profile %> if logged_in? and not is_self? and following?</li>
 	<li><%= link_to 'Followers', :controller => 'friends', :action => 'followers' %></li>
 	<li><%= link_to 'Following', :controller => 'friends', :action => 'following' %></li>
+	<li><%= link_to 'Tier 1 Following', :controller => 'friends', :action => 'following_by_tier', :tier => 1 %> if logged_in? and is_self?</li>
+	<li><%= link_to 'Tier 2 Following', :controller => 'friends', :action => 'following_by_tier', :tier => 2 %> if logged_in? and is_self?</li>
+	<li><%= link_to 'Tier 3 Following', :controller => 'friends', :action => 'following_by_tier', :tier => 3 %> if logged_in? and is_self?</li>
 	<li><%= link_to 'Friends', :controller => 'friends', :action => 'friends' %></li>
 	<li><%= link_to 'Logout', :controller => 'accounts', :action => 'logout' %> if logged_in?</li>
 </ul>
