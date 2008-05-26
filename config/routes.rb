@@ -31,6 +31,7 @@ ActionController::Routing::Routes.draw do |map|
     m.connect 'docs/terms_of_service', :action => 'terms_of_service'
     m.connect 'docs/privacy_policy', :action => 'privacy_policy'
     m.connect 'docs/about_us', :action => 'about_us'
+    m.connect 'docs/tour', :action => 'tour'
   end
   
   map.with_options(:controller => 'accounts') do |m|
@@ -46,6 +47,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.with_options(:controller => 'profiles') do |m|
+    m.connect 'refer_a_friend', :action => 'refer_a_friend'
     m.with_options(:conditions => { :method => :get }) do |n|
       n.connect 'dashboard', :action => 'dashboard'
       n.connect 'getting_started', :action => 'getting_started'

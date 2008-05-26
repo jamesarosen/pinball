@@ -29,4 +29,13 @@ class ProfilesController < ApplicationController
     redirect_to :action => 'show'
   end
   
+  # GET or POST
+  # requires logged_in? and is_self?
+  def refer_a_friend
+    if request.get?
+    elsif request.post?
+      redirect_to :dashboard
+    end
+  end
+  
 end
