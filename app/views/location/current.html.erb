@@ -1,0 +1,7 @@
+<h1>Locations#current</h1>
+<p><%= @requested_profile -%> is at <%= @location %>.</p>
+<h2>Links</h2>
+<ul>
+	<li><%= link_to 'Change', :action => 'edit' %> if logged_in? and is_self?</li>
+</ul>
+<p>Find me in app/views/locations/current.html.erb</p>

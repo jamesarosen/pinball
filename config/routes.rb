@@ -72,4 +72,15 @@ ActionController::Routing::Routes.draw do |map|
       n.connect 'people/:profile_id/move_to_tier', :action => 'move_to_tier'
     end
   end
+
+  map.with_options(:controller => 'location') do |m|
+    m.with_options(:conditions => { :method => :get }) do |n|
+      n.connect 'people/:profile_id/location', :action => 'current'
+      n.connect 'people/:profile_id/location/edit', :action => 'edit'
+      n.connect 'whos_around', :action => 'whos_around'
+    end
+    m.with_options(:conditions => { :method => :post }) do |n|
+      n.connect 'people/:profile_id/location/update', :action => 'update'
+    end
+  end
 end
