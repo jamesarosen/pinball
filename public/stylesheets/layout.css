@@ -3,3 +3,11 @@ div {
 	margin: 1em;
 	padding: 1em;
 }
+
+h2 {
+	margin-top: 1em;
+}
+
+ul, ol {
+	margin: 1em 0;
+}
