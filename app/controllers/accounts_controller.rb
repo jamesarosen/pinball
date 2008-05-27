@@ -1,5 +1,7 @@
 class AccountsController < ApplicationController
   
+  attr_reader :type
+  
   # GET only
   def login
     login_form(:password)
@@ -12,16 +14,19 @@ class AccountsController < ApplicationController
 
   # POST only
   def password_login
-    redirect_to :controller => 'profiles', :action => 'dashboard'
+    current_user = User.find(:first)
+    redirect_to :controller => 'profiles', :profile_id => current_user, :action => 'dashboard'
   end
 
   # POST only
   def password_signup
+    current_user = User.find(:first)
     flash[:notice] = 'Thanks for signing up!'
-    redirect_to :controller => 'profiles', :action => 'getting_started'
+    redirect_to :controller => 'profiles', :profile_id => current_user, :action => 'getting_started'
   end
 
   def logout
+    current_user = nil
     redirect_to :controller => 'static', :action => 'welcome'
   end
   

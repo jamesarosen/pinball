@@ -49,9 +49,9 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options(:controller => 'profiles') do |m|
     m.connect 'refer_a_friend', :action => 'refer_a_friend', :conditions => { :method => [:get, :post ] }
     m.with_options(:conditions => { :method => :get }) do |n|
-      n.connect 'dashboard', :action => 'dashboard'
-      n.connect 'getting_started', :action => 'getting_started'
       n.connect 'people/:profile_id', :action => 'show'
+      n.connect 'people/:profile_id/dashboard', :action => 'dashboard'
+      n.connect 'people/:profile_id/getting_started', :action => 'getting_started'
       n.connect 'people/:profile_id/edit', :action => 'edit'
     end
     m.with_options(:conditions => { :method => :post }) do |n|
@@ -77,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
     m.with_options(:conditions => { :method => :get }) do |n|
       n.connect 'people/:profile_id/location', :action => 'current'
       n.connect 'people/:profile_id/location/edit', :action => 'edit'
-      n.connect 'whos_around', :action => 'whos_around'
+      n.connect 'people/:profile_id/location/whos_around', :action => 'whos_around'
     end
     m.with_options(:conditions => { :method => :post }) do |n|
       n.connect 'people/:profile_id/location/update', :action => 'update'

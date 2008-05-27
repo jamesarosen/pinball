@@ -3,41 +3,52 @@ require File.dirname(__FILE__) + '/../test_helper'
 class LocationControllerTest < ActionController::TestCase
 
   context 'A guest' do
-    should 'be able to view a user\'s location' do
-      get :current, :profile_id => :foo
-      assert_response :success
+    should_be_allowed 'to view a user\'s location' do
+      get :current, :profile_id => somebody_other_than(nil)
+    end
+    
+    should_be_unauthorized 'to edit a user\'s location' do
+      get :edit, :profile_id => somebody_other_than(nil)
+    end
+    
+    should_be_unauthorized 'to see who is near a user' do
+      get :whos_around, :profile_id => somebody_other_than(nil)
     end
   end
   
   context 'A logged-in user' do
     setup do
-      login_as :foo
+      login_as :joan
     end
     
-    should 'be able to view her own location' do
-      get :current, :profile_id => :foo
-      assert_response :success
+    should_be_allowed 'to view her own location' do
+      get :current, :profile_id => current_user
     end
     
-    should 'be able to see the form to change her location' do
-      get :edit, :profile_id => :foo
-      assert_response :success
+    should_be_allowed 'to view another user\'s location' do
+      get :current, :profile_id => somebody_other_than(current_user)
+    end
+    
+    should_be_allowed 'to see the form to change her location' do
+      get :edit, :profile_id => current_user
     end
     
     should 'be able to change her location' do
-      post :update, :profile_id => :foo
+      post :update, :profile_id => current_user
       assert_response :redirect
       assert_redirected_to :action => 'whos_around'
     end
     
-    should 'be able to see who\'s around' do
-      get :whos_around
-      assert_response :success
+    should_be_forbidden 'from changing another user\'s location' do
+      post :update, :profile_id => somebody_other_than(current_user)
     end
     
-    should 'be able to view another user\'s location' do
-      get :current, :profile_id => :bar
-      assert_response :success
+    should 'be able to see who\'s around' do
+      get :whos_around, :profile_id => current_user
+    end
+    
+    should 'be forbidden from seeing who\'s around another user' do
+      get :whos_around, :profile_id => somebody_other_than(current_user)
     end
   end
 

@@ -1,8 +1,9 @@
 class FriendsController < ApplicationController
-  include ModelLoader
+
+  requires_is_self :only => [ :following_by_tier, :follow, :unfollow, :move_to_tier ]
   
-  before_filter :load_logged_in_profile
-  before_filter :load_requested_profile
+  attr_reader :requested_tier
+  helper_method :requested_tier
   
   # GET only
   def followers
@@ -15,9 +16,8 @@ class FriendsController < ApplicationController
   
   # GET only
   # followings in tier params[:tier]
-  # requires logged_in? and is_self?
   def following_by_tier
-    @tier = params[:tier]
+    @requested_tier = params[:tier]
   end
 
   # GET only: intersection of followers and following
@@ -25,21 +25,18 @@ class FriendsController < ApplicationController
   end
 
   # POST only: add a following
-  # requires logged_in? and is_self?
   def follow
     redirect_to :action => 'following'
   end
   
   # POST only: delete a following
-  # requires logged_in? and is_self?
   def unfollow
     redirect_to :action => 'following'
   end
   
   # POST only: moves a following to a different tier
-  # requires logged_in? and is_self?
   def move_to_tier
-    redirect_to :action => 'following_by_tier'
+    redirect_to :action => 'following_by_tier', :tier => params[:tier]
   end
   
 end

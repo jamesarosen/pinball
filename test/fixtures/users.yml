@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+joan:
+    id: 1
+    
+jack:
+    id: 2
+#
+# two:
+#   column: value

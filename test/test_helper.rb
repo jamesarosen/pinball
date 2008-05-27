@@ -38,7 +38,65 @@ class Test::Unit::TestCase
 end
 
 ActionController::TestCase.class_eval do
-  def login_as(sym_or_user)
-    @request.session[:logged_in_user] = sym_or_user
+  def setup_controller_request_and_response_with_session
+    setup_controller_request_and_response_without_session
+    @session = @controller.session = @request.session
   end
+  
+  alias_method_chain :setup_controller_request_and_response, :session
+  
+  def somebody_other_than(sym_or_user)
+    return User.find(:first) if sym_or_user.nil?
+    raise ArgumentError.new('Only one User exists!') unless User.count > 1
+    id = sym_or_user.kind_of?(User) ? sym_or_user.id : users(sym_or_user).id
+    User.find(:first, :conditions => ['id <> ?', id])
+  end
+  alias_method :someone_other_than, :somebody_other_than
+  
+  def login_as(sym_or_user)
+    case sym_or_user
+    when nil
+      @request.session[:user] = nil
+    when User
+      @request.session[:user] = sym_or_user.id
+    when Symbol
+      @request.session[:user] = users(sym_or_user).id
+    end
+  end
+  
+  def logged_in?
+    @controller.logged_in?
+  end
+  
+  def current_user
+    @controller.current_user
+  end
+end
+
+ThoughtBot::Shoulda::Controller::ClassMethods.class_eval do
+  
+  def should_be_allowed(text = nil, &block)
+    block ||= Proc.new { assert_response :success }
+    should "be allowed #{text}" do
+      block.bind(self).call
+    end
+  end
+  
+  def should_be_unauthorized(text = nil, &block)
+    block ||= Proc.new { assert_redirected_to :controller => 'accounts', :action => 'login' }
+    should "be unauthorized #{text}" do
+      block.bind(self).call
+    end
+  end
+  
+  def should_be_forbidden(text = nil, &block)
+    block ||= Proc.new do
+      assert_response 403
+      assert_template 'error/forbidden'
+    end
+    should "be forbidden #{text}" do
+      block.bind(self).call
+    end
+  end
+  
 end
