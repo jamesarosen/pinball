@@ -22,6 +22,8 @@ class FavoriteLocationsControllerTest < ActionController::TestCase
     context 'a logged-in user' do
       setup do
         login_as :joan
+        assert logged_in?
+        assert_not_nil current_user
       end
       
       should_be_forbidden 'from viewing another user\'s favorite locations' do

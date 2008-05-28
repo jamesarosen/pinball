@@ -9,21 +9,25 @@ module Authentication
   module InstanceMethods
   
     def logged_in?
-      return nil if session[:user].nil?
-      return @u unless @u.nil?
-      self.current_user = User.find_by_id(session[:user])
+      !current_user.nil?
     end
 
     # Accesses the current user from the session.
     def current_user
-      @u if logged_in?
+      return nil if session[:user].nil?
+      return @u unless @u.nil?
+      @u = User.find_by_id(session[:user])
     end
 
     # Store the given user in the session.
     def current_user=(u)
-      return if u.nil? or !u.respond_to?(:new_record?)
-      session[:user] = u.id unless u.new_record?
-      @u = u
+      if u.nil?
+        session[:user] = @u = nil
+      else
+        raise ArgumentError.new("#{u} is not a saved User") unless u.kind_of?(User) && !u.new_record?
+        session[:user] = u.id
+        @u = u
+      end
     end
     
     private

@@ -73,30 +73,30 @@ ActionController::TestCase.class_eval do
   end
 end
 
-ThoughtBot::Shoulda::Controller::ClassMethods.class_eval do
+module ControllerShoulds
   
   def should_be_allowed(text = nil, &block)
-    block ||= Proc.new { assert_response :success }
     should "be allowed #{text}" do
-      block.bind(self).call
+      block.bind(self).call if block_given?
+      assert_response :success
     end
   end
   
   def should_be_unauthorized(text = nil, &block)
-    block ||= Proc.new { assert_redirected_to :controller => 'accounts', :action => 'login' }
     should "be unauthorized #{text}" do
-      block.bind(self).call
+      block.bind(self).call if block_given?
+      assert_redirected_to :controller => 'accounts', :action => 'login'
     end
   end
   
   def should_be_forbidden(text = nil, &block)
-    block ||= Proc.new do
+    should "be forbidden #{text}" do
+      block.bind(self).call if block_given?
       assert_response 403
       assert_template 'error/forbidden'
-    end
-    should "be forbidden #{text}" do
-      block.bind(self).call
     end
   end
   
 end
+
+Test::Unit::TestCase.extend ControllerShoulds

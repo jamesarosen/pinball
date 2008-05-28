@@ -15,4 +15,8 @@ class ApplicationController < ActionController::Base
   
   layout 'default'
   
+  private
+  
+  attr_accessor :return_to_after_login_location
+  
 end

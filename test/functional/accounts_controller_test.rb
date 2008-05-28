@@ -6,10 +6,6 @@ class AccountsControllerTest < ActionController::TestCase
     
   }
   
-  VALID_PASSWORD_LOGIN = {
-    
-  }
-  
   context 'The AccountsController: ' do
 
     context 'A visitor' do
@@ -30,8 +26,9 @@ class AccountsControllerTest < ActionController::TestCase
         get :login
       end
       should 'be able to login' do
-        post :password_login, VALID_PASSWORD_LOGIN
-        assert_redirected_to :controller => 'profiles', :action => 'dashboard'
+        post :password_login, :login => 'jack', :password => 'test'
+        assert_redirected_to :controller => 'profiles', :profile_id => User.find(:first), :action => 'dashboard'
+        assert logged_in?
       end
     end
   

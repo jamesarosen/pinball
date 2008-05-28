@@ -69,16 +69,19 @@ class FriendsControllerTest < ActionController::TestCase
         get :friends, :profile_id => somebody_other_than(current_user)
       end
       
-      should_be_allowed('to add someone to his following list') do
+      should('be able to add someone to his following list') do
         post :follow, :profile_id => current_user, :follow_profile_id => :anything
+        assert_redirected_to :action => 'following'
       end
       
-      should_be_allowed('to remove someone to his following list') do
+      should('be able to remove someone to his following list') do
         post :unfollow, :profile_id => current_user, :follow_profile_id => :anything
+        assert_redirected_to :action => 'following'
       end
       
-      should_be_allowed('to move someone on his following list to a different tier') do
+      should('be able to move someone on his following list to a different tier') do
         post :move_to_tier, :profile_id => current_user, :follow_profile_id => :anything, :tier => 3
+        assert_redirected_to :action => 'following_by_tier', :tier => 3
       end
     end
   
