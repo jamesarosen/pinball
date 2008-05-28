@@ -14,15 +14,21 @@ class AccountsController < ApplicationController
 
   # POST only
   def password_login
-    self.current_user = User.find(:first)
-    redirect_back_or_default :controller => 'profiles', :profile_id => current_user, :action => 'dashboard'
+    self.current_user = User.authenticate(params[:login], params[:password])
+    if logged_in?
+      remember_me! if params[:remember_me] == "1"
+      redirect_back_or_default :controller => 'profiles', :profile_id => current_user, :action => 'dashboard'
+    else
+      flash.now[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
+      redirect_to :action => 'login'
+    end
   end
 
   # POST only
   def password_signup
     self.current_user = User.find(:first)
     flash[:notice] = 'Thanks for signing up!'
-    redirect_back_or_default :controller => 'profiles', :profile_id => current_user, :action => 'getting_started'
+    redirect_to :controller => 'profiles', :profile_id => current_user, :action => 'getting_started'
   end
 
   def logout
@@ -31,6 +37,14 @@ class AccountsController < ApplicationController
   end
   
   private
+  
+  def remember_me!
+    self.user.remember_me
+    cookies[:auth_token] = {
+      :value => self.user.remember_token,
+      :expires => self.user.remember_token_expires_at
+    }
+  end
   
   def redirect_back_or_default(default)
     redirect_to (return_to_after_login_location ? return_to_after_login_location : default)

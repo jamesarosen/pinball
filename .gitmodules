@@ -1,3 +1,6 @@
 [submodule "vendor/plugins/shoulda"]
 	path = vendor/plugins/shoulda
 	url = git://github.com/thoughtbot/shoulda.git
+[submodule "vendor/plugins/tidbits"]
+	path = vendor/plugins/tidbits
+	url = git://github.com/gcnovus/ruby-tidbits.git

@@ -2,9 +2,17 @@
 
 joan:
     id: 1
+    login: joan
+    crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+    salt:  7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+    is_admin: false
     
 jack:
     id: 2
+    login: jack
+    crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+    salt:  7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+    is_admin: false
 #
 # two:
 #   column: value

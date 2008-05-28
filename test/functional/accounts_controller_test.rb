@@ -26,9 +26,11 @@ class AccountsControllerTest < ActionController::TestCase
         get :login
       end
       should 'be able to login' do
-        post :password_login, :login => 'jack', :password => 'test'
-        assert_redirected_to :controller => 'profiles', :profile_id => User.find(:first), :action => 'dashboard'
+        jack = users(:jack)
+        post :password_login, :login => jack.login, :password => 'test'
+        assert_redirected_to :controller => 'profiles', :profile_id => jack.id, :action => 'dashboard'
         assert logged_in?
+        assert_equal jack, current_user
       end
     end
   
@@ -40,6 +42,7 @@ class AccountsControllerTest < ActionController::TestCase
         get :logout
         assert_response :redirect
         assert_redirected_to :controller => 'static', :action => 'welcome'
+        assert !logged_in?
       end
     end
   
