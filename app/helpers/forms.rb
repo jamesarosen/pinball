@@ -16,51 +16,51 @@ module Forms
   end
   
   def text_field_with_before_and_after(object_name, method, options = {})
-    before(object_name, method, options) +
-      text_field_without_before_and_after(object_name, method, options) + 
-      after(object_name, method, options)
+    with_before_and_after(object_name, method, options) do
+      text_field_without_before_and_after(object_name, method, options)
+    end
   end
   
   def password_field_with_before_and_after(object_name, method, options = {})
-    before(object_name, method, options) +
-      password_field_without_before_and_after(object_name, method, options) +
-      after(object_name, method, options)
+    with_before_and_after(object_name, method, options) do
+      password_field_without_before_and_after(object_name, method, options)
+    end
   end
    
   def hidden_field_with_before_and_after(object_name, method, options = {})
-    before(object_name, method, options) +
-      hidden_field_without_before_and_after(object_name, method, options) +
-      after(object_name, method, options)
+    with_before_and_after(object_name, method, options) do
+      hidden_field_without_before_and_after(object_name, method, options)
+    end
   end
    
   def file_field_with_before_and_after(object_name, method, options = {})
-    before(object_name, method, options) +
-      file_field_without_before_and_after(object_name, method, options) +
-      after(object_name, method, options)
+    with_before_and_after(object_name, method, options) do
+      file_field_without_before_and_after(object_name, method, options)
+    end
   end
   
   def text_area_with_before_and_after(object_name, method, options = {})
-    before(object_name, method, options) +
-      text_area_without_before_and_after(object_name, method, options) +
-      after(object_name, method, options)
+    with_before_and_after(object_name, method, options) do
+      text_area_without_before_and_after(object_name, method, options)
+    end
   end
 
   def check_box_with_before_and_after(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
-    before(object_name, method, options) +
-      check_box_without_before_and_after(object_name, method, options, checked_value, unchecked_value) +
-      after(object_name, method, options)
+    with_before_and_after(object_name, method, options) do
+      check_box_without_before_and_after(object_name, method, options, checked_value, unchecked_value)
+    end
   end
 
   def radio_button_with_before_and_after(object_name, method, tag_value, options = {})
-    before(object_name, method, options) +
-      radio_button_without_before_and_after(object_name, method, tag_value, options) +
-      after(object_name, method, options)
+    with_before_and_after(object_name, method, options) do
+      radio_button_without_before_and_after(object_name, method, tag_value, options)
+    end
   end
   
   def select_with_before_and_after(object_name, method, choices, options = {}, html_options = {})
-    before(object_name, method, options) +
-      select_without_before_and_after(method, choices, options, html_options) +
-      after(object_name, method, options)
+    with_before_and_after(object_name, method, options) do
+      select_without_before_and_after(method, choices, options, html_options)
+    end
   end
   
   # Within a form (no model)
@@ -72,61 +72,59 @@ module Forms
   end
   
   def select_tag_with_before_and_after(name, option_tags = nil, options = {})
-    before(nil, name, options) +
-      select_tag_without_before_and_after(name, value, options) + 
-      after(nil, name, options)
+    with_before_and_after(nil, name, options) do
+      select_tag_without_before_and_after(name, value, options)
+    end
   end
   
   def text_field_tag_with_before_and_after(name, value = nil, options = {})
-    before(nil, name, options) +
-      text_field_tag_without_before_and_after(name, value, options) + 
-      after(nil, name, options)
+    with_before_and_after(nil, name, options) do
+      text_field_tag_without_before_and_after(name, value, options)
+    end
   end
   
   def hidden_field_tag_with_before_and_after(name, value = nil, options = {})
-    before(nil, name, options) +
-      hidden_field_tag_without_before_and_after(name, value, options) + 
-      after(nil, name, options)
+    with_before_and_after(nil, name, options) do
+      hidden_field_tag_without_before_and_after(name, value, options)
+    end
   end
   
   def file_field_tag_with_before_and_after(name, options = {})
-    before(nil, name, options) +
-      file_field_tag_without_before_and_after(name, options) + 
-      after(nil, name, options)
+    with_before_and_after(nil, name, options) do
+      file_field_tag_without_before_and_after(name, options)
+    end
   end
   
   def text_area_tag_with_before_and_after(name, content = nil, options = {})
-    before(nil, name, options) +
-      text_area_tag_without_before_and_after(name, content, options) + 
-      after(nil, name, options)
+    with_before_and_after(nil, name, options) do
+      text_area_tag_without_before_and_after(name, content, options)
+    end
   end
   
   def check_box_tag_with_before_and_after(name, value = 1, checked = false, options = {})
-    before(nil, name, options) +
-      check_box_tag_without_before_and_after(name, value, checked, options) + 
-      after(nil, name, options)
+    with_before_and_after(nil, name, options) do
+      check_box_tag_without_before_and_after(name, value, checked, options)
+    end
   end
   
   def radio_button_tag_with_before_and_after(name, value, checked = false, options = {})
-    before(nil, name, options) +
-      radio_button_tag_without_before_and_after(name, value, options) + 
-      after(nil, name, options)
+    with_before_and_after(nil, name, options) do
+      radio_button_tag_without_before_and_after(name, value, options)
+    end
   end
   
   def submit_tag_with_before_and_after(value, options = {})
     # force label and error messages to none
-    options = options.merge(:label => false, :error_messages => false)
-    before(nil, nil, options) +
-      submit_tag_without_before_and_after(value, options) +
-      after(nil, nil, options)
+    with_before_and_after(nil, nil, options.merge(:label => false, :error_messages => false)) do
+      submit_tag_without_before_and_after(value, options)
+    end
   end
   
   def image_submit_tag_with_before_and_after(source, options = {})
     # force label and error messages to none
-    options = options.merge(:label => false, :error_messages => false)
-    before(nil, nil, options) +
-      image_submit_tag_without_before_and_after(source, options) +
-      after(nil, nil, options)
+    with_before_and_after(nil, nil, options.merge(:label => false, :error_messages => false)) do
+      image_submit_tag_without_before_and_after(source, options)
+    end
   end
   
   
@@ -154,6 +152,12 @@ module Forms
   end
   
   private
+  
+  def with_before_and_after(object_name, method, options, &block)
+    before = before(object_name, method, options)
+    after = after(object_name, method, options)
+    before + block.call + after
+  end
   
   def before(object_name, method, options)
     result = '<div>'
