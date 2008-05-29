@@ -19,7 +19,7 @@ class AccountsController < ApplicationController
       remember_me! if params[:remember_me] == "1"
       redirect_back_or_default :controller => 'profiles', :profile_id => current_user, :action => 'dashboard'
     else
-      flash.now[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
+      flash[:error] = "Uh-oh, login didn't work. Do you have caps locks on? Try it again."
       redirect_to :action => 'login'
     end
   end

@@ -1,4 +1,5 @@
-#require 'action_controller/base'
+require 'action_controller/base'
+require 'action_view/base'
 
 module ActionController
   class UnauthorizedError < ActionController::ActionControllerError
@@ -28,7 +29,7 @@ module ErrorHandling
   def self.add_rescue_froms(base)
     base.rescue_from ActiveRecord::RecordNotFound, :with => :not_found
     base.rescue_from ActionController::UnknownAction, :with => :not_found
-    base.rescue_from ActionController::MissingTemplate, :with => :not_found
+    base.rescue_from ActionView::MissingTemplate, :with => :not_found
     base.rescue_from ActionController::RoutingError, :with => :not_found
     base.rescue_from ActionController::MethodNotAllowed, :with => :method_not_allowed
     base.rescue_from ActiveRecord::RecordInvalid, :with => :handle_invalid_record
