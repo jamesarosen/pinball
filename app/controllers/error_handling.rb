@@ -58,6 +58,7 @@ module ErrorHandling
     def unauthorized
       respond_to do |accepts|
         accepts.html do
+          flash[:error] = 'You must be logged in to see that page'
           self.return_to_after_login_location = "#{request.request_uri}"
           redirect_to :controller => 'accounts', :action => 'login'
         end

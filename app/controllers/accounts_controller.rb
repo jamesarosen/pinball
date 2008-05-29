@@ -1,5 +1,7 @@
 class AccountsController < ApplicationController
   
+  append_before_filter :must_not_be_logged_in!, :except => [:logout]
+  
   attr_reader :type
   
   # GET only
@@ -26,9 +28,17 @@ class AccountsController < ApplicationController
 
   # POST only
   def password_signup
-    self.current_user = User.find(:first)
-    flash[:notice] = 'Thanks for signing up!'
-    redirect_to :controller => 'profiles', :profile_id => current_user, :action => 'getting_started'
+    u = User.new((params[:user] || {}).pass(:terms_of_service, :login, :password, :password_confirmation, :email))
+    if u.save
+      remember_me if params[:remember_me] == "1"
+      self.current_user = u
+      flash[:notice] = 'Thanks for signing up!'
+      redirect_to :controller => 'profiles', :profile_id => current_user, :action => 'getting_started'
+    else
+      @user = u
+      params[:user][:password] = params[:user][:password_confirmation] = ''
+      signup_form(:password)
+    end
   end
 
   def logout
@@ -37,6 +47,15 @@ class AccountsController < ApplicationController
   end
   
   private
+  
+  def must_not_be_logged_in!
+    if logged_in?
+      flash[:warning] = 'You are already logged in'
+      redirect_to :controller => 'profiles', :action => 'dashboard', :profile_id => current_user
+    else
+      true
+    end
+  end
   
   def remember_me!
     self.user.remember_me

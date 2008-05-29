@@ -3,7 +3,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AccountsControllerTest < ActionController::TestCase
   
   VALID_PASSWORD_SIGNUP = {
-    
+    :login => 'quire',
+    :email => 'quire@example.com',
+    :password => 'quire',
+    :password_confirmation => 'quire',
+    :terms_of_service=>'1'
   }
   
   context 'The AccountsController: ' do
@@ -13,11 +17,54 @@ class AccountsControllerTest < ActionController::TestCase
         get :signup
       end
       should 'be able to signup with a password' do
-        #assert_difference "User.count" do
+        assert_difference 'User.count' do
           post :password_signup, { :user => VALID_PASSWORD_SIGNUP }
-          assert_redirected_to :controller => 'profiles', :action => 'getting_started'
+          assert logged_in?
+          assert_redirected_to :controller => 'profiles', :action => 'getting_started', :profile_id => current_user
           assert_equal 'Thanks for signing up!', flash[:notice]
-        #end
+        end
+      end
+      should 'not be able to signup without a login name' do
+        assert_no_difference 'User.count' do
+          post :password_signup, { :user => VALID_PASSWORD_SIGNUP.block(:login) }
+          assert !logged_in?
+        end
+      end
+      should 'not be able to signup with someone else\'s login name' do
+        assert_no_difference 'User.count' do
+          post :password_signup, { :user => VALID_PASSWORD_SIGNUP.merge(:login => somebody_other_than(nil).login ) }
+          assert !logged_in?
+        end
+      end
+      should 'not be able to signup without an email address' do
+        assert_no_difference 'User.count' do
+          post :password_signup, { :user => VALID_PASSWORD_SIGNUP.block(:email) }
+          assert !logged_in?
+        end
+      end
+      should 'not be able to signup without a password' do
+        assert_no_difference 'User.count' do
+          post :password_signup, { :user => VALID_PASSWORD_SIGNUP.block(:password) }
+          assert !logged_in?
+        end
+      end
+      should 'not be able to signup without a password confirmation' do
+        assert_no_difference 'User.count' do
+          post :password_signup, { :user => VALID_PASSWORD_SIGNUP.block(:password_confirmation) }
+          assert !logged_in?
+        end
+      end
+      should 'not be able to signup without correctly confirming the passowrd' do
+        assert_no_difference 'User.count' do
+          post :password_signup, { :user => VALID_PASSWORD_SIGNUP.merge(:password_confirmation => 'something wrong') }
+          assert !logged_in?
+        end
+      end
+      should 'not be able to signup without accepting the terms of service' do
+        assert_no_difference 'User.count' do
+          post :password_signup, { :user => VALID_PASSWORD_SIGNUP.block(:terms_of_service) }
+          assert !logged_in?
+        end
       end
     end
   

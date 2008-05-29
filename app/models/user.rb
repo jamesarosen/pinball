@@ -9,18 +9,18 @@ class User < ActiveRecord::Base
   attr_protected :is_admin
   
   validates_presence_of :login
-  validates_length_of :login, :within => 3..40
-  validates_uniqueness_of :login, :case_sensitive => false
+  validates_length_of :login, :within => 3..40, :unless => Proc.new { |u| u.login.blank? }
+  validates_uniqueness_of :login, :case_sensitive => false, :allow_blank => true
   
   validates_acceptance_of :terms_of_service, :on => :create
   
   validates_presence_of :password, :if => :password_required?
-  validates_length_of :password, :within => 4..40, :if => :password_required?
-  validates_presence_of :password_confirmation, :if => :password_required?
-  validates_confirmation_of :password, :if => :password_required?
+  validates_length_of :password, :within => 4..40, :if => :password_required?, :allow_blank => true
+  validates_presence_of :password_confirmation, :if => :password_required?, :allow_blank => true
+  validates_confirmation_of :password, :if => :password_required?, :allow_blank => true
   
   validates_presence_of :email, :on => :create
-  validates_email :on => :create
+  validates_email :on => :create, :message => 'is not a valid email address'
   
   before_save :encrypt_password!
   
