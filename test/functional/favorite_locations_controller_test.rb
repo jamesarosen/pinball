@@ -6,16 +6,16 @@ class FavoriteLocationsControllerTest < ActionController::TestCase
     
     context 'A guest' do
       should_be_unauthorized 'to view a user\'s favorite locations' do
-        get :list, :profile_id => somebody_other_than(nil)
+        get :list, :profile_id => anybody
       end
       should_be_unauthorized 'to add a favorite location to a user\'s list' do
-        post :create, :profile_id => somebody_other_than(nil)
+        post :create, :profile_id => anybody
       end
       should_be_unauthorized 'to update a user\'s favorite location' do
-        post :update, :profile_id => somebody_other_than(nil), :favorite_location_id => :anything
+        post :update, :profile_id => anybody, :favorite_location_id => :anything
       end
       should_be_unauthorized 'to delete a user\'s favorite location' do
-        post :delete, :profile_id => somebody_other_than(nil), :favorite_location_id => :anything
+        post :delete, :profile_id => anybody, :favorite_location_id => :anything
       end
     end
     

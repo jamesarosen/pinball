@@ -6,19 +6,19 @@ class FriendsControllerTest < ActionController::TestCase
   
     context 'A guest' do
       should_be_allowed('to view a user\'s following list') do
-        get :following, :profile_id => somebody_other_than(nil)
+        get :following, :profile_id => anybody
       end
       should_be_unauthorized('to view a user\'s following list by tier') do
-        get :following_by_tier, :profile_id => somebody_other_than(nil), :tier => 3
+        get :following_by_tier, :profile_id => anybody, :tier => 3
       end
       should_be_allowed('to view a user\'s followers list') do
-        get :followers, :profile_id => somebody_other_than(nil)
+        get :followers, :profile_id => anybody
       end
       should_be_allowed('to view a user\'s friends list') do
-        get :friends, :profile_id => somebody_other_than(nil)
+        get :friends, :profile_id => anybody
       end
       should_be_unauthorized('to add someone to a user\'s following list') do
-        post :follow, :profile_id => somebody_other_than(nil), :follow_profile_id => :anything
+        post :follow, :profile_id => anybody, :follow_profile_id => :anything
       end
     end
   

@@ -6,16 +6,16 @@ class SettingsControllerTest < ActionController::TestCase
     
     context 'A guest' do
       should_be_unauthorized 'to view a user\'s privacy settings' do
-        get :privacy, :profile_id => somebody_other_than(nil)
+        get :privacy, :profile_id => anybody
       end
       should_be_unauthorized 'to change a user\'s privacy settings' do
-        post :privacy, :profile_id => somebody_other_than(nil)
+        post :privacy, :profile_id => anybody
       end
       should_be_unauthorized 'to view a user\'s notification settings' do
-        get :notifications, :profile_id => somebody_other_than(nil)
+        get :notifications, :profile_id => anybody
       end
       should_be_unauthorized 'to change a user\'s notification settings' do
-        post :notifications, :profile_id => somebody_other_than(nil)
+        post :notifications, :profile_id => anybody
       end
     end
   

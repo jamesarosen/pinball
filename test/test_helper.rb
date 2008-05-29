@@ -46,12 +46,18 @@ ActionController::TestCase.class_eval do
   alias_method_chain :setup_controller_request_and_response, :session
   
   def somebody_other_than(sym_or_user)
-    return User.find(:first) if sym_or_user.nil?
-    raise ArgumentError.new('Only one User exists!') unless User.count > 1
-    id = sym_or_user.kind_of?(User) ? sym_or_user.id : users(sym_or_user).id
-    User.find(:first, :conditions => ['id <> ?', id])
+    result = if sym_or_user.nil?
+      User.find(:first)
+    else
+      id = sym_or_user.kind_of?(User) ? sym_or_user.id : users(sym_or_user).id
+      User.find(:first, :conditions => ['id <> ?', id])
+    end
+    raise ArgumentError.new("Could not find anybody other than #{sym_or_user}") unless result
+    result
   end
   alias_method :someone_other_than, :somebody_other_than
+  
+  def anybody; somebody_other_than(nil); end
   
   def login_as(sym_or_user)
     case sym_or_user

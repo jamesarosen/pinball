@@ -32,7 +32,7 @@ class AccountsControllerTest < ActionController::TestCase
       end
       should 'not be able to signup with someone else\'s login name' do
         assert_no_difference 'User.count' do
-          post :password_signup, { :user => VALID_PASSWORD_SIGNUP.merge(:login => somebody_other_than(nil).login ) }
+          post :password_signup, { :user => VALID_PASSWORD_SIGNUP.merge(:login => anybody.login ) }
           assert !logged_in?
         end
       end

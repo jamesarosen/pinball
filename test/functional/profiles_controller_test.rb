@@ -4,19 +4,19 @@ class ProfilesControllerTest < ActionController::TestCase
   
   context 'A guest' do
     should_be_allowed 'to view a user\'s profile' do
-      get :show, :profile_id => somebody_other_than(nil)
+      get :show, :profile_id => anybody
     end
     should_be_unauthorized 'to view a user\'s dashboard' do
-      get :dashboard, :profile_id => somebody_other_than(nil)
+      get :dashboard, :profile_id => anybody
     end
     should_be_unauthorized 'to view a user\'s getting started page' do
-      get :getting_started, :profile_id => somebody_other_than(nil)
+      get :getting_started, :profile_id => anybody
     end
     should_be_unauthorized 'to update a user\'s profile' do
-      post :update, :profile_id => somebody_other_than(nil)
+      post :update, :profile_id => anybody
     end
     should_be_unauthorized 'to refer a friend on behalf of a user' do
-      post :refer_a_friend, :profile_id => somebody_other_than(nil)
+      post :refer_a_friend, :profile_id => anybody
     end
   end
   

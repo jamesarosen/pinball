@@ -4,15 +4,15 @@ class LocationControllerTest < ActionController::TestCase
 
   context 'A guest' do
     should_be_allowed 'to view a user\'s location' do
-      get :current, :profile_id => somebody_other_than(nil)
+      get :current, :profile_id => anybody
     end
     
     should_be_unauthorized 'to edit a user\'s location' do
-      get :edit, :profile_id => somebody_other_than(nil)
+      get :edit, :profile_id => anybody
     end
     
     should_be_unauthorized 'to see who is near a user' do
-      get :whos_around, :profile_id => somebody_other_than(nil)
+      get :whos_around, :profile_id => anybody
     end
   end
   
