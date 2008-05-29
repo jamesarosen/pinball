@@ -10,7 +10,7 @@ class UserTest < ActiveSupport::TestCase
 
     should_ensure_length_in_range :login, 3..40
     should_ensure_length_in_range :password, 4..40
-    should_protect_attributes :is_admin, :can_send_messages
+    should_protect_attributes :is_admin
   end
   
   context 'A new User instance' do
@@ -22,8 +22,12 @@ class UserTest < ActiveSupport::TestCase
       assert !User.new(VALID_USER.merge(:password => 'something else')).valid?
     end
 
-    should 'not be created without terms' do
+    should 'be invalid without agreeing to the terms of service' do
       assert !User.new(VALID_USER.merge(:terms_of_service => '0')).valid?
+    end
+    
+    should 'be inavlid with somebody else\'s email address' do
+      assert !User.new(VALID_USER.merge(:email => anybody.profile.email)).valid?
     end
   end
   

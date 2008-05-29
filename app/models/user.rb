@@ -2,6 +2,24 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   
+  # has one Profile
+  # If the User is deleted, keep the Profile,
+  # but delete the foreign key back to the User
+  # and deactivate the profile.
+  has_one :profile, :dependent => :nullify
+  validates_each(:email, :on => :create, :allow_blank => true) do |user, attribute, value|
+    p = Profile.find_by_email(value)
+    user.errors.add(:email, 'is already taken') unless p.blank?
+  end
+  after_create do |user|
+    p = Profile.find_or_create_by_email(user.email)
+    raise ActiveRecord::ConflictedRecordError.new(user, 'User found when should be nil') unless p.user.blank?
+    p.user = user
+    p.save
+  end
+  
+  
+  
   # virtual (not persisted) fields for use on creation
   # and changing password
   attr_accessor :password, :password_confirmation, :email, :terms_of_service
@@ -20,7 +38,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :if => :password_required?, :allow_blank => true
   
   validates_presence_of :email, :on => :create
-  validates_email :on => :create, :message => 'is not a valid email address'
+  validates_email :on => :create, :allow_blank => true, :message => 'is not a valid email address'
   
   before_save :encrypt_password!
   
@@ -33,8 +51,6 @@ public
   def self.encrypt(a, b)
     Digest::SHA1.hexdigest("--#{a}--#{b}--")
   end
-  
-  def profile; self; end
   
   def is_current_password?(pw)
     crypted_password == encrypt(pw)
@@ -75,6 +91,10 @@ public
   
   def remember_token?
     remember_token_expires_at? && Time.now.utc < remember_token_expires_at 
+  end
+  
+  def to_s
+    profile.to_s
   end
 
 private

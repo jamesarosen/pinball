@@ -45,6 +45,16 @@ ActionController::TestCase.class_eval do
   
   alias_method_chain :setup_controller_request_and_response, :session
   
+  def logged_in?
+    @controller.logged_in?
+  end
+  
+  def current_user
+    @controller.current_user
+  end
+end
+
+module TestHelperMethods
   def somebody_other_than(sym_or_user)
     result = if sym_or_user.nil?
       User.find(:first)
@@ -68,14 +78,6 @@ ActionController::TestCase.class_eval do
     when Symbol
       @request.session[:user] = users(sym_or_user).id
     end
-  end
-  
-  def logged_in?
-    @controller.logged_in?
-  end
-  
-  def current_user
-    @controller.current_user
   end
 end
 
@@ -105,4 +107,7 @@ module ControllerShoulds
   
 end
 
-Test::Unit::TestCase.extend ControllerShoulds
+Test::Unit::TestCase.class_eval do
+  include TestHelperMethods
+  extend ControllerShoulds
+end

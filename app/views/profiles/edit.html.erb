@@ -1,5 +1,12 @@
-<h1>Profiles#edit</h1>
-<p>Edit my profile</p>
+<% form_for :profile, :url => { :action => 'update' }, :method => :post do |f| %>
+
+	<%= f.text_field :email, :class => 'text' %>
+	<%= f.text_field :display_name, :class => 'text' %>
+	<%= f.text_field :cell_number, :class => 'text' %>
+	<%= f.select :cell_carrier, Profile.cell_phone_carriers, {}, { :class => 'select' }%>
+	
+	<%= submit_tag 'Submit changes', :class => 'submit', :class => 'button' %>
+<% end %>
 <h2>Links</h2>
 <ul>
 	<li><%= link_to 'Cancel', :action => 'show' %></li>

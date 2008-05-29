@@ -1,5 +1,17 @@
 <h1>Profiles#show</h1>
-<p>Profile information for <%= requested_profile %></p>
+<dl>
+	<dt>Display Name</dt>
+	<dd><%= requested_profile.display_name -%></dd>
+	
+	<dt>Email</dt>
+	<dd><%= requested_profile.email -%></dd>
+	
+	<dt>Cell Phone</dt>
+	<dd><%= requested_profile.cell_number -%></dd>
+	
+	<dt>Cell Phone Provider</dt>
+	<dd><%= requested_profile.cell_carrier -%></dd>
+</dl>
 <h2>Links</h2>
 <ul>
 	<li><%= link_to 'Edit', :action => 'edit' %> if logged_in? and is_self?</li>

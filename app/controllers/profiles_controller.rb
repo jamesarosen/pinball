@@ -22,6 +22,9 @@ class ProfilesController < ApplicationController
   # POST only
   # requires logged_in? and is_self?
   def update
+    requested_profile.update_attributes!(params[:profile] || {})
+    current_user.profile.reload
+    flash[:notice] = 'Your profile has been updated'
     redirect_to :action => 'show'
   end
   

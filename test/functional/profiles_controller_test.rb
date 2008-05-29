@@ -55,9 +55,26 @@ class ProfilesControllerTest < ActionController::TestCase
     end
     
     should 'be able to edit her profile' do
-      post :update, :profile_id => current_user
+      assert_nil Profile.find_by_email('new.email.address@example.com')
+      post :update, :profile_id => current_user, :profile => { :email => 'new.email.address@example.com', :display_name => 'new display name' }
       assert_response :redirect
       assert_redirected_to :action => 'show'
+      assert_equal 'new.email.address@example.com', current_user.profile.email
+      assert_equal 'new display name', current_user.profile.display_name
+    end
+    
+    should 'not be able to erase her email address' do
+      old_email = current_user.profile.email
+      post :update, :profile_id => current_user, :profile => {:email => ''}
+      assert_template 'profiles/edit'
+      assert_equal old_email, current_user.profile.email
+    end
+    
+    should 'not be able to change her email address to someone else\'s' do
+      old_email = current_user.profile.email
+      post :update, :profile_id => current_user, :profile => { :email => somebody_other_than(current_user).profile.email }
+      assert_template 'profiles/edit'
+      assert_equal old_email, current_user.profile.email
     end
     
     should_be_allowed 'to view another user\s profile' do

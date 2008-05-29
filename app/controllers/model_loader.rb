@@ -10,12 +10,14 @@ module ModelLoader
   
     private
     
-    def requested_profile
-      @requested_profile ||= User.find(params[:profile_id]).profile
+    def requested_profile(reload = false)
+      @profile = nil if reload
+      @profile ||= Profile.find(params[:profile_id])
     end
     
-    def requested_favorite_location
-      @requested_favorite_location ||= params[:favorite_location_id]
+    def requested_favorite_location(reload = false)
+      @favorite_location = nil if reload
+      @favorite_location ||= params[:favorite_location_id]
     end
     
   end
