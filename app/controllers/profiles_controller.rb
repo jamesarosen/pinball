@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   
   requires_is_self :except => [ :show ]
+  requires_profile
   
   # GET only
   def dashboard
@@ -15,12 +16,10 @@ class ProfilesController < ApplicationController
   end
 
   # GET only
-  # requires logged_in? and is_self?
   def edit
   end
 
   # POST only
-  # requires logged_in? and is_self?
   def update
     requested_profile.update_attributes!(params[:profile] || {})
     current_user.profile.reload
@@ -29,7 +28,6 @@ class ProfilesController < ApplicationController
   end
   
   # GET or POST
-  # requires logged_in? and is_self?
   def refer_a_friend
     if request.get?
     elsif request.post?

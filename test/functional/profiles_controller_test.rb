@@ -2,6 +2,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfilesControllerTest < ActionController::TestCase
   
+  context 'A user' do
+    should_not_find 'a non-existent profile' do
+      assert_nil Profile.find_by_id(999)
+      get :show, :profile_id => '999'
+    end
+  end
+  
   context 'A guest' do
     should_be_allowed 'to view a user\'s profile' do
       get :show, :profile_id => anybody

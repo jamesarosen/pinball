@@ -83,6 +83,14 @@ end
 
 module ControllerShoulds
   
+  def should_not_find(text = nil, &block)
+    should "not find #{text}" do
+      block.bind(self).call if block_given?
+      assert_response 404
+      assert_template 'error/not_found'
+    end
+  end
+  
   def should_be_allowed(text = nil, &block)
     should "be allowed #{text}" do
       block.bind(self).call if block_given?

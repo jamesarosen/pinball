@@ -70,12 +70,13 @@ module ErrorHandling
       end
     end
 
-    def forbidden
+    def forbidden(exception)
+      @exception = exception
       render :template => '/error/forbidden', :status => 403
     end
 
     def not_found(exception)
-      flash[:error] = exception.to_s
+      @exception = exception
       render :template => '/error/not_found', :status => 404
     end
 
