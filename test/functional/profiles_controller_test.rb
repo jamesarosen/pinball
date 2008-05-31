@@ -61,6 +61,13 @@ class ProfilesControllerTest < ActionController::TestCase
       get :edit, :profile_id => current_user
     end
     
+    should 'have her current cell provider pre-selected' do
+      current_user.profile.cell_carrier = 'verizon'
+      current_user.save!
+      get :edit, :profile_id => current_user
+      assert_select 'option', :attributes => { :value => 'verizon', :selected => 'selected' }, :child => 'Verizon'
+    end
+    
     should 'be able to edit her profile' do
       assert_nil Profile.find_by_email('new.email.address@example.com')
       post :update, :profile_id => current_user, :profile => { :email => 'new.email.address@example.com', :display_name => 'new display name' }
@@ -82,6 +89,14 @@ class ProfilesControllerTest < ActionController::TestCase
       post :update, :profile_id => current_user, :profile => { :email => somebody_other_than(current_user).profile.email }
       assert_template 'profiles/edit'
       assert_equal old_email, current_user.profile.email
+    end
+    
+    should 'be able to update her password' do
+      post :update, :profile_id => current_user, :old_password => 'test', :new_password => 'not test', :new_password_confirmation => 'not test'
+      assert_redirected_to :action => 'show'
+      assert_flash 'Your password has been changed'
+      assert_nil User.authenticate(current_user.login, 'test')
+      assert_equal current_user, User.authenticate(current_user.login, 'not test')
     end
     
     should_be_allowed 'to view another user\s profile' do

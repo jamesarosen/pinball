@@ -55,6 +55,11 @@ ActionController::TestCase.class_eval do
 end
 
 module TestHelperMethods
+  
+  def assert_flash(val)
+    assert_contains flash.values, val, ", Flash: #{flash.inspect}"
+  end
+  
   def somebody_other_than(sym_or_user)
     result = if sym_or_user.nil?
       User.find(:first)

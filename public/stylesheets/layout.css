@@ -1,7 +1,17 @@
+body {
+	text-align: center;
+}
+
 div {
-	border: 1px solid black;
 	margin: 1em;
 	padding: 1em;
+}
+
+div#content {
+	border: 2px solid grey;
+	margin: 2.5em auto;
+	text-align: left;
+	width: 45em;
 }
 
 div.fieldWithErrors, div.formError {
@@ -27,8 +37,19 @@ div.flash.warning {
 	color: orange;
 }
 
+fieldset {
+	border: 1px solid black;
+	margin: 1em;
+	padding: 1em;	
+}
+
 h2 {
 	margin-top: 1em;
+}
+
+th {
+	padding-right: 1em;
+	text-align: right;
 }
 
 ul, ol {

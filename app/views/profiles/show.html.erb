@@ -1,18 +1,23 @@
 <h1>Profiles#show</h1>
 <div><%= avatar_tag(requested_profile, :size => 80) %></div>
-<dl>
-	<dt>Display Name</dt>
-	<dd><%= requested_profile.display_name -%></dd>
-	
-	<dt>Email</dt>
-	<dd><%= requested_profile.email -%></dd>
-	
-	<dt>Cell Phone</dt>
-	<dd><%= requested_profile.cell_number -%></dd>
-	
-	<dt>Cell Phone Provider</dt>
-	<dd><%= requested_profile.cell_carrier -%></dd>
-</dl>
+<table>
+	<tr>
+		<th>Display Name</th>
+		<td><%= requested_profile.display_name -%></td>
+	</tr>
+	<tr>
+		<th>Email</th>
+		<td><%= requested_profile.email -%></td>
+	</tr>
+	<tr>
+		<th>Cell Phone</th>
+		<td><%= requested_profile.cell_number -%></td>
+	</tr>
+	<tr>
+		<th>Cell Phone Provider</th>
+		<td><%= requested_profile.cell_carrier -%></td>
+	</tr>
+</table>
 <h2>Links</h2>
 <ul>
 	<li><%= link_to 'Edit', :action => 'edit' %> if logged_in? and is_self?</li>

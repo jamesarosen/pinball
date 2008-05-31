@@ -2,6 +2,17 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   
+  def self.authenticate(login, password)
+    u = find_by_login(login) # need to get the salt
+    u && u.is_current_password?(password) ? u : nil
+  end
+  
+  def self.encrypt(a, b)
+    Digest::SHA1.hexdigest("--#{a}--#{b}--")
+  end
+  
+  
+  
   # has one Profile
   # If the User is deleted, keep the Profile,
   # but delete the foreign key back to the User
@@ -9,7 +20,7 @@ class User < ActiveRecord::Base
   has_one :profile, :dependent => :nullify
   validates_each(:email, :on => :create, :allow_blank => true) do |user, attribute, value|
     p = Profile.find_by_email(value)
-    user.errors.add(:email, 'is already taken') unless p.blank?
+    user.errors.add(attribute, 'is already taken') unless p.blank?
   end
   after_create do |user|
     p = Profile.find_or_create_by_email(user.email)
@@ -43,32 +54,19 @@ class User < ActiveRecord::Base
   before_save :encrypt_password!
   
 public
-  def self.authenticate(login, password)
-    u = find_by_login(login) # need to get the salt
-    u && u.is_current_password?(password) ? u : nil
-  end
-  
-  def self.encrypt(a, b)
-    Digest::SHA1.hexdigest("--#{a}--#{b}--")
-  end
   
   def is_current_password?(pw)
     crypted_password == encrypt(pw)
   end
   
   def change_password(old_password, new_password, confirm_password)
-    errors.add( :password, 'The password you supplied is not the correct password.') and
-      return false unless is_current_password?(old_password)
-    errors.add( :password, 'The new password and old password are identical') and
-      return false if old_password == new_password
-    errors.add( :password, 'The new password does not match the confirmation password.') and
-      return false unless new_password == confirm_password
-    errors.add( :password, 'The new password may not be blank.') and
-      return false if new_password.blank?
-    
-    self.password = self.password_confirmation = new_password
-    encrypt_password!
+    change_password_helper(old_password, new_password, confirm_password, false)
     save
+  end
+  
+  def change_password!(old_password, new_password, confirm_password)
+    change_password_helper(old_password, new_password, confirm_password, true)
+    save!
   end
   
   def forgot_password!
@@ -120,6 +118,22 @@ private
   
   def new_random_password
     encrypt(Time.now)[0,12]
+  end
+  
+  
+  def change_password_helper(old_password, new_password, confirm_password, strict)
+    errors.add( :password, 'The password you supplied is not the correct password.') unless is_current_password?(old_password)
+    errors.add( :password, 'The new password and old password are identical') if old_password == new_password
+    errors.add( :password, 'The new password does not match the confirmation password.') unless new_password == confirm_password
+    errors.add( :password, 'The new password may not be blank.') if new_password.blank?
+    
+    unless errors.empty?
+      raise ActiveRecord::RecordInvalid.new(self) if strict
+      return false
+    end
+    
+    self.password = self.password_confirmation = new_password
+    encrypt_password!
   end
   
   

@@ -1,9 +1,19 @@
+<h1>Edit your profile</h1>
 <% form_for :profile, :url => { :action => 'update' }, :method => :post do |f| %>
 
-	<%= f.text_field :email, :class => 'text' %>
-	<%= f.text_field :display_name, :class => 'text' %>
-	<%= f.text_field :cell_number, :class => 'text' %>
-	<%= f.select :cell_carrier, Profile.cell_phone_carriers, {}, { :class => 'select' }%>
+	<fieldset>
+		<%= f.text_field :email, :class => 'text' %>
+		<%= f.text_field :display_name, :class => 'text' %>
+		<%= f.text_field :cell_number, :class => 'text' %>
+		<%= f.select :cell_carrier, CellPhone::Carrier::CARRIERS, { :include_blank => true, :selected => requested_profile.cell_carrier.to_param }, { :class => 'select' } %>
+	</fieldset>
+	
+	<fieldset>
+		<legend>Update Password</legend>
+		<%= password_field_tag :old_password, nil, :class => 'password' %>
+		<%= password_field_tag :new_password, nil, :class => 'password' %>
+		<%= password_field_tag :new_password_confirmation, nil, :class => 'password', :label => 'New Password (confirm): ' %>
+	</fieldset>
 	
 	<%= submit_tag 'Submit changes', :class => 'submit', :class => 'button' %>
 <% end %>

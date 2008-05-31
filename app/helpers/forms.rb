@@ -7,6 +7,13 @@ module Forms
   include ActionView::Helpers::FormTagHelper
   include ActionView::Helpers::FormOptionsHelper
   
+  def option_text_and_value(option)
+    return [option, option] if option.kind_of?(String)
+    return [option.first, option.last] if option.respond_to?(:first) and option.respond_to?(:last)
+    return [option.to_s, option.to_param] if option.respond_to?(:to_param)
+    return [option, option]
+  end
+  
   # Within a form_for(@model):
   
   def label_with_default(object_name, method, text = nil, options = nil)
@@ -59,7 +66,7 @@ module Forms
   
   def select_with_before_and_after(object_name, method, choices, options = {}, html_options = {})
     with_before_and_after(object_name, method, options) do
-      select_without_before_and_after(method, choices, options, html_options)
+      select_without_before_and_after(object_name, method, choices, options, html_options)
     end
   end
   

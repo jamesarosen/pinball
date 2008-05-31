@@ -10,3 +10,6 @@
 [submodule "vendor/plugins/avatar"]
 	path = vendor/plugins/avatar
 	url = git://github.com/gcnovus/avatar.git
+[submodule "vendor/plugins/sms_fu"]
+	path = vendor/plugins/sms_fu
+	url = git://github.com/brendanlim/sms-fu.git
