@@ -13,3 +13,6 @@
 [submodule "vendor/plugins/sms_fu"]
 	path = vendor/plugins/sms_fu
 	url = git://github.com/brendanlim/sms-fu.git
+[submodule "vendor/plugins/geokit"]
+	path = vendor/plugins/geokit
+	url = git://github.com/ptb/geokit.git
