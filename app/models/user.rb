@@ -60,8 +60,11 @@ public
   end
   
   def change_password(old_password, new_password, confirm_password)
-    change_password_helper(old_password, new_password, confirm_password, false)
-    save
+    if change_password_helper(old_password, new_password, confirm_password, false)
+      save
+    else
+      false
+    end
   end
   
   def change_password!(old_password, new_password, confirm_password)
@@ -134,6 +137,7 @@ private
     
     self.password = self.password_confirmation = new_password
     encrypt_password!
+    true
   end
   
   
