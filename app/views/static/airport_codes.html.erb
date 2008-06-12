@@ -1,0 +1,40 @@
+<h1>Using Airport Codes</h1>
+<p>
+	The most reliable method is to use the 3-letter code on your boarding pass.
+	Alternatively, you can enter any string containing the word "airport" and
+	we will try to find the right airport code for you.  For example, to
+	set your location to Chicago O'Hare Airport, you can use of the
+	following names:
+</p>
+<ul>
+	<li>ORD</li>
+	<li>Chicago O'Hare airport</li>
+	<li>o'hare airport</li>
+	<li>airport o hare</li>
+	<li>ohare airport</li>
+</ul>
+<p>
+	Before checking against the following list, the text you enter is
+	converted to lowercase, and all punctuation (except spaces) is removed,
+	as are the words 'municipal', 'regional', 'international', and 'airport.'
+	If you think we should add an alias, please
+	<a href='mailto:support@seek-you.com'>email</a> us.
+</p>
+
+<h2>The list of codes and alias names:</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Long name</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% Location::Parser::airport_aliases.to_a.sort{|x,y| x[1] <=> y[1]}.each do |alias_and_code| -%>
+		<tr>
+			<td><%= alias_and_code[1] -%></td>
+			<td><%= alias_and_code[0] -%></td>
+		</tr>
+		<% end -%>
+	</tbody>
+</table>

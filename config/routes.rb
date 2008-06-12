@@ -28,10 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'static', :action => 'welcome'
   
   map.with_options(:controller => 'static', :conditions => { :method => :get }) do |m|
-    m.connect 'docs/terms_of_service', :action => 'terms_of_service'
-    m.connect 'docs/privacy_policy', :action => 'privacy_policy'
-    m.connect 'docs/about_us', :action => 'about_us'
-    m.connect 'docs/tour', :action => 'tour'
+    m.connect 'docs/:page', :action => 'page'
   end
   
   map.with_options(:controller => 'accounts') do |m|
