@@ -1,5 +1,6 @@
 class Profile < ActiveRecord::Base
   include CellPhone
+  include Location::Locatable
   
   belongs_to :user
   

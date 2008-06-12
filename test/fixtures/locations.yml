@@ -1,0 +1,45 @@
+pit:
+    location_type: Airport
+    display_name: PIT
+
+orl:
+    location_type: Airport
+    display_name: ORL
+
+lga:
+    location_type: Airport
+    display_name: LGA
+
+jfk:
+    location_type: Airport
+    display_name: JFK
+
+new_york_ny:
+    location_type: Address
+    display_name: New York, NY
+    latitude: 40.757929
+    longitude: -73.985506
+    
+twelve_hundred_fifth_ave_new_nork_city:
+    location_type: Address
+    display_name: 1200 5th Ave, New York, NY 10029
+    latitude: 40.791115
+    longitude: -73.953424
+
+houston_tx:
+    location_type: Address
+    display_name: Houston, TX
+    latitude: 29.759956
+    longitude: -95.362534
+
+nineteen_main_st_houston_tx:
+    location_type: Address
+    display_name: 19 Main St., Houston, TX 77002
+    latitude: 29.764713
+    longitude: -95.359051
+
+london_england:
+    location_type: Address
+    display_name: London, England
+    latitude: 51.500152
+    longitude: -0.126236

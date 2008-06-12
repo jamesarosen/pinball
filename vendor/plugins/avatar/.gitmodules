@@ -1,3 +1,0 @@
-[submodule "test/lib/paperclip"]
-	path = test/lib/paperclip
-	url = git://github.com/thoughtbot/paperclip.git

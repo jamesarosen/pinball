@@ -1,10 +1,10 @@
 joan:
-    id: 1
-    user_id: 1
+    user: joan
     display_name: joan
     email: joan@example.com
+    location: new_york_ny
     
 jack:
-    id: 2
-    user_id: 2
+    user: jack
     email: jack@example.com
+    location: lga

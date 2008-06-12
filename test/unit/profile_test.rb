@@ -4,6 +4,7 @@ class ProfileTest < ActiveSupport::TestCase
   
   context 'A Profile instance' do
     should_belong_to :user
+    should_belong_to :location
     should_ensure_length_in_range :email, 3..100
     should_allow_values_for :email, 'a@x.com', 'de.veloper@example.com', 'first.last+note@subdomain.example.com'
     should_not_allow_values_for :email, 'example.com', '@example.com', 'developer@example', 'developer', :message => 'is not a valid email address'
@@ -14,7 +15,30 @@ class ProfileTest < ActiveSupport::TestCase
   
   context 'An existing Profile' do
     setup do
-      @profile = anybody.profile
+      @profile = profiles(:jack)
+    end
+    
+    should 'blah' do
+      assert_equal locations(:lga), Location::Base.find_by_id(@profile.location_id)
+    end
+    
+    should 'return their current location' do
+      assert_equal locations(:lga), @profile.location
+    end
+    
+    should 'be able to unset their current location' do
+      assert_not_nil @profile.location
+      @profile.location = nil
+      @profile.save!
+      assert_nil @profile.location
+    end
+    
+    should 'be able to change their current location' do
+      original_loc = @profile.location
+      @profile.location = locations(:orl)
+      @profile.save!
+      assert_not_equal original_loc, @profile.location
+      assert_equal locations(:orl), @profile.location
     end
   end
   

@@ -34,7 +34,7 @@ class Test::Unit::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  set_fixture_class :locations => Location::Base
 end
 
 ActionController::TestCase.class_eval do
