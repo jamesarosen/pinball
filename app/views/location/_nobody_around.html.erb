@@ -1,0 +1,8 @@
+<%
+  @header = if requested_profile.location.kind_of?(Location::Airport)
+		"There is nobody else in #{requested_profile.location} airport"
+	else
+		"There is nobody near #{requested_profile.location}"
+	end
+%>
+<h1><%= @header -%> (<%= link_to 'change location', :action => 'edit' -%>)</h1>

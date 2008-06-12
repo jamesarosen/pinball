@@ -1,0 +1,13 @@
+<%
+  @header = if requested_profile.location.kind_of?(Location::Airport)
+		"People in #{requested_profile.location} airport"
+	else
+		"People near #{requested_profile.location}"
+	end
+%>
+<h1><%= @header -%>: (<%= link_to 'change location', :action => 'edit' -%>)</h1>
+<ul>
+	<% @whos_around.each do |p| -%>
+	<li><%= link_to p, :controller => 'profiles', :action => 'show', :profile_id => p -%></li>
+	<% end -%>
+</ul>

@@ -1,3 +1,13 @@
 <h1>Locations#update</h1>
-<p>Change my current location</p>
+
+<% form_tag url_for(:action => 'update'), :method => :post do -%>
+	<%= text_field_tag :location, params[:location] || requested_profile.location, :class => 'text focus' %>
+	<%= submit_tag 'Update your location', :class => 'button' %>	
+<% end -%>
+
+<p>
+	If you're on a layover between flights and want to set your location to an
+	airport terminal, you might want to read the reference on
+	<%= link_to 'airport codes', :controller => 'static', :action => 'page', :page => 'airport_codes' -%>.
+</p>
 <p>Find me in app/views/locations/update.html.erb</p>
