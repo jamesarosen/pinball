@@ -2,7 +2,10 @@
 <p>Landing page on first signup - helpful info on how to use the system</p>
 <h2>Links</h2>
 <ul>
+	<li><%= link_to 'Set your privacy preferences', :controller => 'settings', :action => 'edit_privacy' %></li>
 	<li><%= link_to 'Edit your profile', :action => 'edit' %></li>
+	<li><%= link_to 'Set your location', :controller => 'location', :action => 'edit' %></li>
+	<li><%= link_to 'Add favorite locations', :controller => 'favorite_locations', :action => 'add' %></li>
 	<li><%= link_to 'Logout', :controller => 'accounts', :action => 'logout' %></li>
 </ul>
 <p>Find me in app/views/profiles/getting_started.html.erb</p>
