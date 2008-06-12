@@ -15,13 +15,13 @@ class Alpha < ActiveRecord::Migration
     add_index 'users', ['login'], :name => 'index_users_on_login'
     
     create_table 'profiles', :force => true do |t|
-      t.integer   'user_id'
-      t.string    'display_name'
-      t.text      'description'
-      t.string    'email',                    :nil => false
-      t.string    'cell_number'
-      t.string    'cell_carrier'
-      t.integer   'current_location'
+      t.belongs_to  :user
+      t.string      'display_name'
+      t.text        'description'
+      t.string      'email',                  :nil => false
+      t.string      'cell_number'
+      t.string      'cell_carrier'
+      t.belongs_to  :location
       t.timestamps
     end
 
@@ -29,7 +29,7 @@ class Alpha < ActiveRecord::Migration
 
     create_table :locations do |t|
       t.string    'display_name',             :nil => false
-      t.string    'type',                     :nil => false
+      t.string    'location_type',            :nil => false
       t.decimal   'latitude',                 :precision => 11, :scale => 9  #  xy.abcdefghi
       t.decimal   'longitude',                :precision => 12, :scale => 9  # xyz.abcdefghi
       t.timestamps

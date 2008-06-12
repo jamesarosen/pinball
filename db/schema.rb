@@ -11,6 +11,15 @@
 
 ActiveRecord::Schema.define(:version => 20080526223738) do
 
+  create_table "locations", :force => true do |t|
+    t.string   "display_name"
+    t.string   "location_type"
+    t.decimal  "latitude",      :precision => 11, :scale => 9
+    t.decimal  "longitude",     :precision => 12, :scale => 9
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "profiles", :force => true do |t|
     t.integer  "user_id"
     t.string   "display_name"
@@ -18,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20080526223738) do
     t.string   "email"
     t.string   "cell_number"
     t.string   "cell_carrier"
+    t.integer  "location_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
