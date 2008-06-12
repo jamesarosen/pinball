@@ -30,12 +30,29 @@ class ProfileTest < ActiveSupport::TestCase
       assert_nil @jack.location
     end
     
-    should 'be able to change their current location' do
+    should 'be able to change their current location to a location' do
       original_loc = @jack.location
       @jack.location = locations(:orl)
       @jack.save!
       assert_not_equal original_loc, @jack.location
       assert_equal locations(:orl), @jack.location
+    end
+    
+    should 'be able to change their current location to a string to be parsed' do
+      @houston = locations(:houston_tx)
+      Location.expects(:parse).with('anywhere').returns(@houston)
+      
+      original_loc = @jack.location
+      @jack.location = 'anywhere'
+      @jack.save!
+      assert_not_equal original_loc, @jack.location
+      assert_equal @houston, @jack.location
+    end
+    
+    should 'not be able to change their current location to an unparseable string' do
+      Location.expects(:parse).with('anywhere').raises(Location::ParseError.new('foo'))
+      @jack.location = 'anywhere'
+      assert !@jack.valid?
     end
     
     should 'be near a nearby profile' do

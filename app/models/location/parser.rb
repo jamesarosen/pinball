@@ -22,6 +22,7 @@ module Location #:nodoc:
     # have been saved to the database.
     def parse(value)
       return value if value.kind_of?(Location::Base)
+      return nil if value.blank?
       
       airport = parse_airport(value)
       return airport if airport
