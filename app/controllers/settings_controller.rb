@@ -2,14 +2,24 @@ class SettingsController < ApplicationController
 
   requires_is_self
   
-  # GET or POST
-  # requires logged_in? and is_self?
-  def notifications
+  # GET only
+  def edit_notifications
+    render :action => 'notifications'
+  end
+  
+  # POST only
+  def update_notifications
+    render :action => 'privacy'
   end
 
-  # GET or POST
-  # requires logged_in? and is_self?
-  def privacy
+  # GET only
+  def edit_privacy
+    render :action => 'privacy'
+  end
+  
+  # POST only
+  def update_privacy
+    render :action => 'privacy'
   end
 
 end

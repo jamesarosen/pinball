@@ -94,8 +94,14 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
-  map.with_options(:controller => 'settings', :conditions => { :method => [:get, :post ] }) do |m|
-    m.connect 'people/:profile_id/settings/notifications', :action => 'notifications'
-    m.connect 'people/:profile_id/settings/privacy', :action => 'privacy'
+  map.with_options(:controller => 'settings') do |m|
+    m.with_options(:conditions => { :method => :get }) do |n|
+      n.connect 'people/:profile_id/settings/notifications', :action => 'edit_notifications'
+      n.connect 'people/:profile_id/settings/privacy', :action => 'edit_privacy'
+    end
+    m.with_options(:conditions => { :method => :get }) do |n|
+      n.connect 'people/:profile_id/settings/notifications', :action => 'update_notifications'
+      n.connect 'people/:profile_id/settings/privacy', :action => 'update_privacy'
+    end
   end
 end
