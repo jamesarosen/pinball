@@ -44,6 +44,10 @@ module Location
       raise NotImplementedError.new('subclasses must redefine near?')
     end
     
+    def to_s
+      display_name
+    end
+    
     protected
     def display_name=(name)
       write_attribute :display_name, name
