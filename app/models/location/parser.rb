@@ -36,26 +36,22 @@ module Location #:nodoc:
     private
     
     def parse_airport(value)
-      value = value.strip
-      code = (value =~ AIRPORT_CODE_REGEX ? value : code_from_alias(value))
-      return nil unless code
-      # airport codes are stored in uppercase:
-      Location::Airport.find_by_display_name(code.upcase)
+      code = parse_airport_code(value)
+      code.nil? ? nil : Location::Airport.find_or_create_by_display_name(code)
     end
     
     AIRPORT_ALIAS_REGEX = /municipal|regional|international|airport/
     AIRPORT_CODE_REGEX = /^[[:alpha:]]{3}$/
     PUNCTUATION = /[^[:alnum:]]/
     
-    # Returns +value+ as a three-letter code (if a code is registered for the alias):
-    #  * downcase
-    #  * with 'regional', 'municipal', 'international', and 'airport', removed
-    #  * with punctuation removed
-    #  * stripped
-    #  * look up in aliases table
-    def code_from_alias(value)
-      value.downcase!
-      if value =~ AIRPORT_ALIAS_REGEX
+    def parse_airport_code(value)
+      value = value.strip
+      case value
+      when AIRPORT_CODE_REGEX
+        value.upcase!
+        airport_aliases.values.include?(value) ? value : nil
+      when AIRPORT_ALIAS_REGEX
+        value.downcase!
         airport_name = value.gsub(AIRPORT_ALIAS_REGEX, '').gsub(PUNCTUATION, '').strip
         self.class.airport_aliases[airport_name]
       else
