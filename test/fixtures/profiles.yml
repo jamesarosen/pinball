@@ -8,3 +8,13 @@ jack:
     user: jack
     email: jack@example.com
     location: lga
+
+zoor:
+    user: zoor
+    email: zoor@example.com
+    location: twelve_hundred_fifth_ave_new_nork_city
+
+patrick:
+    user: patrick
+    email: patrick@example.com
+    location: houston_tx

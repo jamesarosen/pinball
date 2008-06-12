@@ -13,8 +13,8 @@ module Location
       location == self ? 0.0 : Location::NOWHERE_NEAR
     end
     
-    def find_within(distance = nil, options = {})
-      options[:include_self] == true ? [self] : []
+    def find_within(options = {})
+      options[:include_self] ? [self] : []
     end
     
     def near?(location, distance = nil)

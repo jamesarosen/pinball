@@ -114,7 +114,7 @@ class AddressLocationTest < ActiveSupport::TestCase
     end
     
     should 'find nearby addresses' do
-      assert_equal [@fifth_ave_ny], @ny_ny.find_nearby
+      assert_equal [@fifth_ave_ny], @ny_ny.find_nearby(:include_self => false)
     end
     
   end

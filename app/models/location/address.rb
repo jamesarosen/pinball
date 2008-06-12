@@ -39,9 +39,11 @@ module Location
     before_validation :geocode_address_if_necessary
     validate_on_create :validate_has_lat_long
     
-    def find_within(distance = nil, options = {})
+    def find_within(options = {})
+      include_self = (options.delete(:include_self) != false)
+      distance = options.delete(:distance) || Location::DEFAULT_DISTANCE
       result = self.class.find_within(distance, options.merge(:origin => self))
-      result.delete(self) unless (options[:include_self] == true)
+      result.delete(self) unless include_self
       result
     end
     

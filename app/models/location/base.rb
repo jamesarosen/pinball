@@ -15,23 +15,31 @@ module Location
     def long; longitude; end
     def lng; longitude; end
     
-    # Distance to +location+, in miles.  Subclasses *MUST* redefine this method.
+    # Distance to +location+, in miles.
+    #
+    # Subclasses *MUST* redefine this method.
     def distance_to(location)
       raise NotImplementedError.new('subclasses must redefine distance_to')
     end
     
-    # Returns all addresses within +distance+ miles of this address.
-    # If options[:include_self] is true, includes self.  Subclasses *MUST*
-    # redefine this method.
-    def find_within(distance = nil, options = {})
+    # Returns all addresses within <tt>options[:distance]</tt> miles of this
+    # address.
+    # 
+    # If <tt>options[:include_self]</tt> is true (by default it is), includes
+    # self.
+    # 
+    # Subclasses *MUST* redefine this method.
+    def find_within(options = {})
       raise NotImplementedError.new('subclasses must redefine find_within')
     end
     
     # Alias for +find_within+.
-    def find_nearby(distance = nil, options = {}); find_within(distance, options); end
+    def find_nearby(options = {}); find_within(options); end
     
     # Whether +other+ is within +distance+ miles; +distance+ defaults to 
-    # Location::DEFAULT_DISTANCE.  Subclasses *MUST* redefine this method.
+    # Location::DEFAULT_DISTANCE.
+    # 
+    # Subclasses *MUST* redefine this method.
     def near?(other, distance = nil)
       raise NotImplementedError.new('subclasses must redefine near?')
     end
