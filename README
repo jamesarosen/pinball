@@ -13,3 +13,8 @@ Project Pinball is...
   git submodule add git://github.com/rails/rails.git vendor/rails
   git submodule init
   git submodule update
+
+=== Errors
+
+	"SQLite3::SQLException: SQL logic error or missing database"
+	Try rake db:fixtures:load
