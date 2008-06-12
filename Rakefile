@@ -8,3 +8,19 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+namespace :db do
+  namespace :test do
+    
+    desc 'Drop the dev and test dbs, drop the schema, rebuild from migrations'
+    task :rebuild do
+      rm 'db/development.sqlite3' if File.exist?('db/development.sqlite3')
+      rm 'db/test.sqlite3' if File.exist?('db/test.sqlite3')
+      rm 'db/schema.rb' if File.exist?('db/schema.rb')
+      Rake::Task['db:migrate'].invoke
+      Rake::Task['db:test:prepare'].invoke
+    end
+    
+  end
+end
+  
