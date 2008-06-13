@@ -52,6 +52,12 @@ ActionController::TestCase.class_eval do
   def current_user
     @controller.current_user
   end
+  
+  def process_with_default_format(action, parameters = nil, session = nil, flash = nil)
+    process_without_default_format(action, {:format => 'html'}.merge(parameters || {}), session, flash)
+  end
+  
+  alias_method_chain :process, :default_format
 end
 
 module TestHelperMethods

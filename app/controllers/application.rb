@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   include Utilities::Controller::Authorization
   include Utilities::Controller::ErrorHandling
   include Utilities::Controller::ModelLoader
+  include Utilities::Controller::Environment
+  include Utilities::Controller::Format
   
   helper :all # include all helpers, all the time
 
