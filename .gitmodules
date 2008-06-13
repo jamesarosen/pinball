@@ -13,3 +13,6 @@
 [submodule "vendor/plugins/geokit"]
 	path = vendor/plugins/geokit
 	url = git://github.com/ptb/geokit.git
+[submodule "vendor/rails"]
+	path = vendor/rails
+	url = git@github.com:gcnovus/rails.git
