@@ -4,9 +4,6 @@
 [submodule "vendor/plugins/tidbits"]
 	path = vendor/plugins/tidbits
 	url = git://github.com/gcnovus/ruby-tidbits.git
-[submodule "vendor/rails"]
-	path = vendor/rails
-	url = git://github.com/rails/rails.git
 [submodule "vendor/plugins/avatar"]
 	path = vendor/plugins/avatar
 	url = git://github.com/gcnovus/avatar.git
