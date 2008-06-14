@@ -1,7 +1,17 @@
 <h1>Friends#following</h1>
 <p>
-	People <%= @requested_profile %> is following.  If logged_in? and is_self?, breaks the list down by tier.
+	People <%= requested_profile %> is following
 </p>
+<% if is_self? -%>
+	<% [1, 2, 3].each do |tier| -%>
+		<h2>Tier <%= tier -%></h2>
+		<%= render :partial => 'following_by_tier', :locals => { :tier => tier} -%>
+	<% end -%>
+<% else -%>
+	<% requested_profile.following.each do |f| -%>
+		<li><%= link_to f, profile_path(:profile_id => f) -%></li>
+	<% end -%>
+<% end -%>
 <h2>Links</h2>
 <ul>
 	<li><%= link_to 'Followers', followers_path -%></li>

@@ -2,6 +2,7 @@
 <p>
 	People I am following in tier <%= requested_tier %>.
 </p>
+<%= render :partial => 'following_list', :locals => { :following => requested_profile.following.by_tier(requested_tier) } -%>
 <h2>Links</h2>
 <ul>
 	<li><%= link_to 'Followers', followers_path -%></li>

@@ -20,17 +20,20 @@
 </table>
 <h2>Links</h2>
 <ul>
-	<li><%= link_to 'Edit', edit_profile_path -%> if logged_in? and is_self?</li>
-	<% if logged_in? && !is_self? -%>
-	<li><%= link_to 'Follow!', follow_path(:profile_id => current_user, :follow_profile_id => requested_profile) -%> if not following?</li>
-	<li><%= link_to 'Move to Tier', move_to_tier_path(:profile_id => current_user, :follow_profile_id => requested_profile) -%> if following?</li>
-	<li><%= link_to 'Unfollow!', unfollow_path(:profile_id => current_user, :follow_profile_id => requested_profile) -%> if following?</li>
+	<% if logged_in? -%>
+		<% if is_self? -%>
+			<li><%= link_to 'Edit', edit_profile_path -%></li>
+			<li><%= link_to 'Tier 1 Following', following_by_tier_path(:tier => 1) -%></li>
+			<li><%= link_to 'Tier 2 Following', following_by_tier_path(:tier => 2) -%></li>
+			<li><%= link_to 'Tier 3 Following', following_by_tier_path(:tier => 3) -%></li>
+		<% else -%>
+			<li><%= link_to 'Follow!', follow_path(:profile_id => current_user, :follow_profile_id => requested_profile) -%> if not following?</li>
+			<li><%= link_to 'Move to Tier', move_to_tier_path(:profile_id => current_user, :follow_profile_id => requested_profile) -%> if following?</li>
+			<li><%= link_to 'Unfollow!', unfollow_path(:profile_id => current_user, :follow_profile_id => requested_profile) -%> if following?</li>
+		<% end -%>
+		<li><%= link_to 'Followers', followers_path -%></li>
+		<li><%= link_to 'Following', following_path -%></li>
+		<li><%= link_to 'Friends', friends_path -%></li>
+		<li><%= link_to 'Logout', logout_path -%></li>
 	<% end -%>
-	<li><%= link_to 'Followers', followers_path -%></li>
-	<li><%= link_to 'Following', friends_path -%></li>
-	<li><%= link_to 'Tier 1 Following', following_by_tier_path(:tier => 1) -%> if is_self?</li>
-	<li><%= link_to 'Tier 2 Following', following_by_tier_path(:tier => 2) -%> if is_self?</li>
-	<li><%= link_to 'Tier 3 Following', following_by_tier_path(:tier => 3) -%> if is_self?</li>
-	<li><%= link_to 'Friends', friends_path -%></li>
-	<li><%= link_to 'Logout', logout_path -%> if logged_in?</li>
 </ul>

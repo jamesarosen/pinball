@@ -34,9 +34,21 @@ class Alpha < ActiveRecord::Migration
       t.decimal   'longitude',                :precision => 12, :scale => 9  # xyz.abcdefghi
       t.timestamps
     end
+    
+    create_table "friends", :force => true do |t|
+      t.belongs_to  :inviter,                 :nil => false
+      t.belongs_to  :invitee,                 :nil => false
+      t.integer     'status',                 :default => 0
+      t.integer     'tier',                   :nil => false, :default => 3
+      t.timestamps
+    end
+
+    add_index "friends", ["inviter_id", "invitee_id"], :name => "index_friends_on_inviter_id_and_invitee_id", :unique => true
+    add_index "friends", ["invitee_id", "inviter_id"], :name => "index_friends_on_invitee_id_and_inviter_id", :unique => true
   end
 
   def self.down
+    drop_table :friends
     drop_table :locations
     drop_table :profiles
     drop_table :users
