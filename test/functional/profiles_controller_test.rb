@@ -104,7 +104,7 @@ class ProfilesControllerTest < ActionController::TestCase
     end
     
     should_be_allowed 'to see the form to refer a friend' do
-      get :refer_a_friend, :profile_id => current_user
+      get :refer_a_friend_form, :profile_id => current_user
     end
     
     should 'be able to refer a friend' do

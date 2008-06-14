@@ -1,107 +1,97 @@
 ActionController::Routing::Routes.draw do |map|
-  # The priority is based upon order of creation: first created -> highest priority.
-
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
-
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
-
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-
-  # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
+  
+  # The following methods can be used in block form, like so:
+  #   map.html_or_api do |m|
+  #     m.connect ...
   #   end
+  # or to generate a defalt hash of options, like so:
+  #   map.connect '...', html_get(:action => '...')
+  #
+  # * get
+  # * post
+  # * html
+  # * html_or_api
+  # * html_or_api_or_feeds
+  # * html_get              (great for forms that can only be seen in browser)
+  # * html_or_api_get       (great for data that can be seen in browser or via the API)
+  # * html_or_api_post      (great for data to be updated in browser or via API)
 
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => 'static', :action => 'welcome'
   
-  map.with_options(:controller => 'static', :conditions => { :method => :get }) do |m|
-    m.connect 'docs/:page', :action => 'page'
+  map.get(:controller => 'static') do |m|
+    m.document 'docs/:page.:format', :action => 'page'
   end
   
   map.with_options(:controller => 'accounts') do |m|
-    m.with_options(:conditions => { :method => :get }) do |n|
-      n.connect 'accounts/login', :action => 'login'
-      n.connect 'accounts/signup', :action => 'signup'
-      n.connect 'accounts/logout', :action => 'logout'
+    m.get do |n|
+      n.login_form 'accounts/login.:format', :action => 'login'
+      n.signup_form 'accounts/signup.:format', :action => 'signup'
+      
+      # TODO: should logout be POST only?  If so, how do we fake POST through GET?
+      n.logout 'accounts/logout.:format', :action => 'logout'
     end
-    m.with_options(:conditions => { :method => :post }) do |n|
-      n.connect 'accounts/login/password', :action => 'password_login'
-      n.connect 'accounts/signup/password', :action => 'password_signup'
+    
+    m.post do |n|
+      n.password_login 'accounts/login/password.:format', :action => 'password_login'
+      n.password_signup 'accounts/signup/password.:format', :action => 'password_signup'
     end
   end
   
   map.with_options(:controller => 'profiles') do |m|
-    m.connect 'refer_a_friend', :action => 'refer_a_friend', :conditions => { :method => [:get, :post ] }
-    m.with_options(:conditions => { :method => :get }) do |n|
-      n.connect 'people/:profile_id', :action => 'show'
-      n.connect 'people/:profile_id/dashboard', :action => 'dashboard'
-      n.connect 'people/:profile_id/getting_started', :action => 'getting_started'
-      n.connect 'people/:profile_id/edit', :action => 'edit'
+    m.get do |n|
+      n.profile 'people/:profile_id.:format', :action => 'show'
+      n.dashboard 'people/:profile_id/dashboard.:format', :action => 'dashboard'
+      n.getting_started 'people/:profile_id/getting_started.:format', :action => 'getting_started'
+      n.edit_profile 'people/:profile_id/edit.:format', :action => 'edit'
+      n.refer_a_friend 'refer_a_friend.:format', :action => 'refer_a_friend_form'
     end
-    m.with_options(:conditions => { :method => :post }) do |n|
-      n.connect 'people/:profile_id/update', :action => 'update'
+    
+    m.put do |n|
+      n.connect 'people/:profile_id.:format', :action => 'update'
+    end
+    
+    m.post do |n|
+      n.connect 'refer_a_friend.:format', :action => 'refer_a_friend'
     end
   end
   
   map.with_options(:controller => 'friends') do |m|
-    m.with_options(:conditions => { :method => :get }) do |n|
-      n.connect 'people/:profile_id/following', :action => 'following'
-      n.connect 'people/:profile_id/following/tier/:tier', :action => 'following_by_tier'
-      n.connect 'people/:profile_id/followers', :action => 'followers'
-      n.connect 'people/:profile_id/friends', :action => 'friends'
+    m.get do |n|
+      n.following 'people/:profile_id/following.:format', :action => 'following'
+      n.following_by_tier 'people/:profile_id/following/tier/:tier.:format', :action => 'following_by_tier'
+      n.followers 'people/:profile_id/followers.:format', :action => 'followers'
+      n.friends 'people/:profile_id/friends.:format', :action => 'friends'
     end
-    m.with_options(:conditions => { :method => :post }) do |n|
-      n.connect 'people/:profile_id/follow', :action => 'follow'
-      n.connect 'people/:profile_id/unfollow', :action => 'unfollow'
-      n.connect 'people/:profile_id/move_to_tier', :action => 'move_to_tier'
+    m.post do |n|
+      n.follow 'people/:profile_id/follow.:format', :action => 'follow'
+      n.unfollow 'people/:profile_id/unfollow.:format', :action => 'unfollow'
+      n.move_to_tier 'people/:profile_id/move_to_tier.:format', :action => 'move_to_tier'
     end
   end
 
   map.with_options(:controller => 'location') do |m|
-    m.with_options(:conditions => { :method => :get }) do |n|
-      n.connect 'people/:profile_id/location', :action => 'current'
-      n.connect 'people/:profile_id/location/edit', :action => 'edit'
-      n.connect 'people/:profile_id/location/whos_around', :action => 'whos_around'
+    m.get do |n|
+      n.location 'people/:profile_id/location.:format', :action => 'current'
+      n.whos_around 'people/:profile_id/location/whos_around.:format', :action => 'whos_around'
+      n.edit_location 'people/:profile_id/location/edit.:format', :action => 'edit'
     end
-    m.with_options(:conditions => { :method => :post }) do |n|
-      n.connect 'people/:profile_id/location/update', :action => 'update'
-    end
-  end
-
-  map.with_options(:controller => 'favorite_locations') do |m|
-    m.with_options(:conditions => { :method => :get }) do |n|
-      n.connect 'people/:profile_id/location/favorites', :action => 'list'
-      n.connect 'people/:profile_id/location/favorites/add', :action => 'add'
-      n.connect 'people/:profile_id/location/favorites/:favorite_location_id/edit', :action => 'edit'
-    end
-    m.with_options(:conditions => { :method => :post }) do |n|
-      n.connect 'people/:profile_id/location/favorites/create', :action => 'create'
-      n.connect 'people/:profile_id/location/favorites/:favorite_location_id/delete', :action => 'delete'
-      n.connect 'people/:profile_id/location/favorites/:favorite_location_id/update', :action => 'update'
+    
+    m.put do |n|
+      n.connect 'people/:profile_id/location.:format', :action => 'update'
     end
   end
   
+  map.resources :favorite_locations, :path_prefix => '/people/:profile_id/location', :as => 'favorites'
+  
   map.with_options(:controller => 'settings') do |m|
-    m.with_options(:conditions => { :method => :get }) do |n|
-      n.connect 'people/:profile_id/settings/notifications', :action => 'edit_notifications'
-      n.connect 'people/:profile_id/settings/privacy', :action => 'edit_privacy'
+    m.get do |n|
+      n.edit_notifications 'people/:profile_id/settings/notifications.:format', :action => 'edit_notifications'
+      n.edit_privacy 'people/:profile_id/settings/privacy.:format', :action => 'edit_privacy'
     end
-    m.with_options(:conditions => { :method => :get }) do |n|
-      n.connect 'people/:profile_id/settings/notifications', :action => 'update_notifications'
-      n.connect 'people/:profile_id/settings/privacy', :action => 'update_privacy'
+    
+    m.post do |n|
+      n.connect 'people/:profile_id/settings/notifications.:format', :action => 'update_notifications'
+      n.connect 'people/:profile_id/settings/privacy.:format', :action => 'update_privacy'
     end
   end
 end

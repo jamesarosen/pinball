@@ -26,12 +26,14 @@ class ProfilesController < ApplicationController
     redirect_to :action => 'show'
   end
   
-  # GET or POST
+  # GET only
+  def refer_a_friend_form
+    render :action => 'refer_a_friend'
+  end
+  
+  # POST only
   def refer_a_friend
-    if request.get?
-    elsif request.post?
-      redirect_to :profile_id => current_user, :action => 'dashboard'
-    end
+    redirect_to :profile_id => current_user, :action => 'dashboard'
   end
   
   private

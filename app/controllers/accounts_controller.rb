@@ -28,7 +28,8 @@ class AccountsController < ApplicationController
 
   # POST only
   def password_signup
-    u = User.new((params[:user] || {}).pass(:terms_of_service, :login, :password, :password_confirmation, :email))
+    params[:user] ||= {}
+    u = User.new(params[:user].pass(:terms_of_service, :login, :password, :password_confirmation, :email))
     if u.save
       remember_me if params[:remember_me] == "1"
       self.current_user = u

@@ -3,30 +3,30 @@ class FavoriteLocationsController < ApplicationController
   requires_is_self
   
   # GET only
-  def list
+  def index
   end
 
   # GET only
-  def add
+  def new
   end
   
   # POST only
   def create
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
 
   # GET only
   def edit
   end
 
-  # POST only
-  def delete
-    redirect_to :action => 'list'
+  # DELETE only
+  def destroy
+    redirect_to :action => 'index'
   end
 
-  # POST only
+  # PUT only
   def update
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
 
 end
