@@ -1,5 +1,5 @@
 <h1>Edit your profile</h1>
-<% form_for :profile, :url => { :action => 'update' }, :method => :post do |f| %>
+<% form_for :profile, requested_profile, :url => profile_path, :method => :put do |f| %>
 
 	<fieldset>
 		<%= f.text_field :email, :class => 'text' %>
@@ -19,7 +19,6 @@
 <% end %>
 <h2>Links</h2>
 <ul>
-	<li><%= link_to 'Cancel', :action => 'show' %></li>
-	<li><%= link_to 'Logout', :controller => 'accounts', :action => 'logout' %></li>
+	<li><%= link_to 'Cancel', profile_path -%></li>
+	<li><%= link_to 'Logout', logout_path -%></li>
 </ul>
-<p>Find me in app/views/profiles/edit.html.erb</p>

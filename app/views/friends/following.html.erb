@@ -4,8 +4,7 @@
 </p>
 <h2>Links</h2>
 <ul>
-	<li><%= link_to 'Followers', :action => 'followers' %></li>
-	<li><%= link_to 'Friends', :action => 'friends' %></li>
-	<li><%= link_to 'Logout', :controller => 'accounts', :action => 'logout' %> if logged_in?</li>
+	<li><%= link_to 'Followers', followers_path -%></li>
+	<li><%= link_to 'Friends', friends_path -%></li>
+	<li><%= link_to 'Logout', logout_path -%> if logged_in?</li>
 </ul>
-<p>Find me in app/views/friends/following.html.erb</p>

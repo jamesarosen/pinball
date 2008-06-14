@@ -2,7 +2,6 @@
 <div><%= render :partial => "#{@type}_login"%></div>
 <h2>Links</h2>
 <ul>
-	<li><%= link_to 'Welcome', :controller => 'static', :action => 'welcome' %></li>
-	<li>Don't have an account?  <%= link_to 'Signup', :action => 'signup' %></li>
+	<li><%= link_to 'Welcome', root_path %></li>
+	<li>Don't have an account?  <%= link_to 'Signup', signup_form_path %></li>
 </ul>
-<p>Find me in app/views/accounts/login.html.erb</p>

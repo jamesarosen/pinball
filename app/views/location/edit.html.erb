@@ -1,6 +1,6 @@
-<h1>Locations#update</h1>
+<h1>Locations#edit</h1>
 
-<% form_tag url_for(:action => 'update'), :method => :post do -%>
+<% form_tag location_path, :method => :put do -%>
 	<%= text_field_tag :location, params[:location] || requested_profile.location, :class => 'text focus' %>
 	<%= submit_tag 'Update your location', :class => 'button' %>	
 <% end -%>
@@ -10,4 +10,3 @@
 	airport terminal, you might want to read the reference on
 	<%= link_to 'airport codes', :controller => 'static', :action => 'page', :page => 'airport_codes' -%>.
 </p>
-<p>Find me in app/views/locations/update.html.erb</p>
