@@ -53,6 +53,10 @@ ActionController::TestCase.class_eval do
     @controller.current_user
   end
   
+  def current_profile
+    current_user ? current_user.profile : nil
+  end
+  
   def process_with_default_format(action, parameters = nil, session = nil, flash = nil)
     process_without_default_format(action, {:format => 'html'}.merge(parameters || {}), session, flash)
   end

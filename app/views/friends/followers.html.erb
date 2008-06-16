@@ -1,5 +1,6 @@
 <h1>Friends#followers</h1>
-<p>People following <%= @requested_profile %></p>
+<p>People following <%= requested_profile %></p>
+<%= render :partial => 'following_list', :locals => { :list => requested_profile.followers } %>
 <h2>Links</h2>
 <ul>
 	<li><%= link_to 'Following', following_path -%></li>

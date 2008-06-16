@@ -1,6 +1,7 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  include Friendshipness
   
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
@@ -18,6 +19,7 @@ class User < ActiveRecord::Base
   # but delete the foreign key back to the User
   # and deactivate the profile.
   has_one :profile, :dependent => :nullify
+  
   validates_each(:email, :on => :create, :allow_blank => true) do |user, attribute, value|
     p = Profile.find_by_email(value)
     user.errors.add(attribute, 'is already taken') unless p.blank?
