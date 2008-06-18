@@ -16,3 +16,6 @@
 [submodule "vendor/rails"]
 	path = vendor/rails
 	url = git@github.com:gcnovus/rails.git
+[submodule "vendor/plugins/grammar"]
+	path = vendor/plugins/grammar
+	url = git://github.com/gcnovus/grammar.git
