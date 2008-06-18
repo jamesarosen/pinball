@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   attr_accessor :return_to_after_login_location
   
   def load_grammatical_context
-    audience = logged_in? current_user.profile : nil
+    audience = logged_in? ? current_user.profile : nil
     subject = requested_profile
     self.grammatical_context = Grammar::GrammaticalContext.new(:subject => subject, :audience => audience)
   end
