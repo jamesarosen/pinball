@@ -19,7 +19,8 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'static', :action => 'welcome'
   
   map.get(:controller => 'static') do |m|
-    m.document 'docs/:page.:format', :action => 'page'
+    m.help_index  'docs.:format', :action => 'index'
+    m.document    'docs/:page.:format', :action => 'page'
   end
   
   map.with_options(:controller => 'accounts') do |m|

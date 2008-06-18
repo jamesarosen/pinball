@@ -1,4 +1,7 @@
 class StaticController < ApplicationController
+  
+  def index
+  end
 
   def welcome
     if logged_in?
