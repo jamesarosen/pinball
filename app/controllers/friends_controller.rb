@@ -1,6 +1,7 @@
 class FriendsController < ApplicationController
 
   requires_is_self :only => [ :following_by_tier, :follow, :unfollow, :move_to_tier ]
+  requires_profile
   append_before_filter :require_follow_profile!, :only => [ :follow, :unfollow, :move_to_tier ]
   append_before_filter :require_requested_tier!, :only => [ :following_by_tier, :move_to_tier ]
   
@@ -28,19 +29,19 @@ class FriendsController < ApplicationController
   # POST only: add a following
   def follow
     requested_profile.follow!(requested_follow_profile)
-    redirect_to :action => 'following'
+    redirect_to :action => 'following', :profile_id => current_user.profile
   end
   
   # POST only: delete a following
   def unfollow
     requested_profile.unfollow!(requested_follow_profile)
-    redirect_to :action => 'following'
+    redirect_to :action => 'following', :profile_id => current_user.profile
   end
   
   # POST only: moves a following to a different tier
   def move_to_tier
     requested_profile.move_to_tier!(requested_follow_profile, requested_tier)
-    redirect_to :action => 'following_by_tier', :tier => params[:tier]
+    redirect_to :action => 'following_by_tier', :profile_id => current_user.profile, :tier => params[:tier]
   end
   
   private
