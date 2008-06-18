@@ -1,0 +1,14 @@
+joan_jack:
+    follower: joan
+    followee: jack
+    tier: 1
+
+joan_patrick:
+    follower: joan
+    followee: patrick
+    tier: 3
+
+jack_joan:
+    follower: jack
+    followee: joan
+    tier: 2

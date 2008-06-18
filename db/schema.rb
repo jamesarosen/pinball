@@ -11,6 +11,17 @@
 
 ActiveRecord::Schema.define(:version => 20080526223738) do
 
+  create_table "friendships", :force => true do |t|
+    t.integer  "follower_id"
+    t.integer  "followee_id"
+    t.integer  "tier",        :default => 3
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "friendships", ["followee_id", "follower_id"], :name => "index_friendships_on_followee_id_and_follower_id", :unique => true
+  add_index "friendships", ["follower_id", "followee_id"], :name => "index_friendships_on_follower_id_and_followee_id", :unique => true
+
   create_table "locations", :force => true do |t|
     t.string   "display_name"
     t.string   "location_type"

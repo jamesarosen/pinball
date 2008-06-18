@@ -35,20 +35,19 @@ class Alpha < ActiveRecord::Migration
       t.timestamps
     end
     
-    create_table "friends", :force => true do |t|
-      t.belongs_to  :inviter,                 :nil => false
-      t.belongs_to  :invitee,                 :nil => false
-      t.integer     'status',                 :default => 0
+    create_table "friendships", :force => true do |t|
+      t.belongs_to  :follower,                :nil => false
+      t.belongs_to  :followee,                :nil => false
       t.integer     'tier',                   :nil => false, :default => 3
       t.timestamps
     end
 
-    add_index "friends", ["inviter_id", "invitee_id"], :name => "index_friends_on_inviter_id_and_invitee_id", :unique => true
-    add_index "friends", ["invitee_id", "inviter_id"], :name => "index_friends_on_invitee_id_and_inviter_id", :unique => true
+    add_index "friendships", ["follower_id", "followee_id"], :name => "index_friendships_on_follower_id_and_followee_id", :unique => true
+    add_index "friendships", ["followee_id", "follower_id"], :name => "index_friendships_on_followee_id_and_follower_id", :unique => true
   end
 
   def self.down
-    drop_table :friends
+    drop_table :friendships
     drop_table :locations
     drop_table :profiles
     drop_table :users

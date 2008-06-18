@@ -5,12 +5,10 @@
 <% if is_self? -%>
 	<% [1, 2, 3].each do |tier| -%>
 		<h2>Tier <%= tier -%></h2>
-		<%= render :partial => 'following_by_tier', :locals => { :tier => tier} -%>
+		<%= render :partial => 'following_list', :locals => { :list => requested_profile.followees.by_tier(tier) } -%>
 	<% end -%>
 <% else -%>
-	<% requested_profile.following.each do |f| -%>
-		<li><%= link_to f, profile_path(:profile_id => f) -%></li>
-	<% end -%>
+	<%= render :partial => 'following_list', :locals => { :list => requested_profile.followees } %>
 <% end -%>
 <h2>Links</h2>
 <ul>
