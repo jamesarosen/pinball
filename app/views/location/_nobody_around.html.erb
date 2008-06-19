@@ -1,8 +1,7 @@
-<%
-	header = if requested_profile.location.kind_of?(Location::Airport)
-		"There is nobody else in #{requested_profile.location} airport"
-	else
-		"There is nobody near #{requested_profile.location}"
-	end
-	title(header)
-%>
+<p>
+<% if requested_profile.location.kind_of?(Location::Airport) -%>
+	There is nobody else in <%= requested_profile.location -%> airport.
+<% else -%>
+	There is nobody near <%= requested_profile.location -%>.
+<% end -%>
+</p>

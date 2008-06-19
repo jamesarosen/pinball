@@ -1,11 +1,10 @@
-<%
-	header = if requested_profile.location.kind_of?(Location::Airport)
-		"People in #{requested_profile.location} airport"
-	else
-		"People near #{requested_profile.location}"
-	end
-	title(header)
-%>
+<p>
+<% if requested_profile.location.kind_of?(Location::Airport) -%>
+	People in <%= requested_profile.location -%> airport:
+<% else -%>
+	People near <%= requested_profile.location -%>:
+<% end -%>
+</p>
 
 <ul>
 	<% @whos_around.each do |p| -%>
