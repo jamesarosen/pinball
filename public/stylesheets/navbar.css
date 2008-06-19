@@ -1,0 +1,32 @@
+div#navbar {
+	border-top: 0;
+	margin-top: -1px;
+	font-weight: bold;
+	padding: 15px;
+	text-align: center;
+}
+
+div#navbar ul li {
+	display: inline;
+	font-size: 1.3em;
+}
+
+div#navbar ul li+li {
+	margin-left: 1em;
+}
+
+div#navbar ul li img {
+	height: 1.05em;
+	margin-right: .5em;
+}
+
+div#navbar ul li a {
+	border-bottom: 0;
+	display: inline;
+	padding: .2em .2em .2em .5em;
+	text-decoration: none;
+}
+
+div#navbar ul li a:hover, div#navbar ul li a:focus {
+	text-decoration: none;
+}
