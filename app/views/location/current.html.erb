@@ -1,6 +1,8 @@
-<h1>Locations#current</h1>
-<p><%= @requested_profile -%> is at <%= @location %>.</p>
+<% title "#{display_name(requested_profile, :case => :possessive)} Current Location" -%>
+<%= h1_title -%>
+
+<p><%= @requested_profile -%> is at <%= @location %><%= @location.kind_of?(Location::Airport) ? 'Airport' : '' -%>.</p>
 <h2>Links</h2>
 <ul>
-	<li><%= link_to edit_location_path -%> if logged_in? and is_self?</li>
+	<li><%= link_to 'Edit', edit_location_path -%> if logged_in? and is_self?</li>
 </ul>

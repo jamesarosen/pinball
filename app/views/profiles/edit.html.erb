@@ -1,4 +1,6 @@
-<h1>Edit your profile</h1>
+<% title 'Edit Your Profile' -%>
+<%= h1_title -%>
+
 <% form_for :profile, requested_profile, :url => profile_path, :method => :put do |f| %>
 
 	<fieldset>

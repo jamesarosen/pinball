@@ -1,3 +1,5 @@
-<h1>Friends#friends</h1>
+<% title 'Friends' -%>
+<%= h1_title -%>
+
 <p>People friends with <%= requested_profile %></p>
 <%= render :partial => 'following_list', :locals => { :list => requested_profile.friends } %>

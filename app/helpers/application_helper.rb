@@ -2,6 +2,14 @@
 module ApplicationHelper
   include Forms
   
+  def title(page_title)
+    content_for(:title, page_title || 'Default Title')
+  end
+  
+  def h1_title
+    content_tag(:h1, @content_for_title)
+  end
+  
   private
   
   def render_flash(message = 'There were some problems with your submission:')
@@ -11,7 +19,7 @@ module ApplicationHelper
       flash_to_display, level = flash[:warning], 'warning'
     elsif flash[:error]
       level = 'error'
-      if flash[:error].instance_of?( ActiveRecord::Errors) || flash[:error].is_a?( Hash)
+      if flash[:error].instance_of?(ActiveRecord::Errors) || flash[:error].is_a?(Hash)
         flash_to_display = message
         flash_to_display << activerecord_error_list(flash[:error])
       else
