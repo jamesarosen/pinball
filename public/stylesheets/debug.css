@@ -1,0 +1,31 @@
+div#wrapper {
+	background: #d38;
+}
+
+div#header {
+	background:#ddd;
+}
+
+div#main {
+	background: #93f;
+}
+
+div#content {
+	background:#9c9;
+}
+
+div#sidebar {
+    background:#99c;
+}
+
+div#navbar {
+	background:#c99;
+}
+
+div#navbar li {
+	background: #cc4;
+}
+
+div#footer {
+	background:#cc9;
+}
