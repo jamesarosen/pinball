@@ -135,28 +135,26 @@ module Forms
   end
   
   
-  unless method_defined?(:text_field_without_before_and_after)
-    alias_method_chain :label, :default
-    alias_method_chain :text_field, :before_and_after
-    alias_method_chain :password_field, :before_and_after
-    alias_method_chain :hidden_field, :before_and_after
-    alias_method_chain :file_field, :before_and_after
-    alias_method_chain :text_area, :before_and_after
-    alias_method_chain :check_box, :before_and_after
-    alias_method_chain :radio_button, :before_and_after
-    alias_method_chain :select, :before_and_after
-    
-    alias_method_chain :label_tag, :default
-    alias_method_chain :select_tag, :before_and_after
-    alias_method_chain :text_field_tag, :before_and_after
-    alias_method_chain :hidden_field_tag, :before_and_after
-    alias_method_chain :file_field_tag, :before_and_after
-    alias_method_chain :text_area_tag, :before_and_after
-    alias_method_chain :check_box_tag, :before_and_after
-    alias_method_chain :radio_button_tag, :before_and_after
-    alias_method_chain :submit_tag, :before_and_after
-    alias_method_chain :image_submit_tag, :before_and_after
-  end
+  alias_method_chain_once :label, :default
+  alias_method_chain_once :text_field, :before_and_after
+  alias_method_chain_once :password_field, :before_and_after
+  alias_method_chain_once :hidden_field, :before_and_after
+  alias_method_chain_once :file_field, :before_and_after
+  alias_method_chain_once :text_area, :before_and_after
+  alias_method_chain_once :check_box, :before_and_after
+  alias_method_chain_once :radio_button, :before_and_after
+  alias_method_chain_once :select, :before_and_after
+  
+  alias_method_chain_once :label_tag, :default
+  alias_method_chain_once :select_tag, :before_and_after
+  alias_method_chain_once :text_field_tag, :before_and_after
+  alias_method_chain_once :hidden_field_tag, :before_and_after
+  alias_method_chain_once :file_field_tag, :before_and_after
+  alias_method_chain_once :text_area_tag, :before_and_after
+  alias_method_chain_once :check_box_tag, :before_and_after
+  alias_method_chain_once :radio_button_tag, :before_and_after
+  alias_method_chain_once :submit_tag, :before_and_after
+  alias_method_chain_once :image_submit_tag, :before_and_after
   
   private
   

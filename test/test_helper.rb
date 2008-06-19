@@ -43,9 +43,7 @@ ActionController::TestCase.class_eval do
     @session = @controller.session = @request.session
   end
   
-  unless method_defined?(:setup_controller_request_and_response_without_session)
-    alias_method_chain :setup_controller_request_and_response, :session
-  end
+  alias_method_chain_once :setup_controller_request_and_response, :session
   
   def logged_in?
     @controller.logged_in?
@@ -63,9 +61,7 @@ ActionController::TestCase.class_eval do
     process_without_default_format(action, {:format => 'html'}.merge(parameters || {}), session, flash)
   end
   
-  unless method_defined?(:process_without_default_format)
-    alias_method_chain :process, :default_format
-  end
+  alias_method_chain_once :process, :default_format
 end
 
 module TestHelperMethods
