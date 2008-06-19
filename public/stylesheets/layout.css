@@ -34,23 +34,6 @@ div#content {
 	text-align: left;
 }
 
-div#sidebar {
-	float: right;
-	font-size: 1.2em;
-	text-align: left;
-	width: 14em;
-}
-
-div#navbar {
-	border: 2px solid black;
-	border-top: 0;
-	clear: both;
-}
-
-div#navbar li {
-	display: inline;
-}
-
 div#footer {
 	clear: both;
 }

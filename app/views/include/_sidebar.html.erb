@@ -1,5 +1,13 @@
 <% if logged_in? -%>
 <div class='widget'>
+	<h3>Location</h3>
+	<p>
+		<%= render :partial => 'location/current', :locals => { :profile => current_user.profile } -%>.
+		(<a href='<%= url_for edit_location_path(:profile_id => current_user.profile) -%>'>change</a>)
+	</p>
+</div>
+
+<div class='widget'>
 	<h3>Social</h3>
 	<ul>
 		<li><%= link_to 'Friends', friends_path(:profile_id => current_user.profile) -%></li>
