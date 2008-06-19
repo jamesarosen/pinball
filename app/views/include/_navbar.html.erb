@@ -1,0 +1,12 @@
+<ul>
+	<li class='home'><a title='Home' href='<%= root_path -%>'><span>Home</span></a></li>
+	<% if !logged_in? %>
+	<li class='login'><a title='Login' href='<%= url_for login_form_path -%>'><span>Login</span></a></li>
+	<li class='signup'><a title='signup' href='<%= url_for signup_form_path -%>'><span>Signup</span></a></li>
+	<% else %>	
+	<li class='contacts'><a title='Contacts' href='<%= following_path(:profile_id => current_user) -%>'><span>Contacts</span></a></li>
+	<li class='whos_around'><a title="Who's Around?" href='<%= whos_around_path(:profile_id => current_user) -%>'><span>Who's Around</span></a></li>
+	<li class='logout'><a title='Logout' href='<%= logout_path -%>'><span>Logout</span></a></li>
+	<% end %>
+	<li class='help'><a title='Help' href='<%= help_index_path -%>'><span>Help</span></a></li>
+</ul>

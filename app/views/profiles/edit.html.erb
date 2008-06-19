@@ -17,10 +17,7 @@
 		<%= password_field_tag :new_password_confirmation, nil, :class => 'password', :label => 'New Password (confirm): ' %>
 	</fieldset>
 	
-	<%= submit_tag 'Submit changes', :class => 'submit', :class => 'button' %>
+	<%= submit_tag 'Submit changes', :class => 'submit button' %>
+	
+	<%= submit_tag 'Cancel', :class => 'cancel button' %>
 <% end %>
-<h2>Links</h2>
-<ul>
-	<li><%= link_to 'Cancel', profile_path -%></li>
-	<li><%= link_to 'Logout', logout_path -%></li>
-</ul>

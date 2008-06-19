@@ -5,12 +5,3 @@
 	People you are following in tier <%= requested_tier %>.
 </p>
 <%= render :partial => 'following_list', :locals => { :list => requested_profile.followees.by_tier(requested_tier) } -%>
-<h2>Links</h2>
-<ul>
-	<li><%= link_to 'Followers', followers_path -%></li>
-	<li><%= link_to 'Friends', friends_path -%></li>
-	<li><%= link_to 'Tier 1 Following', following_by_tier_path(:tier => 1) -%> if logged_in? and is_self?</li>
-	<li><%= link_to 'Tier 2 Following', following_by_tier_path(:tier => 2) -%> if logged_in? and is_self?</li>
-	<li><%= link_to 'Tier 3 Following', following_by_tier_path(:tier => 3) -%> if logged_in? and is_self?</li>
-	<li><%= link_to 'Logout', logout_path -%> if logged_in?</li>
-</ul>
