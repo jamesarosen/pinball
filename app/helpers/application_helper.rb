@@ -6,6 +6,14 @@ module ApplicationHelper
     content_for(:title, page_title || 'Default Title')
   end
   
+  def avatar_tag(user_or_profile, avatar_options={}, html_options={})
+    return '' if user_or_profile.nil?
+    avatar_options = {:size => 40}.merge(avatar_options)
+    html_options = {:al => '(Avatar)'}.merge(html_options)
+    url = avatar_url_for(user_or_profile.profile, avatar_options)
+    image_tag(url, html_options)
+  end
+  
   private
   
   def render_flash(message = 'There were some problems with your submission:')
