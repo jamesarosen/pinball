@@ -35,4 +35,22 @@ module ApplicationHelper
     error_list
   end
   
+  
+  # Exactly as defined in vendor/plugins/grammar/lib/grammar/ext/action_view,
+  # but without the additional binding that is no longer needed.
+  #
+  # Avoids deprecation warning.
+  def with_grammatical_context(options_or_context = nil, &block) #:yields context
+    context = case options_or_context
+    when nil
+      self.grammatical_context
+    when Hash, Grammar::GrammaticalContext
+      self.grammatical_context.merge(options_or_context.to_hash)
+    else
+      raise "I don't know how to use #{options_or_context} as a GrammaticalContext"
+    end
+    
+    concat(capture(context, &block))
+  end
+  
 end

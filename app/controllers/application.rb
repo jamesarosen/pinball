@@ -9,9 +9,6 @@ class ApplicationController < ActionController::Base
   include Utilities::Controller::Environment
   include Utilities::Controller::Format
   include Utilities::Controller::Inflection
-  is_grammatical
-  
-  append_before_filter :load_grammatical_context
   
   helper :all # include all helpers, all the time
 
@@ -24,11 +21,5 @@ class ApplicationController < ActionController::Base
   private
   
   attr_accessor :return_to_after_login_location
-  
-  def load_grammatical_context
-    audience = logged_in? ? current_user.profile : nil
-    subject = requested_profile
-    self.grammatical_context = Grammar::GrammaticalContext.new(:subject => subject, :audience => audience)
-  end
   
 end
