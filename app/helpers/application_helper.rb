@@ -6,10 +6,6 @@ module ApplicationHelper
     content_for(:title, page_title || 'Default Title')
   end
   
-  def h1_title
-    content_tag(:h1, @content_for_title)
-  end
-  
   private
   
   def render_flash(message = 'There were some problems with your submission:')

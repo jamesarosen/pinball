@@ -20,6 +20,10 @@ div#header {
 	text-align: left;
 }
 
+div#header .logo, div#header h1 {
+	vertical-align: middle;
+}
+
 div#main {
 	border: 2px solid black;
 	border-top: 0;

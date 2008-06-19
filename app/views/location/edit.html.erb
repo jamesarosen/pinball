@@ -1,5 +1,4 @@
 <% title 'Where are You?' -%>
-<%= h1_title -%>
 
 <% form_tag location_path, :method => :put do -%>
 	<%= text_field_tag :location, params[:location] || requested_profile.location, :class => 'text focus' %>
