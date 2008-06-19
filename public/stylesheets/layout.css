@@ -1,17 +1,58 @@
 body {
+	font-size: 62.5%;
 	text-align: center;
 }
 
-div {
-	margin: 1em;
+div#wrapper {
+	clear: both;
+	margin: 2em auto;
+	width: 96em;
+}
+
+div#header, div#content, div#sidebar, div#navbar, div#footer {
+	font-size: 1.6em;
 	padding: 1em;
 }
 
+div#header {
+	border: 2px solid black;
+	border-bottom: 0;
+}
+
+div#main {
+	border: 2px solid black;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+div#main div.baseline {
+	clear: both;
+}
+
 div#content {
-	border: 2px solid grey;
-	margin: 2.5em auto;
+	min-height: 24em;
 	text-align: left;
-	width: 45em;
+}
+
+div#sidebar {
+	float: right;
+	font-size: 1.2em;
+	text-align: left;
+	width: 14em;
+}
+
+div#navbar {
+	border: 2px solid black;
+	border-top: 0;
+	clear: both;
+}
+
+div#navbar li {
+	display: inline;
+}
+
+div#footer {
+	clear: both;
 }
 
 div.fieldWithErrors, div.formError {

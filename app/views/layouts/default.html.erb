@@ -10,12 +10,13 @@
 	<body>
 		<div id='wrapper'>
 			<div id='header'><%= render :partial => '/include/header' -%></div>
-			<div>
+			<div id='main'>
+				<div id='sidebar'><%= render :partial => '/include/sidebar' -%></div>
 				<div id='content'>
 					<%= render_flash %>
 					<%= yield -%>
 				</div>
-				<div id='sidebar'><%= render :partial => '/include/sidebar' -%></div>
+				<div class='baseline'>&nbsp;</div>
 			</div>
 			<div id='navbar'><%= render :partial => '/include/navbar' -%></div>
 			<div id='footer'><%= render :partial => '/include/footer' -%></div>
