@@ -8,9 +8,16 @@
 	</head>
 	
 	<body>
-		<div id='content'>
-			<%= render_flash %>
-			<%= yield -%>
+		<div id='wrapper'>
+			<div id='header'><%= render :partial => '/include/header' -%></div>
+			<div>
+				<div id='content'>
+					<%= render_flash %>
+					<%= yield -%>
+				</div>
+				<div id='sidebar'><%= render :partial => '/include/sidebar' -%></div>
+			</div>
+			<div id='footer'><%= render :partial => '/include/footer' -%></div>
 		</div>
 	</body>
 </html>
