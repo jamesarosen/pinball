@@ -95,4 +95,10 @@ ActionController::Routing::Routes.draw do |map|
       n.connect 'people/:profile_id/settings/privacy.:format', :action => 'update_privacy'
     end
   end
+  
+  map.get(:controller => 'css') do |m|
+    # generated stylesheets (can't do a generic route, since it would hide /public/stylesheets)
+    m.connect '/stylesheets/color.css', :action => 'color', :format => 'css'
+    m.connect '/stylesheets/browser.css', :action => 'browser', :format => 'css'
+  end
 end

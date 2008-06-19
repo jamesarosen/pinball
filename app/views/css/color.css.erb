@@ -1,0 +1,144 @@
+<% @colors.each do |k,v| -%>
+.<%= k -%> { color: <%= v -%> }
+<% end -%>
+
+a {
+	color: <%= blue -%>;
+}
+
+a:visited, div#content a:visited {
+	color: <%= green -%>;
+}
+
+div.formError {
+	color: <%= red -%>;
+}
+
+div.fieldWithErrors input, div.fieldWithErrors textarea, div.fieldWithErrors select {
+	color: <%= dark_grey -%>;
+}
+
+div.flash.error {
+	color: <%= red -%>;
+}
+
+div.flash.warning {
+	color: <%= orange -%>;
+}
+
+body {
+	color: <%= dark_grey -%>;
+}
+
+div#header, div#main, div#navbar {
+	border-color: <%= medium_grey -%>;
+}
+
+div#navbar {
+	background-color: <%= light_grey -%>;
+}
+
+div#navbar ul li a {
+	color: <%= dark_grey -%>;
+}
+
+div#navbar ul li a:hover,
+div#navbar ul li a:focus {
+	color: <%= green -%>;
+}
+
+body.blog div#navbar ul li.blog a,
+body.login div#navbar ul li.login a,
+body.alerts div#navbar ul li.alerts a,
+body.trips div#navbar ul li.trips a,
+body.contacts div#navbar ul li.contacts a,
+body.whos_around div#navbar ul li.whos_around a {
+	color: <%= green -%>;
+}
+
+body.home div#navbar ul li.home a,
+div#navbar ul li.home a:hover,
+div#navbar ul li.home a:focus {
+	color: <%= blue -%>;
+}
+
+body.signup div#navbar ul li.signup a,
+div#navbar ul li.signup a:hover,
+div#navbar ul li.signup a:focus,
+div#navbar ul li.logout a:hover,
+div#navbar ul li.logout a:focus {
+	color: <%= orange -%>;
+}
+
+body.help div#navbar ul li.help a,
+div#navbar ul li.help a:hover,
+div#navbar ul li.help a:focus {
+	color: <%= red -%>;
+}
+
+div#footer, div#footer a {
+	color: <%= dark_grey -%>;
+}
+
+em {
+	color: <%= green -%>;
+}
+
+form {
+	color: <%= medium_grey -%>;
+}
+
+form input, form textarea {
+	background-color: <%= light_grey -%>;
+	border-color: <%= medium_grey -%>;
+	color: <%= dark_grey -%>;
+}
+
+form div div.fieldWithErrors input {
+	border-color: <%= red -%>;
+}
+
+form input.button, form input[type="button"], form input.submit, form input[type="submit"] {
+	background-color: <%= green -%>;
+	border-color: <%= light_grey -%>;
+	color: <%= white -%>;
+}
+
+form input.button:hover, form input.button:focus,
+form input[type="button"]:hover, form input[type="button"]:focus,
+form input.submit:hover, form input.submit:focus,
+form input[type="submit"]:hover, form input[type="submit"]:focus {
+	border-color: <%= light_grey -%>;
+}
+
+form input:hover, form input:focus, form textarea:hover, form input:focus {
+	border-color: <%= green -%>;
+}
+
+form p a, form p a:hover, form p a:focus, form p a:visited {
+	color: <%= green -%>
+}
+
+form label {
+	color: <%= green -%>
+}
+
+form label em {
+	color: <%= blue -%>
+}
+
+li.error {
+	color: <%= red -%>;
+}
+
+li.odd, table tr.odd, table tr.odd td {
+	background-color: <%= light_grey -%>;
+}
+
+ol.full li, ul.full li, table tbody tr + tr td, table tbody tr + tr th {
+	border-color: <%= blue -%>;
+}
+
+strong {
+	color: <%= blue -%>;
+}
