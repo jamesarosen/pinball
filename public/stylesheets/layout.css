@@ -17,6 +17,7 @@ div#header, div#content, div#sidebar, div#navbar, div#footer {
 div#header {
 	border: 2px solid black;
 	border-bottom: 0;
+	text-align: left;
 }
 
 div#main {
