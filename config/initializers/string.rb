@@ -1,6 +1,28 @@
 # Thanks, LessEverything team!
 
 String.class_eval do
+  
+  def quantitize(stuff)
+    i = if stuff.kind_of?(Numeric)
+      stuff
+    elsif stuff.respond_to?(:length)
+      stuff.length
+    elsif stuff.respond_to?(:size)
+      stuff.size
+    else
+      raise ArgumentError.new("Cannot determine quantity from #{stuff}")
+    end
+    
+    case i
+    when 0
+      "no #{self.pluralize}"
+    when 1
+      "one #{self.singularize}"
+    else
+      "#{i} #{self.pluralize}"
+    end
+  end
+  
   def strip_xml
     self.gsub(/<(.*?)>/, '')
   end
