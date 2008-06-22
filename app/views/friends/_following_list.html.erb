@@ -1,22 +1,18 @@
-<% if is_self? -%>
-	<table>
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Unfollow</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% list.each do |p| -%><tr>
-				<td><%= link_to p, profile_path(:profile_id => p) -%></td>
-				<td><%= link_to 'X', unfollow_path(:profile_id => current_user, :follow_profile_id => p), :method => :post -%></td>
-			</tr><% end -%>
-		</tbody>
-	</table>
-<% else -%>
-	<ul>
-		<% list.each do |p| -%>
-		<li><%= link_to p, profile_path(:profile_id => p) -%></li>
-		<% end -%>
-	</ul>
+<% unless list.empty? -%>
+  <% if is_self? -%>
+  	<table class='section full'>
+  		<tbody>
+  			<% list.each do |p| -%><tr>
+  				<td><%= link_to_profile(p, :size => 60) -%></td>
+  				<td><%= link_to 'Unfollow', unfollow_path(:profile_id => current_user, :follow_profile_id => p), :method => :post -%></td>
+  			</tr><% end -%>
+  		</tbody>
+  	</table>
+  <% else -%>
+  	<ul class='section full'>
+  		<% list.each do |p| -%>
+  		<li><%= link_to_profile(p, :size => 60) -%></li>
+  		<% end -%>
+  	</ul>
+  <% end -%>
 <% end -%>
