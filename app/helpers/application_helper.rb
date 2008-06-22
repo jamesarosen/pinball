@@ -2,6 +2,8 @@
 module ApplicationHelper
   include Forms
   
+  private
+  
   def title(page_title)
     content_for(:title, page_title || 'Default Title')
   end
@@ -14,7 +16,34 @@ module ApplicationHelper
     image_tag(url, html_options)
   end
   
-  private
+  def link_to_profile(user_or_profile, options = {}, &block)
+    profile = user_or_profile.profile
+    text = profile.to_s
+    options = {
+      :avatar => true, :text => true, :capitalize => true
+    }.merge(options)
+    text = display_name(profile, options)
+    options[:title] ||= text
+    content = ''
+    content << avatar_tag(profile, options, options.pass(:alt)) if options[:avatar]
+    content << '&nbsp;' if options[:avatar] && options[:text]
+    content << text if options[:text]
+    content << capture(&block) if block_given?
+    link_to(content, profile_path(profile), :title => options[:title])
+  end
+  
+  def nav_section(s = nil)
+    if s
+      clear_content_for(:nav_section)
+      content_for(:nav_section, s)
+    end
+  end
+  
+  def no_content_for(symbol)
+    if symbol
+      clear_content_for(symbol)
+    end
+  end
   
   def render_flash(message = 'There were some problems with your submission:')
     if flash[:notice]
@@ -33,6 +62,10 @@ module ApplicationHelper
       return
     end
     content_tag 'div', flash_to_display, :class => "flash #{level}"
+  end
+  
+  def clear_content_for(symbol)
+    instance_variable_set("@content_for_#{symbol}", '')
   end
 
   def activerecord_error_list(errors)

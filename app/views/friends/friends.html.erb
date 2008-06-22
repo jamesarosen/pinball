@@ -1,4 +1,5 @@
 <% title 'Friends' -%>
+<% nav_section 'contacts' -%>
 
 <p>People friends with <%= requested_profile %></p>
 <%= render :partial => 'following_list', :locals => { :list => requested_profile.friends } %>

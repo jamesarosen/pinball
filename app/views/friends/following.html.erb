@@ -1,18 +1,19 @@
-<% title 'Following' -%>
+<% title "Following" -%>
+<% nav_section 'contacts' -%>
 
-<p>
-	People <%= requested_profile %> is following
-</p>
-<% if is_self? -%>
-	<% [1, 2, 3].each do |tier| -%>
-		<h2>Tier <%= tier -%></h2>
-		<%= render :partial => 'following_list', :locals => { :list => requested_profile.followees.by_tier(tier) } -%>
-	<% end -%>
-<% else -%>
-	<%= render :partial => 'following_list', :locals => { :list => requested_profile.followees } %>
+<p class='section'>
+<% with_grammatical_context do |gc| -%>
+  <%= gc.subject -%>
+  <% if requested_profile.followees.any? -%>
+    <%= gc.conjugate('is') -%> following
+  	<%= 'person'.quantitize(requested_profile.followees) %>.
+  <% else -%>
+    <%= gc.conjugate('is') -%> not following anybody.
+  <% end -%>
 <% end -%>
-<h2>Links</h2>
-<ul>
-	<li><%= link_to 'Followers', followers_path -%></li>
-	<li><%= link_to 'Friends', friends_path -%></li>
-</ul>
+</p>
+
+<% [1, 2, 3].each do |tier| -%>
+	<h2>Tier <%= tier -%></h2>
+	<%= render :partial => 'following_list', :locals => { :list => requested_profile.followees.by_tier(tier) } -%>
+<% end -%>

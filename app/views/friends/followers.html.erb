@@ -1,9 +1,12 @@
-<% title 'Followers' -%>
+<% title "Followers" -%>
+<% nav_section 'contacts' -%>
 
-<p>People following <%= requested_profile %></p>
+<% with_grammatical_context(:object => 'follower'.quantitize(list)) do |gc| -%>
+<p class='section'>
+	<%= gc.subject -%>
+	<%= gc.conjugate('has') -%>
+	<%= gc.object -%>.
+</p>
+<% end -%>
+
 <%= render :partial => 'following_list', :locals => { :list => requested_profile.followers } %>
-<h2>Links</h2>
-<ul>
-	<li><%= link_to 'Following', following_path -%></li>
-	<li><%= link_to 'Friends', friends_path -%></li>
-</ul>
