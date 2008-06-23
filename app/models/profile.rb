@@ -4,6 +4,7 @@ class Profile < ActiveRecord::Base
   include Location::Locatable
   include Friendshipness
   include HasSettings
+  include HasPrivacy
   
   belongs_to :user
   

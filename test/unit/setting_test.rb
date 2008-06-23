@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SettingTest < ActiveSupport::TestCase
   
-  VALID_SETTING = { :name => Setting::PRIVACY_VIEW_PROFILE, :value => Authorization::FOLLOWEES }
+  VALID_SETTING = { :name => Setting::PRIVACY_VIEW_PROFILE, :value => HasPrivacy::Authorization::FOLLOWEES }
   
   def setup
     @joan = profiles(:joan)
@@ -25,8 +25,8 @@ class SettingTest < ActiveSupport::TestCase
     should 'be invalid if the Profile already has a Setting of the same name' do
       s = @jack.settings.first
       assert_not_nil s
-      assert Setting.valid_setting_value?(s.name, Authorization::TIERS_1_2_FOLLOWEES)
-      assert !Setting.new(:profile => @jack, :name => s.name, :value => Authorization::TIERS_1_2_FOLLOWEES).valid?
+      assert Setting.valid_setting_value?(s.name, HasPrivacy::Authorization::TIERS_1_2_FOLLOWEES)
+      assert !Setting.new(:profile => @jack, :name => s.name, :value => HasPrivacy::Authorization::TIERS_1_2_FOLLOWEES).valid?
     end
     
     should 'be invalid with an invalid setting value for the given name' do

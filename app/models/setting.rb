@@ -6,7 +6,6 @@ class Setting < ActiveRecord::Base
   PRIVACY_VIEW_PROFILE    = 'privacy.profile.view'
   PRIVACY_VIEW_EMAIL      = 'privacy.profile.email.view'
   PRIVACY_VIEW_CELL_PHONE = 'privacy.profile.cell_phone.view'
-  PRIVACY_VIEW_FOLLOWERS  = 'privacy.profile.followers.view'
   PRIVACY_VIEW_FOLLOWEES  = 'privacy.profile.followees.view'
   
   ALLOWED_SETTINGS = {
@@ -14,7 +13,6 @@ class Setting < ActiveRecord::Base
     PRIVACY_VIEW_PROFILE    => allowed_privacy_values,
     PRIVACY_VIEW_EMAIL      => allowed_privacy_values,
     PRIVACY_VIEW_CELL_PHONE => allowed_privacy_values,
-    PRIVACY_VIEW_FOLLOWERS  => allowed_privacy_values,
     PRIVACY_VIEW_FOLLOWEES  => allowed_privacy_values
   }
   
@@ -23,7 +21,6 @@ class Setting < ActiveRecord::Base
     PRIVACY_VIEW_PROFILE    => HasPrivacy::Authorization::LOGGED_IN,
     PRIVACY_VIEW_EMAIL      => HasPrivacy::Authorization::FOLLOWEES,
     PRIVACY_VIEW_CELL_PHONE => HasPrivacy::Authorization::FOLLOWEES,
-    PRIVACY_VIEW_FOLLOWERS  => HasPrivacy::Authorization::FOLLOWEES,
     PRIVACY_VIEW_FOLLOWEES  => HasPrivacy::Authorization::FOLLOWEES
   }
   
