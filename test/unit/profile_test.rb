@@ -128,6 +128,16 @@ class ProfileTest < ActiveSupport::TestCase
       assert !@patrick.following?(@joan)
     end
     
+    should 'know whether is following another in a tier or set of tiers' do
+      assert @joan.following_in_tiers?(@jack, 1)
+      assert @joan.following_in_tiers?(@jack, 1, 2)
+      assert @joan.following_in_tiers?(@jack, 1, 2, 3)
+      
+      assert !@joan.following_in_tiers?(@patrick, 1)
+      assert !@joan.following_in_tiers?(@patrick, 1, 2)
+      assert @joan.following_in_tiers?(@patrick, 1, 2, 3)
+    end
+    
     should 'know whether is followed by another' do
       assert @joan.followed_by?(@jack)
       assert @jack.followed_by?(@joan)
