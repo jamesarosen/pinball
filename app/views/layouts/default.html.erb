@@ -1,4 +1,8 @@
-<% @title = yield(:title) || "Who's Around?" -%>
+<%
+	@title = yield(:title)
+	@title = "Who's Around?" if @title.blank?
+	@section = yield :nav_section || ''
+-%>
 
 <html>
 	<head>
@@ -13,7 +17,7 @@
 		<%= stylesheet_link_tag('debug', :media => 'all') if development? && false %>
 	</head>
 	
-	<body>
+	<body class="<%= @section %>">
 		<div id='wrapper'>
 			<div id='header'><%= render :partial => '/include/header' -%></div>
 			<div id='main'>
