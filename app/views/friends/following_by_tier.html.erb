@@ -1,6 +1,14 @@
-<% title 'Following By Tier' -%>
+<% title "Following in Tier #{requested_tier}" -%>
 
-<p>
-	People you are following in tier <%= requested_tier %>.
+<% by_tier = requested_profile.followees.by_tier(requested_tier) -%>
+
+<p class='section'>
+<% if by_tier.any? -%>
+  You are following <%= 'people'.quantitize(by_tier) -%>
+<% else -%>
+  You aren't following anybody
+<% end -%>
+in tier <%= requested_tier -%>.
 </p>
-<%= render :partial => 'following_list', :locals => { :list => requested_profile.followees.by_tier(requested_tier) } -%>
+
+<%= render :partial => 'following_list', :locals => { :list => by_tier } -%>

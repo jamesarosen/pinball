@@ -1,5 +1,16 @@
 <% title 'Friends' -%>
 <% nav_section 'contacts' -%>
 
-<p>People friends with <%= requested_profile %></p>
+<p class='section'>
+<% with_grammatical_context do |gc| -%>
+  <%= gc.subject -%>
+  <% if requested_profile.friends.any? -%>
+    <%= gc.conjugate('has') -%>
+  	<%= 'friends'.quantitize(requested_profile.friends) %>.
+  <% else -%>
+    <%= gc.conjugate('has') -%> no friends :(.
+  <% end -%>
+<% end -%>
+</p>
+
 <%= render :partial => 'following_list', :locals => { :list => requested_profile.friends } %>

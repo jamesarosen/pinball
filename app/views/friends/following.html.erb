@@ -13,7 +13,11 @@
 <% end -%>
 </p>
 
-<% [1, 2, 3].each do |tier| -%>
-	<h2>Tier <%= tier -%></h2>
-	<%= render :partial => 'following_list', :locals => { :list => requested_profile.followees.by_tier(tier) } -%>
+<% if is_self? -%>
+  <% [1, 2, 3].each do |tier| -%>
+  	<h2>Tier <%= tier -%></h2>
+  	<%= render :partial => 'following_list', :locals => { :list => requested_profile.followees.by_tier(tier) } -%>
+  <% end -%>
+<% else -%>
+  <%= render :partial => 'following_list', :locals => { :list => requested_profile.followees } -%>
 <% end -%>
