@@ -43,21 +43,6 @@ div#footer {
 	clear: both;
 }
 
-div.fieldWithErrors, div.formError {
-	border: 0;
-	display: inline;
-	margin: 0;
-	padding: 0;
-}
-
-div.formError {
-	color: red;
-}
-
-div.fieldWithErrors input, div.fieldWithErrors textarea, div.fieldWithErrors select {
-	color: black;
-}
-
 div.flash.error {
 	color: red;
 }

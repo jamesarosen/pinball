@@ -1,0 +1,147 @@
+form {
+	display: block;
+}
+
+form.section {
+	padding-left: 10%;
+}
+
+form.inline, form.inline input {
+	display: inline;
+}
+
+
+div.fieldWithErrors, div.formError {
+	border: 0;
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+div.formError {
+	color: red;
+}
+
+div.fieldWithErrors input, div.fieldWithErrors textarea, div.fieldWithErrors select {
+	color: black;
+}
+form fieldset {
+	margin: 1em;
+	padding: 1em;	
+}
+
+form fieldset legend {
+	font-size: 1.8em;
+}
+
+form fieldset legend + div {
+	margin-top: 1em;
+}
+
+form fieldset + fieldset {
+	padding-top: 1em;
+}
+
+form div {
+	clear: both;
+}
+
+
+
+form div + div {
+	padding-top: 1em;
+}
+
+form fieldset div div.fieldWithErrors {
+	clear: none;
+	display: inline;
+}
+
+form input {
+	font-size: 1em;
+}
+
+form input.hidden, form input[type="hidden"] {
+	border: 0;
+	display: none;
+	margin: 0;
+	padding: 0;
+}
+
+form input.text, form input[type="text"],
+form input.password, form input[type="password"], 
+form textarea {
+	letter-spacing: 1px;
+}
+
+
+
+/* horizontal forms */
+
+form.horizontal div.formError {
+	display: block;
+	margin-left: 14.3em;
+}
+
+form.horizontal div.formError {
+	color: red;
+}
+
+form.horizontal div label, form.horizontal div input, form.horizontal div textarea, form.horizontal div p {
+	display: block;
+}
+
+form.horizontal div label {
+	padding: .5em;
+	float: left;
+	font-size: .95em;
+	text-align: right;
+	width: 13.8em;
+}
+
+form.horizontal div input, form.horizontal div textarea, form.horizontal div p {
+	margin-left: 14.3em;
+}
+
+form div input, form.horizontal div textarea {
+	border: 2px solid;
+	padding: .5em;
+	text-align: left;
+	width: 15em;
+}
+
+form.horizontal input.hidden, form.horizontal input[type="hidden"] {
+	border: 0;
+	display: none;
+	margin: 0;
+	padding: 0;
+}
+
+form.horizontal div input.button, form.horizontal div input[type="button"],
+form.horizontal div input.submit, form.horizontal div input[type="submit"] {
+	padding: .2em .6em;
+	text-align: center;
+	width: auto;
+}
+
+form.horizontal div input.checkbox, form.horizontal div input[type="checkbox"],
+form.horizontal div input.radio, form.horizontal div input[type="radio"] {
+	width: 1.1em;
+	height: 1.1em;
+}
+
+form.horizontal div.checkboxes {
+	padding-left: 11.5em;
+}
+
+form.horizontal div.checkboxes input.checkbox, form.horizontal div.checkboxes input[type="checkbox"],
+form.horizontal div.radios input.radio, form.horizontal div.radios input[type="radio"], 
+form.horizontal div.checkboxes label, form.horizontal div.radios label {
+	display: inline;
+	float: none;
+	margin: 0;
+}
+
+form.horizontal p {
+	width: 20em;
+}

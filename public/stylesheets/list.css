@@ -1,0 +1,39 @@
+dl dt, dl dd {
+	display: block;
+	line-height: 1.5em;
+}
+
+dl dt {
+	font-weight: bold;
+	float: left;
+	text-align: right;
+	width: 11em;
+}
+
+dl dd {
+	padding-left: 11.5em;
+}
+
+dl dd + dt, dl dd + dt + dd {
+	padding-top: .8em;
+}
+
+li + li {
+	margin-top: 1em;
+}
+
+ol.full li, ul.full li {
+	border-top: 3px solid;
+	border-bottom: 3px solid;
+	margin: 0;
+	padding: 1em;
+	width: 95%;
+}
+
+ol.full li + li, ul.full li + li {
+	border-top: 0;
+}
+
+ul.errors {
+	margin-left: 1em;
+}

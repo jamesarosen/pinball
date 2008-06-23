@@ -1,0 +1,31 @@
+table {
+	border-spacing: 0 .2em;
+}
+
+table.section {
+	width: 95%;
+}
+
+table th, table td {
+	padding: 1em;
+}
+
+table th {
+	font-weight: bold;
+}
+
+table tbody tr + tr td, table tbody tr + tr th {
+	border-top: 3px solid black;
+}
+
+table tr th, table tr td {
+	text-align: left;
+}
+
+table tr th + th, table tr td + td {
+	text-align: center;
+}
+
+table td {
+	padding: .1em;
+}
