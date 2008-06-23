@@ -1,6 +1,6 @@
 <% title 'Edit Your Profile' -%>
 
-<% form_for :profile, requested_profile, :url => profile_path, :method => :put do |f| %>
+<% form_for :profile, requested_profile, :url => profile_path, :method => :put, :html => { :class => 'horizontal section' } do |f| %>
 
 	<fieldset>
 		<%= f.text_field :email, :class => 'text' %>

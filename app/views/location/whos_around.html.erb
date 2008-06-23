@@ -1,2 +1,4 @@
-<% title "Who's Around"%>
-<%= render :partial => (@whos_around.empty? ? '/location/nobody_around' : 'location/whos_around_list') -%>
+<% title "Who's Around" -%>
+<% nav_section 'whos_around' -%>
+
+<%= render :partial => (@whos_around.empty? ? '/location/nobody_around' : 'location/whos_around_list'), :locals => { :whos_around => @whos_around } -%>

@@ -1,4 +1,4 @@
-<p>
+<p class='section'>
 <% if requested_profile.location.kind_of?(Location::Airport) -%>
 	People in <%= requested_profile.location -%> airport:
 <% else -%>
@@ -6,8 +6,8 @@
 <% end -%>
 </p>
 
-<ul>
-	<% @whos_around.each do |p| -%>
+<ul class='section'>
+	<% whos_around.each do |p| -%>
 	<li><%= link_to p, profile_path(:profile_id => p) -%></li>
 	<% end -%>
 </ul>

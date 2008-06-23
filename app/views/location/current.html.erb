@@ -1,10 +1,11 @@
 <% title "#{display_name(requested_profile, :case => :possessive)} Current Location" -%>
+<% nav_section 'whos_around' -%>
 
-<p>
+<p class='section'>
 	<%= render :partial => 'location/current', :locals => { :profile => requested_profile } -%>
 	<%= @location.kind_of?(Location::Airport) ? 'Airport' : '' -%>.
 </p>
-<h2>Links</h2>
-<ul>
-	<li><%= link_to 'Edit', edit_location_path -%> if logged_in? and is_self?</li>
-</ul>
+
+<p class='section'>
+  <%= link_to 'Somewhere else?', edit_location_path(:profile => requested_profile) -%>
+</p>
