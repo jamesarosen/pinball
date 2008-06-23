@@ -3,9 +3,29 @@ require 'action_view/helpers/form_tag_helper'
 require 'action_view/helpers/form_options_helper'
 
 module Forms
+  include ActionView::Helpers::TagHelper
   include ActionView::Helpers::FormHelper
   include ActionView::Helpers::FormTagHelper
   include ActionView::Helpers::FormOptionsHelper
+  
+  def tag_with_input_type(name, options = nil, open = false, escape = true)
+    added_class = case name.to_sym
+    when :input
+      options[:type]
+    when :textarea
+      'textarea'
+    when :select
+      'select'
+    else
+      nil
+    end
+    if added_class
+      options[:class] = options[:class].blank? ? added_class : options[:class] + ' ' + added_class
+    end
+    tag_without_input_type(name, options, open, escape)
+  end
+  
+  alias_method_chain_once :tag, :input_type
   
   def option_text_and_value(option)
     return [option, option] if option.kind_of?(String)
