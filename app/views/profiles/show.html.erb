@@ -1,35 +1,47 @@
-<% title "#{display_name(requested_profile, :case => :possessive)} Profile" -%>
+<% title requested_profile.to_s -%>
 
-<div><%= avatar_tag(requested_profile, :size => 80) %></div>
-<table>
-	<tr>
-		<th>Display Name</th>
-		<td><%= requested_profile.display_name -%></td>
-	</tr>
-	<tr>
-		<th>Email</th>
-		<td><%= requested_profile.email -%></td>
-	</tr>
-	<tr>
-		<th>Cell Phone</th>
-		<td><%= requested_profile.cell_number -%></td>
-	</tr>
-	<tr>
-		<th>Cell Phone Provider</th>
-		<td><%= requested_profile.cell_carrier -%></td>
-	</tr>
+<h2>
+  <%= avatar_tag(requested_profile, :size => 60) -%>
+  <%= display_name(requested_profile, :capitalize => true) -%>
+</h2>
+
+<% if logged_in? -%>
+<p class='section'>
+	<% if is_self? -%>
+		<%= link_to 'Edit', edit_profile_path(:profile_id => requested_profile) -%>
+	<% elsif current_user.following?(requested_profile) -%>
+  	<%= link_to "Unfollow #{requested_profile}!", unfollow_path(:profile_id => current_user, :follow_profile_id => requested_profile), :method => :post -%>
+	<% else -%>
+		<%= link_to "Follow #{requested_profile}!", follow_path(:profile_id => current_user, :follow_profile_id => requested_profile), :method => :post -%>
+	<% end -%>
+</p>
+<% end -%>
+
+<table class='zebra section'>
+  <tbody>
+  	<tr>
+  		<th><%= link_to 'Friends', friends_path(:profile_id => requested_profile) -%></th>
+  		<td><%= requested_profile.friends.size -%></td>
+  	</tr>
+  	<tr>
+  		<th><%= link_to 'Followers', followers_path(:profile_id => requested_profile) -%></th>
+  		<td><%= requested_profile.followers.size -%></td>
+  	</tr>
+  	<tr>
+  		<th><%= link_to 'Followees', following_path(:profile_id => requested_profile) -%></th>
+  		<td><%= requested_profile.followees.size -%></td>
+  	</tr>
+  	<tr>
+  		<th>Email</th>
+  		<td><%= requested_profile.email -%></td>
+  	</tr>
+  	<tr>
+  		<th>Cell Phone</th>
+  		<td><%= requested_profile.cell_number -%></td>
+  	</tr>
+  	<tr>
+  		<th>Cell Phone Provider</th>
+  		<td><%= requested_profile.cell_carrier -%></td>
+  	</tr>
+  </tbody>
 </table>
-<h2>Links</h2>
-<ul>
-	<% if logged_in? && !is_self? -%>
-		<% if current_user.following?(requested_profile) -%>
-			<li><%= link_to 'Move to Tier', move_to_tier_path(:profile_id => current_user, :follow_profile_id => requested_profile), :method => :post -%></li>
-			<li><%= link_to 'Unfollow!', unfollow_path(:profile_id => current_user, :follow_profile_id => requested_profile), :method => :post -%></li>
-		<% else -%>
-			<li><%= link_to 'Follow!', follow_path(:profile_id => current_user, :follow_profile_id => requested_profile), :method => :post -%></li>
-		<% end -%>
-	<% end -%>	
-	<li><%= link_to 'Followers', followers_path -%></li>
-	<li><%= link_to 'Following', following_path -%></li>
-	<li><%= link_to 'Friends', friends_path -%></li>
-</ul>
