@@ -1,6 +1,7 @@
 class StaticController < ApplicationController
   
   def index
+    delete_sidebar_widget :help
   end
 
   def welcome
