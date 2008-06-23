@@ -1,12 +1,14 @@
 <% @colors.each do |k,v| -%>
 .<%= k -%> { color: <%= v -%> }
+div#content .<%= k -%> { color: <%= v -%> }
+a.<%= k -%>:visited { color: <%= v -%> }
 <% end -%>
 
 a {
 	color: <%= blue -%>;
 }
 
-a:visited, div#content a:visited {
+a:visited {
 	color: <%= green -%>;
 }
 

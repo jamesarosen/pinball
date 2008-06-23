@@ -37,3 +37,12 @@ ol.full li + li, ul.full li + li {
 ul.errors {
 	margin-left: 1em;
 }
+
+ul#help_index {
+	margin-left: 18em;
+}
+
+ul#help_index a {
+	font-weight: bold;
+	text-decoration: none;
+}
