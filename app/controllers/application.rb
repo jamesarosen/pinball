@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
     if logged_in?
       sidebar_widget :location
       sidebar_widget :social
+      sidebar_widget :settings
     else
       sidebar_widget :help
     end
