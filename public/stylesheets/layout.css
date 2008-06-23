@@ -6,7 +6,7 @@ body {
 div#wrapper {
 	clear: both;
 	margin: 2em auto;
-	width: 96em;
+	width: 88em;
 }
 
 div#header, div#content, div#sidebar, div#navbar, div#footer {
@@ -35,7 +35,7 @@ div#main div.baseline {
 }
 
 div#content {
-	min-height: 24em;
+	min-height: 14em;
 	text-align: left;
 }
 
