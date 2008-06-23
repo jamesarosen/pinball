@@ -44,9 +44,19 @@ class Alpha < ActiveRecord::Migration
 
     add_index "friendships", ["follower_id", "followee_id"], :name => "index_friendships_on_follower_id_and_followee_id", :unique => true
     add_index "friendships", ["followee_id", "follower_id"], :name => "index_friendships_on_followee_id_and_follower_id", :unique => true
+    
+    create_table 'settings', :force => true do |t|
+      t.belongs_to  :profile,                 :nil => false
+      t.string      'name',                   :nil => false
+      t.string      'value',                  :nil => false
+      t.timestamps
+    end
+    
+    add_index 'settings', ['profile_id', 'name'], :name => 'index_settings_on_profile_id_and_name', :unique => true
   end
 
   def self.down
+    drop_table :settings
     drop_table :friendships
     drop_table :locations
     drop_table :profiles

@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(:version => 20080526223738) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
+  create_table "settings", :force => true do |t|
+    t.integer  "profile_id"
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["profile_id", "name"], :name => "index_settings_on_profile_id_and_name", :unique => true
+
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40
     t.string   "crypted_password",          :limit => 40

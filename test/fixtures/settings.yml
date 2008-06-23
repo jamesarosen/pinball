@@ -1,0 +1,4 @@
+john_profile_everyon:
+    profile: jack
+    name: privacy.profile.view
+    value: everyone

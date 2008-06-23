@@ -3,6 +3,7 @@ class Profile < ActiveRecord::Base
   include CellPhone
   include Location::Locatable
   include Friendshipness
+  include HasSettings
   
   belongs_to :user
   
