@@ -1,0 +1,5 @@
+<h3>Location</h3>
+<p>
+	<%= render :partial => 'location/current', :locals => { :profile => current_user.profile } -%>.
+	(<a href='<%= url_for edit_location_path(:profile_id => current_user.profile) -%>'>change</a>)
+</p>

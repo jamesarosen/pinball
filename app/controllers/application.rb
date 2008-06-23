@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   include Utilities::Controller::Environment
   include Utilities::Controller::Format
   include Utilities::Controller::Inflection
+  include Utilities::Controller::Sidebar
+  
+  append_before_filter :load_default_sidebar_widgets
   
   helper :all # include all helpers, all the time
 
@@ -21,5 +24,12 @@ class ApplicationController < ActionController::Base
   private
   
   attr_accessor :return_to_after_login_location
+  
+  def load_default_sidebar_widgets
+    if logged_in?
+      sidebar_widget :location
+      sidebar_widget :social
+    end
+  end
   
 end

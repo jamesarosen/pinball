@@ -1,0 +1,9 @@
+<h3>Social</h3>
+<ul>
+	<li><%= link_to 'Friends', friends_path(:profile_id => current_user.profile) -%></li>
+	<li><%= link_to 'Followers', followers_path(:profile_id => current_user.profile) -%></li>
+	<li><%= link_to 'Following', following_path(:profile_id => current_user.profile) -%></li>
+	<li><%= link_to 'Tier 1 Following', following_by_tier_path(:profile_id => current_user.profile, :tier => 1) -%></li>
+	<li><%= link_to 'Tier 2 Following', following_by_tier_path(:profile_id => current_user.profile, :tier => 2) -%></li>
+	<li><%= link_to 'Tier 3 Following', following_by_tier_path(:profile_id => current_user.profile, :tier => 3) -%></li>
+</ul>
