@@ -136,6 +136,10 @@ class ProfileTest < ActiveSupport::TestCase
       assert !@joan.following_in_tiers?(@patrick, 1)
       assert !@joan.following_in_tiers?(@patrick, 1, 2)
       assert @joan.following_in_tiers?(@patrick, 1, 2, 3)
+      
+      assert !@jack.following_in_tiers?(@patrick, 1)
+      assert !@jack.following_in_tiers?(@patrick, 1, 2)
+      assert !@jack.following_in_tiers?(@patrick, 1, 2, 3)
     end
     
     should 'know whether is followed by another' do

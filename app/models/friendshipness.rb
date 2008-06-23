@@ -36,7 +36,7 @@ module Friendshipness
   def following_in_tiers?(user_or_profile, *tiers)
     result = false
     Friendship.find_friendship(self, user_or_profile.profile) do |f|
-      result = tiers.include?(f.tier)
+      result = (f && tiers.include?(f.tier))
     end
     result
   end
