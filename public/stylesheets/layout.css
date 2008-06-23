@@ -60,12 +60,3 @@ fieldset {
 h2 {
 	margin-top: 1em;
 }
-
-th {
-	padding-right: 1em;
-	text-align: right;
-}
-
-ul, ol {
-	margin: 1em 0;
-}

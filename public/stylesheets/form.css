@@ -43,7 +43,7 @@ form fieldset + fieldset {
 }
 
 form div {
-	clear: both;
+	clear: left;
 }
 
 

@@ -22,6 +22,10 @@ li + li {
 	margin-top: 1em;
 }
 
+ol, ul {
+	margin: 1em 0;
+}
+
 ol.full li, ul.full li {
 	border-top: 3px solid;
 	border-bottom: 3px solid;

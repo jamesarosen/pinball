@@ -14,16 +14,21 @@ table th {
 	font-weight: bold;
 }
 
+table thead th {
+	text-align: center;
+}
+
+table tbody th {
+	padding-right: 1em;
+	text-align: right;
+}
+
 table tbody tr + tr td, table tbody tr + tr th {
 	border-top: 3px solid black;
 }
 
-table tr th, table tr td {
+table tbody th, table tbody td {
 	text-align: left;
-}
-
-table tr th + th, table tr td + td {
-	text-align: center;
 }
 
 table td {

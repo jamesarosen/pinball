@@ -15,7 +15,7 @@ div#sidebar div.widget h3 {
 }
 
 div#sidebar div.widget + div.widget {
-	margin-top: 2.5em;
+	margin-top: 1.5em;
 }
 
 div#sidebar li {
@@ -23,7 +23,7 @@ div#sidebar li {
 }
 
 div#sidebar li + li {
-	padding-top: .5em;
+	margin-top: .5em;
 }
 
 div#sidebar a {
