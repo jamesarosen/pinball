@@ -29,3 +29,7 @@ div#sidebar li + li {
 div#sidebar a {
 	text-decoration: none;
 }
+
+div#sidebar a:hover, div#sidebar a:focus {
+	text-decoration: underline;
+}
