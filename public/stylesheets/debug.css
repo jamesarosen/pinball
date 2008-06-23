@@ -1,31 +1,88 @@
+/*
+	garish styles that make you notice if you're doing something wrong.
+	
+	only used in development mode
+ */
+
+/* color the layout divs */
 div#wrapper {
 	background: #d38;
 }
-
 div#header {
 	background:#ddd;
 }
-
 div#main {
 	background: #93f;
 }
-
 div#content {
 	background:#9c9;
 }
-
 div#sidebar {
     background:#99c;
 }
-
 div#navbar {
 	background:#c99;
 }
-
 div#navbar li {
 	background: #cc4;
 }
-
 div#footer {
 	background:#cc9;
+}
+
+
+/* don't put block tags within inline tags */
+p div, span div {
+	border: 3px dashed #9e4032;
+}
+
+
+/* no text in content without a .section container */
+div#content {
+	color: #23eeff;
+}
+div#content .section {
+	color: #181818;
+}
+
+
+/* formatting tags should never be used */
+b, center, font, i, strike {
+	background-color: #af9e32;
+	color: #23eeff;
+}
+
+
+/* formatting attributes should never be used */
+*[align], *[valign], *[border], *[width], *[height] {
+	background-color: #af9e32;
+	color: #23eeff;
+}
+
+
+/* javascript shouldn't be in HTML */
+a[href^="javascript:"], *[onload], *[onunload], *[onchange],
+*[onsubmit], *[onreset], *[onselect], *[onblur], *[onfocus],
+*[onkeydown], *[onkeypress], *[onkeyup], *[onclick], *[ondblclick],
+*[onmousedown], *[onmousemove], *[onmouseover], *[onmouseout], *[onmouseup] {
+	background-color: #af9e32;
+	color: #23eeff;
+}
+
+
+/* links must be non-empty */
+a[title][href=""], a[title][href="#"] {
+	background-color: #af9e32;
+	color: #23eeff;
+}
+
+
+/* do the to-dos */
+.todo {
+	background-color: #af93e2;
+	padding: .5em;
+}
+.todo:before {
+	font-weight: bold;
+	content: "to-do: ";
 }
