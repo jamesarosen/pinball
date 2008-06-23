@@ -1,5 +1,9 @@
 <% 
 # weird formatting to avoid unneccessary spaces on either end
 with_grammatical_context(:subject => profile) do |gc|
--%><%= gc.subject -%> <%= gc.conjugate('is') %> at
-<%= profile.location -%><% end -%>
+-%><%= gc.subject -%>
+<% if profile.location.blank? -%>
+  <%= gc.conjugate('has') %> not set a
+location<% else -%>
+  <%= gc.conjugate('is') %> at
+  <%= profile.location -%><% end -%><% end -%>
