@@ -1,1 +1,63 @@
 <% title 'Privacy Settings' -%>
+
+<% form_tag update_privacy_settings_path, :method => :post, :class => 'section' do -%>
+
+  <% select_setting_tag Setting::PRIVACY_SEARCH_RESULT do -%>
+  <p>
+    Who can search for your profile?
+  </p>
+  <% end -%>
+  
+  <% select_setting_tag Setting::PRIVACY_VIEW_PROFILE do -%>
+  <p>
+    Who can see your profile page?  (See below for more fine-grained
+    control over your profile.)
+  </p>
+  <% end -%>
+  
+  <% select_setting_tag Setting::PRIVACY_VIEW_EMAIL do -%>
+  <p>
+    Who can see your email address?
+  </p>
+  <% end -%>
+  
+  <% select_setting_tag Setting::PRIVACY_VIEW_CELL_PHONE do -%>
+  <p>
+    Who can see your cell phone number?
+  </p>
+  <% end -%>
+  
+  <% select_setting_tag Setting::PRIVACY_VIEW_FOLLOWEES do -%>
+  <p>
+    Who can see the list of people you're following?  (Regardless
+    of this setting, only you can see who's in your Tiers 1, 2, and 3.)
+  </p>
+  <% end -%>
+
+  <%= submit_and_cancel_tags :submit => 'Update Settings' %>
+
+<% end -%>
+
+
+<p class='header section'>
+  For each of the settings, choose one of the following options:
+</p>
+<dl class='section'>
+  <dt>Everyone</dt>
+  <dd>Anybody, whether logged-in or not, can see this information</dd>
+  
+  <dt>Logged-In</dt>
+  <dd>Any registered, logged-in user of Seek-You can see this information</dd>
+  
+  <dt>Followees</dt>
+  <dd>Anybody you are following can see this information</dd>
+  
+  <dt>Tier 1</dt>
+  <dd>Anybody you are following and have put into Tier 1 can see this information</dd>
+  
+  <dt>Tiers 1 and 2</dt>
+  <dd>Anybody you are following and have put into either Tier 1 or 2 can see this information</dd>
+  
+  <dt>Just Me</dt>
+  <dd>Only you can see this information</dd>
+</dl>

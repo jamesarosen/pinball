@@ -21,7 +21,7 @@ class Setting < ActiveRecord::Base
     PRIVACY_VIEW_PROFILE    => HasPrivacy::Authorization::LOGGED_IN,
     PRIVACY_VIEW_EMAIL      => HasPrivacy::Authorization::FOLLOWEES,
     PRIVACY_VIEW_CELL_PHONE => HasPrivacy::Authorization::FOLLOWEES,
-    PRIVACY_VIEW_FOLLOWEES  => HasPrivacy::Authorization::FOLLOWEES
+    PRIVACY_VIEW_FOLLOWEES  => HasPrivacy::Authorization::LOGGED_IN
   }
   
   def self.valid_setting_name?(name)

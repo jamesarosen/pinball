@@ -74,6 +74,16 @@ form textarea {
 	letter-spacing: 1px;
 }
 
+form div input.button, form div input.submit, form div input.cancel {
+	border: 2px solid;
+	padding: .2em .6em;
+	text-align: center;
+	width: auto;
+}
+
+form div input.button + input.cancel, form div input.submit + input.cancel {
+	margin-left: 12em;
+}
 
 
 /* horizontal forms */
@@ -99,11 +109,11 @@ form.horizontal div label {
 	width: 13.8em;
 }
 
-form.horizontal div input, form.horizontal div textarea, form.horizontal div p {
+form.horizontal div input, form.horizontal div textarea, form.horizontal div p, form.horizontal select {
 	margin-left: 14.3em;
 }
 
-form div input, form.horizontal div textarea {
+form.horizontal div input, form.horizontal div textarea {
 	border: 2px solid;
 	padding: .5em;
 	text-align: left;
@@ -115,13 +125,6 @@ form.horizontal input.hidden, form.horizontal input[type="hidden"] {
 	display: none;
 	margin: 0;
 	padding: 0;
-}
-
-form.horizontal div input.button, form.horizontal div input[type="button"],
-form.horizontal div input.submit, form.horizontal div input[type="submit"] {
-	padding: .2em .6em;
-	text-align: center;
-	width: auto;
 }
 
 form.horizontal div input.checkbox, form.horizontal div input[type="checkbox"],
@@ -142,6 +145,6 @@ form.horizontal div.checkboxes label, form.horizontal div.radios label {
 	margin: 0;
 }
 
-form.horizontal p {
+form.horizontal p.label {
 	width: 20em;
 }

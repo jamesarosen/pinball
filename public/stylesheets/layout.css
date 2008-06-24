@@ -39,6 +39,18 @@ div#content {
 	text-align: left;
 }
 
+div#content .section + .section {
+	margin-top: 2.5em;
+}
+
+div#content .section.header + .section, div#content .section.label + .section {
+	margin-top: .5em;
+}
+
+div#content p.section + p.section {
+	text-indent: 5em;
+}
+
 div#footer {
 	clear: both;
 }

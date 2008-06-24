@@ -154,6 +154,15 @@ module Forms
     end
   end
   
+  def submit_and_cancel_tags(options = {})
+    submit_tag_value = options.delete(:submit) || 'Submit'
+    cancel_tag_value = options.delete(:cancel) || 'Cancel'
+    with_before_and_after(nil, nil, options.merge(:label => false, :error_messages => false)) do
+      submit_tag_without_before_and_after(submit_tag_value, options.merge(:class => 'submit')) +
+      submit_tag_without_before_and_after(cancel_tag_value, options.merge(:class => 'cancel'))
+    end
+  end
+  
   
   alias_method_chain_once :label, :default
   alias_method_chain_once :text_field, :before_and_after

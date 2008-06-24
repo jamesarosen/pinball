@@ -103,6 +103,10 @@ form {
 	color: <%= medium_grey -%>;
 }
 
+form p {
+  color: <%= dark_grey -%>;
+}
+
 form input, form textarea {
 	background-color: <%= light_grey -%>;
 	border-color: <%= medium_grey -%>;
@@ -115,6 +119,12 @@ form div div.fieldWithErrors input {
 
 form input.button, form input[type="button"], form input.submit, form input[type="submit"] {
 	background-color: <%= green -%>;
+	border-color: <%= light_grey -%>;
+	color: <%= white -%>;
+}
+
+form input.cancel {
+  background-color: <%= red -%>;
 	border-color: <%= light_grey -%>;
 	color: <%= white -%>;
 }
