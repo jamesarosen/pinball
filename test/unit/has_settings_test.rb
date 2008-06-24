@@ -18,7 +18,7 @@ class HasSettingsTest < ActiveSupport::TestCase
     end
     
     should 'return the default setting for get_setting' do
-      assert_equal HasPrivacy::Authorization::FOLLOWEES, @joan.get_setting(Setting::PRIVACY_VIEW_FOLLOWEES)
+      assert_equal HasPrivacy::Authorization::LOGGED_IN, @joan.get_setting(Setting::PRIVACY_VIEW_FOLLOWEES)
     end
     
     should "create a new setting when setting the setting" do

@@ -8,13 +8,15 @@ class Setting < ActiveRecord::Base
   PRIVACY_VIEW_CELL_PHONE = 'privacy.profile.cell_phone.view'
   PRIVACY_VIEW_FOLLOWEES  = 'privacy.profile.followees.view'
   
-  ALLOWED_SETTINGS = {
+  PRIVACY_SETTINGS = {
     PRIVACY_SEARCH_RESULT   => allowed_privacy_values,
     PRIVACY_VIEW_PROFILE    => allowed_privacy_values,
     PRIVACY_VIEW_EMAIL      => allowed_privacy_values,
     PRIVACY_VIEW_CELL_PHONE => allowed_privacy_values,
     PRIVACY_VIEW_FOLLOWEES  => allowed_privacy_values
   }
+  
+  ALLOWED_SETTINGS = PRIVACY_SETTINGS
   
   DEFAULT_SETTINGS = {
     PRIVACY_SEARCH_RESULT   => HasPrivacy::Authorization::EVERYONE,

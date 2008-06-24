@@ -32,9 +32,9 @@ class HasPrivacyTest < ActiveSupport::TestCase
       assert @joan.allows?(Setting::PRIVACY_VIEW_CELL_PHONE, @jack)
     end
 
-    should 'allow followees to view followees' do
-      assert !@patrick.allows?(Setting::PRIVACY_VIEW_FOLLOWEES, @jack)
-      assert @joan.allows?(Setting::PRIVACY_VIEW_FOLLOWEES, @jack)
+    should 'allow any logged-in user to view followees' do
+      assert !@patrick.allows?(Setting::PRIVACY_VIEW_FOLLOWEES, nil)
+      assert @joan.allows?(Setting::PRIVACY_VIEW_FOLLOWEES, 'anybody')
     end
   end
   
