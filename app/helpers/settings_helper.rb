@@ -14,7 +14,6 @@ module SettingsHelper
       Setting::ALLOWED_SETTINGS[setting_name].include?(x[1])
     end
     selected_value = requested_profile.get_setting(setting_name)
-    puts "Property: #{setting_name}\nallowed values: #{allowed_values.inspect}\nselected value: #{selected_value}"
     option_tags = options_for_select(allowed_values, selected_value)
     
     concat('<div>')
