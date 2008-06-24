@@ -40,13 +40,23 @@ class SettingsControllerTest < ActionController::TestCase
       should_be_allowed 'to view his privacy settings' do
         get :edit_privacy, :profile_id => current_user
       end
-      should_be_allowed 'to change his privacy settings' do
-        post :update_privacy, :profile_id => current_user
+      
+      should 'be able to change his privacy settings' do
+        assert_not_equal HasPrivacy::Authorization::SELF, current_user.profile.get_setting(Setting::PRIVACY_VIEW_CELL_PHONE)
+        post :update_privacy, { :profile_id => current_user, :commit => 'Update', Setting::PRIVACY_VIEW_CELL_PHONE => HasPrivacy::Authorization::SELF.to_param }
+        assert_equal HasPrivacy::Authorization::SELF, current_user.profile.get_setting(Setting::PRIVACY_VIEW_CELL_PHONE)
         assert_response :success
       end
+      
+      should 'not be able to change a privacy setting to an invalid value' do
+        post :update_privacy, { :profile_id => current_user, :commit => 'Update', Setting::PRIVACY_VIEW_CELL_PHONE => 'foobar' }
+        assert_response 400
+      end
+      
       should_be_allowed 'to view his notification settings' do
         get :edit_notifications, :profile_id => current_user
       end
+      
       should_be_allowed 'to change his notification settings' do
         post :update_notifications, :profile_id => current_user
       end

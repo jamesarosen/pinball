@@ -95,6 +95,7 @@ module Utilities
         end
 
         def handle_invalid_record(exception)
+          @exception = exception
           render :action => (exception.record.new_record? ? :new : :edit), :status => 400
         end
   
