@@ -86,13 +86,13 @@ ActionController::Routing::Routes.draw do |map|
   
   map.with_options(:controller => 'settings') do |m|
     m.get do |n|
-      n.edit_notifications 'people/:profile_id/settings/notifications.:format', :action => 'edit_notifications'
-      n.edit_privacy 'people/:profile_id/settings/privacy.:format', :action => 'edit_privacy'
+      n.edit_notification_settings 'people/:profile_id/settings/notifications.:format', :action => 'edit_notifications'
+      n.edit_privacy_settings 'people/:profile_id/settings/privacy.:format', :action => 'edit_privacy'
     end
     
     m.post do |n|
-      n.connect 'people/:profile_id/settings/notifications.:format', :action => 'update_notifications'
-      n.connect 'people/:profile_id/settings/privacy.:format', :action => 'update_privacy'
+      n.update_notification_settings 'people/:profile_id/settings/notifications.:format', :action => 'update_notifications'
+      n.update_privacy_settings 'people/:profile_id/settings/privacy.:format', :action => 'update_privacy'
     end
   end
   
