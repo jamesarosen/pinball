@@ -33,11 +33,12 @@ module Utilities
         end
     
         private
-    
+        
         def login_required!
           login_from_http_basic_auth unless logged_in?
           return true if logged_in?
-          raise ActionController::UnauthorizedError.new('you must be logged in to access this resource')
+          unauthorized('You must be logged in to access this resource')
+          false
         end
     
         def login_from_http_basic_auth

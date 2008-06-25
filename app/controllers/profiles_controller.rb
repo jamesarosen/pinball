@@ -1,7 +1,8 @@
 class ProfilesController < ApplicationController
   
-  requires_is_self :except => [ :show ]
   requires_profile
+  requires_authorization(Setting::PRIVACY_VIEW_PROFILE, :only => [ :show ])
+  requires_is_self :except => [ :show ]
   
   # GET only
   def dashboard

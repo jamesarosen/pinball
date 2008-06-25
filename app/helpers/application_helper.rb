@@ -1,5 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  include Avatar::View::AbstractViewSupport
   include Forms
   
   private
@@ -11,7 +12,7 @@ module ApplicationHelper
   def avatar_tag(user_or_profile, avatar_options={}, html_options={})
     return '' if user_or_profile.nil?
     avatar_options = {:size => 40}.merge(avatar_options)
-    html_options = {:al => '(Avatar)'}.merge(html_options)
+    html_options = {:alt => '(Avatar)'}.merge(html_options)
     url = avatar_url_for(user_or_profile.profile, avatar_options)
     image_tag(url, html_options)
   end

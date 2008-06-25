@@ -51,6 +51,7 @@ module Utilities
     
         def require_exists!(instance, klass, parameter_name)
           raise error_for(klass, parameter_name) if instance.nil?
+          true
         end
     
         def error_for(klass, parameter_name)

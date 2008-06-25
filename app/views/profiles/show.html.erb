@@ -20,10 +20,6 @@
 <table class='zebra section'>
   <tbody>
   	<tr>
-  		<th><%= link_to 'Friends', friends_path(:profile_id => requested_profile) -%></th>
-  		<td><%= requested_profile.friends.size -%></td>
-  	</tr>
-  	<tr>
   		<th><%= link_to 'Followers', followers_path(:profile_id => requested_profile) -%></th>
   		<td><%= requested_profile.followers.size -%></td>
   	</tr>
@@ -33,15 +29,15 @@
   	</tr>
   	<tr>
   		<th>Email</th>
-  		<td><%= requested_profile.email -%></td>
+  		<td><%= requested_profile.email if authorized?(Setting::PRIVACY_VIEW_EMAIL) -%></td>
   	</tr>
   	<tr>
   		<th>Cell Phone</th>
-  		<td><%= requested_profile.cell_number -%></td>
+  		<td><%= requested_profile.cell_number if authorized?(Setting::PRIVACY_VIEW_CELL_PHONE) -%></td>
   	</tr>
   	<tr>
   		<th>Cell Phone Provider</th>
-  		<td><%= requested_profile.cell_carrier -%></td>
+  		<td><%= requested_profile.cell_carrier if is_self? -%></td>
   	</tr>
   </tbody>
 </table>

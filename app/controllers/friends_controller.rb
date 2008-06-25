@@ -1,7 +1,9 @@
 class FriendsController < ApplicationController
-
-  requires_is_self :only => [ :following_by_tier, :follow, :unfollow, :move_to_tier ]
+  
   requires_profile
+  requires_login :only => [ :followers ]
+  requires_is_self :only => [ :following_by_tier, :follow, :unfollow, :move_to_tier ]
+  requires_authorization(Setting::PRIVACY_VIEW_FOLLOWEES, :only => [ :following ])
   append_before_filter :require_follow_profile!, :only => [ :follow, :unfollow, :move_to_tier ]
   append_before_filter :require_requested_tier!, :only => [ :following_by_tier, :move_to_tier ]
   
@@ -20,10 +22,6 @@ class FriendsController < ApplicationController
   # followings in tier params[:tier]
   def following_by_tier
     raise ActiveRecord::RecordNotFound.new("Parameter tier must be one of [1, 2, 3]") unless (1..3).include?(requested_tier)
-  end
-
-  # GET only: intersection of followers and following
-  def friends
   end
 
   # POST only: add a following
@@ -61,6 +59,7 @@ class FriendsController < ApplicationController
   
   def require_requested_tier!
     raise ActiveRecord::RecordNotFound.new('Parameter tier is required') unless requested_tier
+    true
   end
   
   def handle_invalid_record(exception)

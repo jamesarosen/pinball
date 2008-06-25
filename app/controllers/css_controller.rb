@@ -43,6 +43,7 @@ class CssController < ApplicationController
   protected
   def set_format
     request.format = :css
+    true
   end
   
   def load_browser

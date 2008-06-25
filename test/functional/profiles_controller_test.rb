@@ -10,8 +10,15 @@ class ProfilesControllerTest < ActionController::TestCase
   end
   
   context 'A guest' do
-    should_be_allowed 'to view a user\'s profile' do
-      get :show, :profile_id => anybody
+    should_be_allowed 'to view a user\'s profile if the user says so' do
+      p = anybody.profile
+      p.set_setting(Setting::PRIVACY_VIEW_PROFILE, HasPrivacy::Authorization::EVERYONE)
+      get :show, :profile_id => p
+    end
+    should_be_unauthorized 'to view a user\'s profile if the user says so' do
+      p = anybody.profile
+      p.set_setting(Setting::PRIVACY_VIEW_PROFILE, HasPrivacy::Authorization::LOGGED_IN)
+      get :show, :profile_id => p
     end
     should_be_unauthorized 'to view a user\'s dashboard' do
       get :dashboard, :profile_id => anybody
@@ -99,8 +106,16 @@ class ProfilesControllerTest < ActionController::TestCase
       assert_equal current_user, User.authenticate(current_user.login, 'not test')
     end
     
-    should_be_allowed 'to view another user\s profile' do
-      get :show, :profile_id => somebody_other_than(current_user)
+    should_be_allowed 'to view another user\s profile if the user says so' do
+      p = somebody_other_than(current_user).profile
+      p.set_setting(Setting::PRIVACY_VIEW_PROFILE, HasPrivacy::Authorization::LOGGED_IN)
+      get :show, :profile_id => p
+    end
+    
+    should_be_forbidden 'from viewing another user\s profile if the user says so' do
+      p = somebody_other_than(current_user).profile
+      p.set_setting(Setting::PRIVACY_VIEW_PROFILE, HasPrivacy::Authorization::SELF)
+      get :show, :profile_id => p
     end
     
     should_be_allowed 'to see the form to refer a friend' do

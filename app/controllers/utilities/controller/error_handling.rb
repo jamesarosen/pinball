@@ -48,6 +48,10 @@ module Utilities
           return if rescue_action_with_handler(exception)
           rescue_action_without_handler_check(exception)
         end
+
+        def unauthorized_or_forbidden(exception = nil)
+          logged_in? ? forbidden(exception) : unauthorized(exception)
+        end
   
         private
     
@@ -58,7 +62,7 @@ module Utilities
           rescue_action_without_handler_check(exception)
         end
   
-        def unauthorized
+        def unauthorized(exception = nil)
           respond_to do |accepts|
             accepts.html do
               flash[:error] = 'You must be logged in to see that page'
@@ -73,28 +77,28 @@ module Utilities
           end
         end
 
-        def forbidden(exception)
+        def forbidden(exception = nil)
           @exception = exception
           render :template => '/error/forbidden', :status => 403
         end
 
-        def not_found(exception)
+        def not_found(exception = nil)
           @exception = exception
           render :template => '/error/not_found', :status => 404
         end
 
-        def conflict(exception)
+        def conflict(exception = nil)
           @conflicted_object = exception.conflicted_object
           render :template => '/error/conflict', :status => 409
         end
   
-        def method_not_allowed(exception)
+        def method_not_allowed(exception = nil)
           @exception = exception
           exception.handle_response!(response)
           render :template => 'error/method_not_allowed', :status => 405
         end
 
-        def handle_invalid_record(exception)
+        def handle_invalid_record(exception = nil)
           @exception = exception
           render :action => (exception.record.new_record? ? :new : :edit), :status => 400
         end

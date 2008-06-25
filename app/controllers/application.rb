@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
     else
       sidebar_widget :help
     end
+    true
   end
   
 end

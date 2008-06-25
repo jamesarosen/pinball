@@ -36,6 +36,7 @@ div#main div.baseline {
 
 div#content {
 	min-height: 14em;
+	padding-right: 14em;
 	text-align: left;
 }
 

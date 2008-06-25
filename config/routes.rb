@@ -61,7 +61,6 @@ ActionController::Routing::Routes.draw do |map|
       n.following 'people/:profile_id/following.:format', :action => 'following'
       n.following_by_tier 'people/:profile_id/following/tier/:tier.:format', :action => 'following_by_tier'
       n.followers 'people/:profile_id/followers.:format', :action => 'followers'
-      n.friends 'people/:profile_id/friends.:format', :action => 'friends'
     end
     m.post do |n|
       n.follow 'people/:profile_id/follow.:format', :action => 'follow'

@@ -5,17 +5,21 @@ class FriendsControllerTest < ActionController::TestCase
   context 'The FriendsController: ' do
   
     context 'A guest' do
-      should_be_allowed('to view a user\'s following list') do
+      should_be_allowed('to view a user\'s following list if the user says so') do
+        p = anybody.profile
+        p.set_setting(Setting::PRIVACY_VIEW_FOLLOWEES, HasPrivacy::Authorization::EVERYONE)
+        get :following, :profile_id => p
+      end
+      should_be_unauthorized('to view a user\'s following list if the user says so') do
+        p = anybody.profile
+        p.set_setting(Setting::PRIVACY_VIEW_FOLLOWEES, HasPrivacy::Authorization::LOGGED_IN)
         get :following, :profile_id => anybody
       end
       should_be_unauthorized('to view a user\'s following list by tier') do
         get :following_by_tier, :profile_id => anybody, :tier => 3
       end
-      should_be_allowed('to view a user\'s followers list') do
+      should_be_unauthorized('to view a user\'s followers list') do
         get :followers, :profile_id => anybody
-      end
-      should_be_allowed('to view a user\'s friends list') do
-        get :friends, :profile_id => anybody
       end
       should_be_unauthorized('to add someone to a user\'s following list') do
         post :follow, :profile_id => anybody, :follow_profile_id => :anything
@@ -63,14 +67,6 @@ class FriendsControllerTest < ActionController::TestCase
       
       should_be_allowed('to view another user\'s followers list') do
         get :followers, :profile_id => somebody_other_than(current_profile)
-      end
-      
-      should_be_allowed('to view his own friends list') do
-        get :friends, :profile_id => current_profile
-      end
-      
-      should_be_allowed('to view another user\'s friends list') do
-        get :friends, :profile_id => somebody_other_than(current_profile)
       end
       
       should('be able to add someone to his following list') do

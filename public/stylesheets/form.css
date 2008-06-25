@@ -74,7 +74,9 @@ form textarea {
 	letter-spacing: 1px;
 }
 
-form div input.button, form div input.submit, form div input.cancel {
+form div input.button, form div input.submit, form div input.cancel,
+form.horizontal div input.button, form.horizontal div input.submit,
+form div.horizontal input.cancel {
 	border: 2px solid;
 	padding: .2em .6em;
 	text-align: center;
