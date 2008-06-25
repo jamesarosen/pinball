@@ -21,6 +21,10 @@ module Location
       self == location
     end
     
+    def to_s
+      "#{display_name} Airport"
+    end
+    
     private
     
     def validate_no_lat_long

@@ -2,8 +2,7 @@
 <% nav_section 'whos_around' -%>
 
 <p class='section'>
-	<%= render :partial => 'location/current', :locals => { :profile => requested_profile } -%>
-	<%= @location.kind_of?(Location::Airport) ? 'Airport' : '' -%>.
+	<%= render :partial => 'location/current', :locals => { :profile => requested_profile } -%>.
 </p>
 
 <p class='section'>

@@ -1,9 +1,11 @@
 <p class='section'>
-<% if requested_profile.location.kind_of?(Location::Airport) -%>
-	People in <%= requested_profile.location -%> airport:
-<% else -%>
-	People near <%= requested_profile.location -%>:
-<% end -%>
+  People 
+  <% if requested_profile.location.kind_of?(Location::Airport) -%>
+	  in
+  <% else -%>
+	  near
+  <% end -%>
+  <%= requested_profile.location -%>:
 </p>
 
 <ul class='section'>
