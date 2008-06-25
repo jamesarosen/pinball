@@ -9,6 +9,13 @@ module Friendshipness
     end
   end
   
+  def self.included(base)
+    base.has_many :follower_friends, :class_name => 'Friendship', :foreign_key => 'follower_id'
+    base.has_many :followee_friends, :class_name => 'Friendship', :foreign_key => 'followee_id'
+    base.has_many :followers, :through => :followee_friends, :source => :follower, :extend => Friendshipness::ByTier
+    base.has_many :followees, :through => :follower_friends, :source => :followee, :extend => Friendshipness::ByTier
+  end
+  
   # Friend Methods
   
   def friendships(force_reload = false)
