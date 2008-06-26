@@ -23,6 +23,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     should 'be invalid without agreeing to the terms of service' do
+      assert !User.new(VALID_USER.block(:terms_of_service)).valid?
       assert !User.new(VALID_USER.merge(:terms_of_service => '0')).valid?
     end
     

@@ -63,7 +63,7 @@ class AccountsControllerTest < ActionController::TestCase
       should 'not be able to signup without accepting the terms of service' do
         assert_no_difference 'User.count' do
           post :password_signup, { :user => VALID_PASSWORD_SIGNUP.block(:terms_of_service) }
-          assert !logged_in?
+          assert !logged_in?, current_user.inspect
         end
       end
     end

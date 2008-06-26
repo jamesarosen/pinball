@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   validates_length_of :login, :within => 3..40, :unless => Proc.new { |u| u.login.blank? }
   validates_uniqueness_of :login, :case_sensitive => false, :allow_blank => true
   
-  validates_acceptance_of :terms_of_service, :on => :create
+  validates_acceptance_of :terms_of_service, :on => :create, :allow_nil => false
   
   validates_presence_of :password, :if => :password_required?
   validates_length_of :password, :within => 4..40, :if => :password_required?, :allow_blank => true
