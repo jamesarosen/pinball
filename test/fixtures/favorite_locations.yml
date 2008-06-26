@@ -1,0 +1,14 @@
+jack_home:
+    profile: jack
+    location: new_york_ny
+    name: home
+
+joan_home:
+    profile: joan
+    location: new_york_ny
+    name: home
+    
+joan_work:
+    profile: joan
+    location: twelve_hundred_fifth_ave_new_nork_city
+    name: work
