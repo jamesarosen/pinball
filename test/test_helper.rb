@@ -34,7 +34,7 @@ class Test::Unit::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  set_fixture_class :locations => Location::Base
+  set_fixture_class :locations => Location::Base, :favorite_locations => Location::Favorite
 end
 
 ActionController::TestCase.class_eval do

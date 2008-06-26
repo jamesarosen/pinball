@@ -25,15 +25,27 @@ class Alpha < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index "profiles", "user_id"
+    add_index 'profiles', 'user_id', :name => 'index_profiles_on_user_id'
 
     create_table :locations do |t|
-      t.string    'display_name',             :nil => false
+      t.string    'address',                  :nil => false
       t.string    'location_type',            :nil => false
       t.decimal   'latitude',                 :precision => 11, :scale => 9  #  xy.abcdefghi
       t.decimal   'longitude',                :precision => 12, :scale => 9  # xyz.abcdefghi
       t.timestamps
     end
+    
+    create_table :favorite_locations do |t|
+      t.belongs_to  :location,                :nil => false
+      t.belongs_to  :profile,                 :nil => false
+      t.string      'name',                   :nil => false
+      t.timestamps
+    end
+    
+    add_index 'favorite_locations', 'profile_id', :name => 'index_favorite_locations_on_profile_id', :unique => false
+    add_index 'favorite_locations', 'location_id', :name => 'index_favorite_locations_on_location_id', :unique => false
+    add_index 'favorite_locations', ['profile_id', 'location_id'], :name => 'index_favorite_locations_on_profile_id_and_location_id', :unique => false
+    add_index 'favorite_locations', ['profile_id', 'name'], :name => 'index_favorite_locations_on_profile_id_and_name', :unique => true
     
     create_table "friendships", :force => true do |t|
       t.belongs_to  :follower,                :nil => false

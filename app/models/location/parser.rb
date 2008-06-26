@@ -16,13 +16,18 @@ module Location #:nodoc:
     
     # Parses +value+ into a Location or raises an error.
     # If +value+ is already a Location::Base, returns it.
-    # Tries to parse +value+ as a Location::Airport first,
+    # 
+    # Otherwise, checks each of +favorites+.  If none match,
+    # tries to parse +value+ as a Location::Airport first,
     # then tries geocoding it to a Location::Address.
     # If a value is returned, the value is guaranteed to
     # have been saved to the database.
-    def parse(value)
+    def parse(value, favorites = [])
       return value if value.kind_of?(Location::Base)
       return nil if value.blank?
+      
+      favorite = parse_favorite(value, favorites)
+      return favorite.location if favorite
       
       airport = parse_airport(value)
       return airport if airport
@@ -33,14 +38,23 @@ module Location #:nodoc:
       raise ParseError.new(value)
     end
     
+    # Case-insensitive check
+    def is_airport_code?(value)
+      airport_aliases.values.include?(value.upcase)
+    end
+    
     private
+    
+    def parse_favorite(value, favorites)
+      favorites.to_a.find { |f| f === value }
+    end
     
     def parse_airport(value)
       code = parse_airport_code(value)
-      code.nil? ? nil : Location::Airport.find_or_create_by_display_name(code)
+      code.nil? ? nil : Location::Airport.find_or_create_by_address(code)
     end
     
-    AIRPORT_ALIAS_REGEX = /municipal|regional|international|airport/
+    AIRPORT_ALIAS_REGEX = /municipal|regional|international|airport/i
     AIRPORT_CODE_REGEX = /^[[:alpha:]]{3}$/
     PUNCTUATION = /[^[:alnum:]]/
     
@@ -48,8 +62,7 @@ module Location #:nodoc:
       value = value.strip
       case value
       when AIRPORT_CODE_REGEX
-        value.upcase!
-        airport_aliases.values.include?(value) ? value : nil
+        is_airport_code?(value) ? value.upcase : nil
       when AIRPORT_ALIAS_REGEX
         value.downcase!
         airport_name = value.gsub(AIRPORT_ALIAS_REGEX, '').gsub(PUNCTUATION, '').strip
@@ -60,10 +73,10 @@ module Location #:nodoc:
     end
     
     def parse_address(value)
-      existing_address = Location::Address.find_by_display_name(value)
+      existing_address = Location::Address.find_by_address(value)
       return existing_address if existing_address
       
-      new_address = Location::Address.new(:display_name => value)
+      new_address = Location::Address.new(:address => value)
       return new_address if new_address.save
       
       return nil

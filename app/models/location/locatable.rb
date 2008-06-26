@@ -1,5 +1,6 @@
 require 'location'
 
+# Mixin to be included by anything that belongs_to :location
 module Location::Locatable
   
   def self.included(base)
@@ -7,10 +8,20 @@ module Location::Locatable
     base.belongs_to :location,
                     :class_name => "Location::Base"
     base.validate :validate_location_is_parseable
-    base.alias_method_chain :location=, :parse
+    base.after_save :clear_unparseable_location
+    base.alias_method_chain_once :location, :unparseable
+    base.alias_method_chain_once :location=, :parse
+    base.alias_method_chain_once :update_attributes, :parse_location
+    base.alias_method_chain_once :update_attributes!, :parse_location
+    base.alias_method_chain_once :initialize, :parse_location
   end
   
   module InstanceMethods
+    
+    def initialize_with_parse_location(options = {})
+      initialize_without_parse_location(options.block(:location))
+      self.location = options[:location]
+    end
   
     # Returns all instance of <tt>self.class</tt> within
     # +<tt>options[:distance]</tt> (defaults to Location::DEFAULT_DISTANCE)
@@ -50,13 +61,28 @@ module Location::Locatable
         raise ArgumentError.new("#{other} is neither a Location nor a Locatable")
       end
     end
+    
+    def location_with_unparseable
+      @unparseable_location || location_without_unparseable
+    end
   
     def location_with_parse=(location)
       begin
-        self.location_without_parse = Location::parse(location)
+        favorites = respond_to?(:favorite_locations) ? favorite_locations : []
+        self.location_without_parse = Location::parse(location, favorites)
       rescue Location::ParseError
         @unparseable_location = location
       end
+    end
+    
+    def update_attributes_with_parse_location(attributes = {})
+      self.location = attributes[:location] if attributes[:location]
+      update_attributes_without_parse_location(attributes.block(:location))
+    end
+    
+    def update_attributes_with_parse_location!(attributes = {})
+      self.location = attributes[:location] if attributes[:location]
+      update_attributes_without_parse_location!(attributes.block(:location))
     end
   
     private
@@ -64,8 +90,11 @@ module Location::Locatable
     def validate_location_is_parseable
       if @unparseable_location
         errors.add(:location, 'could not be found')
-        @unparseable_location = nil
       end
+    end
+    
+    def clear_unparseable_location
+      @unparseable_location = nil
     end
   
   end

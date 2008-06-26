@@ -11,6 +11,19 @@
 
 ActiveRecord::Schema.define(:version => 20080526223738) do
 
+  create_table "favorite_locations", :force => true do |t|
+    t.integer  "location_id"
+    t.integer  "profile_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorite_locations", ["profile_id", "name"], :name => "index_favorite_locations_on_profile_id_and_name", :unique => true
+  add_index "favorite_locations", ["profile_id", "location_id"], :name => "index_favorite_locations_on_profile_id_and_location_id"
+  add_index "favorite_locations", ["location_id"], :name => "index_favorite_locations_on_location_id"
+  add_index "favorite_locations", ["profile_id"], :name => "index_favorite_locations_on_profile_id"
+
   create_table "friendships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followee_id"
@@ -23,7 +36,7 @@ ActiveRecord::Schema.define(:version => 20080526223738) do
   add_index "friendships", ["follower_id", "followee_id"], :name => "index_friendships_on_follower_id_and_followee_id", :unique => true
 
   create_table "locations", :force => true do |t|
-    t.string   "display_name"
+    t.string   "address"
     t.string   "location_type"
     t.decimal  "latitude",      :precision => 11, :scale => 9
     t.decimal  "longitude",     :precision => 12, :scale => 9

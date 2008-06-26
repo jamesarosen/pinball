@@ -2,11 +2,11 @@ module Location
   
   class Airport < Location::Base
     
-    validates_uniqueness_of :display_name, :on => :create, :allow_blank => true
+    validates_uniqueness_of :address, :on => :create, :allow_blank => true
     validate_on_create :validate_no_lat_long
     
     def ==(other)
-      other.kind_of?(Airport) && other.display_name == self.display_name
+      other.kind_of?(Airport) && other.address == self.address
     end
 
     def distance_to(location)
@@ -21,8 +21,12 @@ module Location
       self == location
     end
     
-    def to_s
-      "#{display_name} Airport"
+    def display_name
+      "#{address} Airport"
+    end
+    
+    def to_param
+      address
     end
     
     private

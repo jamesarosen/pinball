@@ -32,20 +32,20 @@ class LocationParserTest < ActiveSupport::TestCase
     assert_equal locations(:pit), @parser.parse('Pittsburgh airport')
   end
   
-  def test_returns_new_airport_from_code
-    assert_nil Location::Airport.find_by_display_name('BBM')
+  def test_returns_new_airport_from_valid_code
+    assert_nil Location::Airport.find_by_address('BBM')
     a = @parser.parse('BBM')
     assert_not_nil a
     assert !a.new_record?
-    assert_equal 'BBM', a.display_name
+    assert_equal 'BBM', a.address
   end
   
   def test_returns_new_airport_from_alias
-    assert_nil Location::Airport.find_by_display_name('BOI')
+    assert_nil Location::Airport.find_by_address('BOI')
     a = @parser.parse('boise airport')
     assert_not_nil a
     assert !a.new_record?
-    assert_equal 'BOI', a.display_name
+    assert_equal 'BOI', a.address
   end
   
   def test_cannot_parse_invalid_airport_code

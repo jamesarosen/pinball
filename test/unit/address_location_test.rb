@@ -4,7 +4,7 @@ class AddressLocationTest < ActiveSupport::TestCase
   
   def self.model_class; Location::Address; end
   
-  VALID_ADDRESS = { :display_name => '128 Chestnut St., Garbunkle, ME', :latitude => -14.4, :longitude => 22.11124 }  
+  VALID_ADDRESS = { :address => '128 Chestnut St., Garbunkle, ME', :latitude => -14.4, :longitude => 22.11124 }  
     
   def new_address(args = {})
     Location::Address.new(VALID_ADDRESS.merge(args))
@@ -22,8 +22,8 @@ class AddressLocationTest < ActiveSupport::TestCase
       geocode_returns {}
     end
     
-    should 'require a display_name' do
-      assert !new_address(:display_name => nil).valid?
+    should 'require an address' do
+      assert !new_address(:address => nil).valid?
     end
     
     should 'require a valid longitude' do
@@ -38,7 +38,7 @@ class AddressLocationTest < ActiveSupport::TestCase
       assert !new_address(:latitude => 90.992).valid?
     end
     
-    should 'be valid with a display_name, longitude and latitude' do
+    should 'be valid with an address, longitude and latitude' do
       a = new_address
       assert a.valid?, a.errors.inspect
     end
@@ -59,7 +59,7 @@ class AddressLocationTest < ActiveSupport::TestCase
     
     should 'not geocode an empty address' do
       GeoKit::Geocoders::MultiGeocoder.expects(:geocode).times(0)
-      a = new_address(:display_name => nil, :latitude => nil, :longitude => nil)
+      a = new_address(:address => nil, :latitude => nil, :longitude => nil)
       assert_nil a.latitude
       assert_nil a.longitude
     end

@@ -2,7 +2,6 @@ module Location
   
   class Address < Location::Base
     
-    self.abstract_class = false
     acts_as_mappable  :lat_column_name => :latitude,
                       :lng_column_name => :longitude
     
@@ -51,8 +50,6 @@ module Location
       distance_to(other) < (distance || Location::DEFAULT_DISTANCE)
     end
     
-    def address; display_name; end
-    
     private
     
     def geocode_address_if_necessary
@@ -70,9 +67,9 @@ module Location
     
     def validate_has_lat_long
       if lat.blank? || long.blank?
-        errors.add_to_base("Could not find address #{display_name}")
+        errors.add_to_base("Could not find address #{address}")
       elsif !VALID_LATITUDES.include?(lat) || !VALID_LONGITUDES.include?(long)
-        errors.add_to_base("Error geocoding #{display_name}; received (#{lat}, #{long})")
+        errors.add_to_base("Error geocoding #{address}; received (#{lat}, #{long})")
       end
     end
     

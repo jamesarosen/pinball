@@ -4,12 +4,12 @@ module Location
     
     set_table_name 'locations'
     set_inheritance_column 'location_type'
-    validates_presence_of :display_name
+    validates_presence_of :address
     validates_presence_of :location_type
     validates_inclusion_of :location_type, :in => ['Address', 'Airport'], :allow_blank => true
     
     # locations are immutable:
-    attr_readonly :display_name, :location_type, :latitude, :longitude
+    attr_readonly :address, :location_type, :latitude, :longitude
     
     def lat; latitude; end
     def long; longitude; end
@@ -45,12 +45,16 @@ module Location
     end
     
     def to_s
-      display_name
+      address
+    end
+    
+    def display_name
+      address
     end
     
     protected
-    def display_name=(name)
-      write_attribute :display_name, name
+    def address=(name)
+      write_attribute :address, name
     end
     def location_type=(type)
       write_attribute :location_type, type
