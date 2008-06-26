@@ -18,7 +18,8 @@ module Location::Locatable
   
   module InstanceMethods
     
-    def initialize_with_parse_location(options = {})
+    def initialize_with_parse_location(options = nil)
+      options ||= {}
       initialize_without_parse_location(options.block(:location))
       self.location = options[:location]
     end

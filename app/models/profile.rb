@@ -8,6 +8,8 @@ class Profile < ActiveRecord::Base
   
   belongs_to :user
   
+  has_many :favorite_locations, :class_name => 'Location::Favorite'
+  
   validates_presence_of :email
   validates_email :message => 'is not a valid email address', :allow_blank => true
   validates_length_of :email, :within => 3..100, :allow_blank => true#, :message => 'is not a valid email address'

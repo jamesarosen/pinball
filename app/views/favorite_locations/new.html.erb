@@ -1,1 +1,6 @@
 <% title 'Create a New Favorite Location' -%>
+
+<%= render :partial => '/favorite_locations/form',
+  :locals => {
+    :url => formatted_favorite_locations_path, :submit_text => 'Add it!',
+    :method => :post } -%>

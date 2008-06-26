@@ -1,1 +1,7 @@
 <% title 'Edit Favorite Location' -%>
+
+<%= render :partial => '/favorite_locations/form',
+  :locals => {
+    :url => formatted_favorite_location_path(:formatted_location_id => requested_favorite_location),
+    :submit_text => 'Update',
+    :method => :put } -%>

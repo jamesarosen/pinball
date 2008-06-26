@@ -2,4 +2,5 @@
 <ul>
   <li><%= link_to 'Privacy', edit_privacy_settings_path(:profile_id => current_user.profile) -%></li>
 	<li><%= link_to 'Notifications', edit_notification_settings_path(:profile_id => current_user.profile) -%></li>
+	<li><%= link_to 'Favorite Locations', formatted_favorite_locations_path(:profile_id => current_user.profile) -%></li>
 </ul>

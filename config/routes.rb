@@ -81,7 +81,10 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
-  map.resources :favorite_locations, :path_prefix => '/people/:profile_id/location', :as => 'favorites'
+  map.resources :favorite_locations,
+                :path_prefix => '/people/:profile_id/location',
+                :as => 'favorites',
+                :member => { :set_current => :post }
   
   map.with_options(:controller => 'settings') do |m|
     m.get do |n|

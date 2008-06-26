@@ -1,0 +1,8 @@
+<% form_for :favorite_location, @favorite_location, :url => url, :html => { :method => method, :class => 'horizontal section' } do |f| %>
+
+	<%= f.text_field :name, :class => 'text focus' %>
+	<%= f.text_field :location, :class => 'text' %>
+	
+  <%= submit_and_cancel_tags :submit => submit_text %>
+
+<% end %>

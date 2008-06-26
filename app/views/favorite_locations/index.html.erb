@@ -1,1 +1,22 @@
 <% title 'Your Favorite Locations' -%>
+
+<p class='section'><%= link_to 'Add', formatted_new_favorite_location_path -%></p>
+
+<table class='section'>
+  <thead>
+    <tr><th>Name</th><th>Location</th><th>&nbsp;</th></tr>
+  </thead>
+  <tbody>
+  <% requested_profile.favorite_locations.each do |f| -%>
+    <tr>
+      <td><%= f.name -%></td>
+      <td><%= f.location -%></td>
+      <td>
+        <%= link_to 'Edit', formatted_edit_favorite_location_path(:favorite_location_id => f) -%>
+        --
+        <%= link_to 'There now', formatted_set_current_favorite_location_path(:favorite_location_id => f), :method => :post -%>
+      </td>
+    </tr>
+  <% end -%>
+  </tbody>
+</table>

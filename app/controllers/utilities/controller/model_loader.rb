@@ -27,14 +27,6 @@ module Utilities
           require_exists! requested_profile, Profile, :profile_id
         end
     
-        def requested_favorite_location(reload = false)
-          @favorite_location = nil if reload
-          @favorite_location ||= params[:favorite_location_id]
-        end
-        def require_favorite_location!
-        end
-    
-    
 
         def safe_load(variable_name, klass, parameter_name, reload)
           begin
