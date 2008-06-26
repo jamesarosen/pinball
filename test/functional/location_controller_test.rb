@@ -43,7 +43,7 @@ class LocationControllerTest < ActionController::TestCase
     
     should 'be able to change her location' do
       @houston = locations(:houston_tx)
-      Location.expects(:parse).with('anywhere').returns(@houston)
+      Location.expects(:parse).with('anywhere', current_profile.favorite_locations).returns(@houston)
       
       post :update, :profile_id => current_user, :location => 'anywhere'
       assert_response :redirect
@@ -53,7 +53,7 @@ class LocationControllerTest < ActionController::TestCase
     
     should 'not be able to change her location to an unparseable string' do
       old_location = current_user.profile.location
-      Location.expects(:parse).with('anywhere').raises(Location::ParseError.new('foo'))
+      Location.expects(:parse).with('anywhere', current_profile.favorite_locations).raises(Location::ParseError.new('foo'))
       post :update, :profile_id => current_user, :location => 'anywhere'
       assert_template 'location/edit'
       assert_equal old_location, current_user.profile.location
